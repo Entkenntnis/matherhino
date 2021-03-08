@@ -22,6 +22,8 @@ export default function Home() {
 
       <h2 className="text-4xl mt-20">Probiere es aus:</h2>
 
+      <div className="h-3" />
+
       <Start title="Realschulabschluss Bayern 2020 Teil B Aufgabe 1" />
       <Start title="Abitur Bayern 2020 Teil B Analysis 1 Aufgabe 1" />
 
