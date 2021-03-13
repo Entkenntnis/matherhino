@@ -24,38 +24,19 @@ export default function Home() {
 
       <div className="h-3" />
 
-      <Start title="Realschulabschluss Bayern 2020 Teil B Aufgabe 1" />
-      <Start title="Abitur Bayern 2020 Teil B Analysis 1 Aufgabe 1" />
+      <Start title="Realschule 10. Klasse Buch S. 118 Aufgabe 1" href="/1" />
 
       <div className="h-20" />
     </div>
   )
 }
 
-function Start({ title }: { title: string }) {
+function Start({ title, href }: { title: string; href: string }) {
   return (
     <p className="mt-6">
-      <button className="bg-lime-400 hover:bg-gray text-gray-900 font-bold py-2 px-4 rounded inline-flex items-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-          className="w-4 h-4 mr-2"
-        >
-          <path
-            fill="currentColor"
-            d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"
-          ></path>
-        </svg>
-        <span>{title}</span>
-      </button>
-    </p>
-  )
-}
-
-/*
-
-<p className="mt-4">
-        <button className="bg-green-300 hover:bg-gray text-gray-900 font-bold py-2 px-4 rounded inline-flex items-center">
+      <a href={href}>
+        {' '}
+        <button className="bg-lime-400 hover:bg-gray text-gray-900 font-bold py-2 px-4 rounded inline-flex items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512"
@@ -66,6 +47,9 @@ function Start({ title }: { title: string }) {
               d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"
             ></path>
           </svg>
-          <span>Abschlussprüfung Realschule Bayern 2020 Teil B Aufgabe 1</span>
+          <span>{title}</span>
         </button>
-      </p>*/
+      </a>
+    </p>
+  )
+}
