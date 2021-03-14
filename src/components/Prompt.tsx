@@ -85,7 +85,7 @@ function AudioPrompt({
             ></path>
           </svg>
           <button
-            className="bg-lime-500 rounded p-2 inline-flex mt-2"
+            className="bg-lime-400 rounded p-2 inline-flex mt-2"
             onClick={() => {
               audio.current?.pause()
               audio.current = null
@@ -98,7 +98,7 @@ function AudioPrompt({
         </>
       ) : (
         <button
-          className="bg-lime-500 rounded p-2 inline-flex items-center mt-5"
+          className="bg-lime-400 rounded p-2 inline-flex items-center mt-5"
           onClick={() => {
             if (audio.current) {
               audio.current.play()
@@ -133,11 +133,11 @@ function QuizPrompt({
   addWrong: () => void
 }) {
   const [choices, setChoices] = useState<any>(() =>
-    [
+    shuffleArray([
       { correct: true, id: 0, value: data.correctChoice },
       { correct: false, id: 1, value: data.wrong1 },
       { correct: false, id: 2, value: data.wrong2 },
-    ].sort(() => Math.random() - 0.5)
+    ])
   )
   const [selected, setSelected] = useState<number[]>([])
   const [isCorrect, setIsCorrect] = useState(false)
@@ -163,7 +163,6 @@ function QuizPrompt({
               if (choice.correct) {
                 setIsCorrect(true)
               } else {
-                addWrong()
               }
             }
           }}
@@ -176,6 +175,7 @@ function QuizPrompt({
           className="bg-lime-500 rounded p-2 inline-flex mt-5"
           onClick={() => {
             if (moveForward) moveForward()
+            if (selected.length > 1) addWrong()
           }}
         >
           Weiter
@@ -183,4 +183,12 @@ function QuizPrompt({
       )}
     </>
   )
+}
+
+function shuffleArray(array: any[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
 }

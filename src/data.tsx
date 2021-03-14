@@ -5,6 +5,7 @@ export interface Exercise {
   steps: {
     prompt: Prompt
     layers: { src: string; offset?: number }[]
+    focus: { x: number; y: number }
   }[]
 }
 
@@ -33,7 +34,7 @@ export const allExercises: Exercise[] = [
   {
     id: 1,
     task: '/content/1/task.jpg',
-    height: 100,
+    height: 150,
     steps: [
       {
         prompt: {
@@ -41,7 +42,8 @@ export const allExercises: Exercise[] = [
           title: 'Aufgabenstellung',
           src: '/content/1/task.mp3',
         },
-        layers: [],
+        layers: [{ src: '/content/1/1.PNG' }],
+        focus: { x: 1, y: 1 },
       },
       {
         prompt: {
@@ -49,11 +51,8 @@ export const allExercises: Exercise[] = [
           title: 'Teilaufgabe a)',
           src: '/content/1/task_a.mp3',
         },
-        layers: [
-          { src: '/content/1/1.PNG' },
-          { src: '/content/1/2.PNG' },
-          { src: '/content/1/3.PNG' },
-        ],
+        focus: { x: 3, y: 1 },
+        layers: [{ src: '/content/1/2.PNG' }, { src: '/content/1/3.PNG' }],
       },
       {
         prompt: {
@@ -64,6 +63,7 @@ export const allExercises: Exercise[] = [
           wrong1: '12 cm',
           wrong2: '12 Kästchendiagonalen',
         },
+        focus: { x: 27, y: 23 },
         layers: [{ src: '/content/1/4.PNG' }],
       },
       {
@@ -72,6 +72,7 @@ export const allExercises: Exercise[] = [
           title: 'Teilaufgabe b)',
           src: '/content/1/task_b.mp3',
         },
+        focus: { x: 1, y: 33 },
         layers: [{ src: '/content/1/5.PNG' }],
       },
       {
@@ -82,6 +83,7 @@ export const allExercises: Exercise[] = [
           wrong1: 'Bei BCS',
           wrong2: 'Bei DAS',
         },
+        focus: { x: 6, y: 32 },
         layers: [{ src: '/content/1/6.PNG' }],
       },
       {
@@ -93,6 +95,7 @@ export const allExercises: Exercise[] = [
           wrong1: 'Mit dem Sinus im Dreieck HDS',
           wrong2: 'Mit dem Tangens im Dreieck ADS',
         },
+        focus: { x: 28, y: 32 },
         layers: [{ src: '/content/1/7.PNG' }],
       },
       {
@@ -103,6 +106,7 @@ export const allExercises: Exercise[] = [
           wrong1: '60°',
           wrong2: '70,48°',
         },
+        focus: { x: 21, y: 40 },
         layers: [{ src: '/content/1/8.PNG' }],
       },
       {
@@ -114,6 +118,7 @@ export const allExercises: Exercise[] = [
           wrong1: '125',
           wrong2: '15',
         },
+        focus: { x: 29, y: 48 },
         layers: [{ src: '/content/1/9.PNG' }],
       },
       {
@@ -122,6 +127,7 @@ export const allExercises: Exercise[] = [
           title: 'Teilaufgabe c)',
           src: '/content/1/task_c.mp3',
         },
+        focus: { x: 1, y: 51 },
         layers: [{ src: '/content/1/10.PNG' }],
       },
       {
@@ -133,6 +139,7 @@ export const allExercises: Exercise[] = [
           wrong1: 'einfaches Lineal',
           wrong2: 'Zirkel',
         },
+        focus: { x: 15, y: 18 },
         layers: [{ src: '/content/1/11.PNG' }],
       },
       {
@@ -141,6 +148,7 @@ export const allExercises: Exercise[] = [
           title: 'Teilaufgabe d)',
           src: '/content/1/task_d.mp3',
         },
+        focus: { x: 1, y: 54 },
         layers: [{ src: '/content/1/12.PNG', offset: 53 }],
       },
       {
@@ -151,6 +159,7 @@ export const allExercises: Exercise[] = [
           wrong1: 'Sinus im Dreieck DTH',
           wrong2: 'Kosinus im Dreieck DTH',
         },
+        focus: { x: 6, y: 56 },
         layers: [{ src: '/content/1/13.PNG', offset: 53 }],
       },
       {
@@ -162,6 +171,7 @@ export const allExercises: Exercise[] = [
           wrong1: 'TH geteilt durch DT',
           wrong2: 'DH geteilt durch DT',
         },
+        focus: { x: 14, y: 56 },
         layers: [{ src: '/content/1/14.PNG', offset: 53 }],
       },
       {
@@ -170,6 +180,7 @@ export const allExercises: Exercise[] = [
           title: 'Teilaufgabe e)',
           src: '/content/1/task_e.mp3',
         },
+        focus: { x: 1, y: 63 },
         layers: [{ src: '/content/1/15.PNG', offset: 53 }],
       },
       {
@@ -181,6 +192,7 @@ export const allExercises: Exercise[] = [
           wrong1: 'HS geteilt durch DH',
           wrong2: 'DH geteilt durch TU',
         },
+        focus: { x: 16, y: 66 },
         layers: [{ src: '/content/1/16.PNG', offset: 53 }],
       },
       {
@@ -192,6 +204,7 @@ export const allExercises: Exercise[] = [
           wrong1: '7',
           wrong2: '2',
         },
+        focus: { x: 24, y: 71 },
         layers: [{ src: '/content/1/17.PNG', offset: 53 }],
       },
       {
@@ -200,6 +213,7 @@ export const allExercises: Exercise[] = [
           title: 'Teilaufgabe f)',
           src: '/content/1/task_f.mp3',
         },
+        focus: { x: 1, y: 79 },
         layers: [{ src: '/content/1/18.PNG', offset: 53 }],
       },
       {
@@ -211,6 +225,7 @@ export const allExercises: Exercise[] = [
           wrong1: 'Zwei gleiche Ecken',
           wrong2: 'Beide befinden sich innerhalb des Dreiecks ADS',
         },
+        focus: { x: 21, y: 85 },
         layers: [{ src: '/content/1/19.PNG', offset: 53 }],
       },
       {
@@ -219,7 +234,69 @@ export const allExercises: Exercise[] = [
           title: 'Teilaufgabe g)',
           src: '/content/1/task_g.mp3',
         },
-        layers: [],
+        focus: { x: 1, y: 88 },
+        layers: [
+          { src: '/content/1/20.PNG', offset: 53 },
+          { src: '/content/1/19a.png' },
+        ],
+      },
+      {
+        prompt: {
+          type: 'quiz',
+          description:
+            'Das Dreieck ist im Schrägbild a) eingezeichnet. Um den Flächeninhalt zu berechnen, brauchst du einige Vorbereitungen. Beginne mit dem Winkel HAT. Wie groß ist HAT ?',
+          correctChoice: '45°',
+          wrong1: '90°',
+          wrong2: '60°',
+        },
+        focus: { x: 12, y: 90 },
+        layers: [{ src: '/content/1/21.png', offset: 53 }],
+      },
+      {
+        prompt: {
+          type: 'quiz',
+          description:
+            'Bestimme als nächsten den Winkel HAS. Welche Methode eignet sich dafür?',
+          correctChoice: 'Tangens',
+          wrong1: 'Sinus',
+          wrong2: 'Kosinus',
+        },
+        focus: { x: 32, y: 95 },
+        layers: [{ src: '/content/1/22.png', offset: 53 }],
+      },
+      {
+        prompt: {
+          type: 'quiz',
+          description: 'Wie groß ist nun der Winkel TAP ?',
+          correctChoice: '28,3°',
+          wrong1: '45°',
+          wrong2: '16,7°',
+        },
+        focus: { x: 30, y: 98 },
+        layers: [{ src: '/content/1/23.png', offset: 53 }],
+      },
+      {
+        prompt: {
+          type: 'quiz',
+          description: 'Wie lang ist die Strecke AT ?',
+          correctChoice: '4,24',
+          wrong1: '6,85',
+          wrong2: '18,24',
+        },
+        focus: { x: 22, y: 104 },
+        layers: [{ src: '/content/1/24.png', offset: 53 }],
+      },
+      {
+        prompt: {
+          type: 'quiz',
+          description:
+            'Wie groß ist der Winkel APT ? Berechne mithilfe der Dreieckswinkelsumme.',
+          correctChoice: '51,7°',
+          wrong1: '28,3°',
+          wrong2: '80°',
+        },
+        focus: { x: 22, y: 108 },
+        layers: [{ src: '/content/1/25.png', offset: 53 }],
       },
     ],
   },
