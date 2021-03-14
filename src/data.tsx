@@ -34,7 +34,7 @@ export const allExercises: Exercise[] = [
   {
     id: 1,
     task: '/content/1/task.jpg',
-    height: 150,
+    height: 129,
     steps: [
       {
         prompt: {
@@ -297,6 +297,53 @@ export const allExercises: Exercise[] = [
         },
         focus: { x: 22, y: 108 },
         layers: [{ src: '/content/1/25.png', offset: 53 }],
+      },
+      {
+        prompt: {
+          type: 'quiz',
+          description:
+            'Du kennst die beiden Winkel TAP und APT sowie die Seite AT. Nun möchtest du daraus die Länge der Seite PT berechnen. Welcher Satz hilft dir weiter?',
+          correctChoice: 'Sinussatz',
+          wrong1: 'Kosinussatz',
+          wrong2: 'Satz des Pythagoras',
+        },
+        focus: { x: 4, y: 113 },
+        layers: [{ src: '/content/1/26.png', offset: 110 }],
+      },
+      {
+        prompt: {
+          type: 'quiz',
+          description:
+            'Löse die Gleichung auf. Welche Wert erhältst du für PT ?',
+          correctChoice: '2,56',
+          wrong1: '7,16',
+          wrong2: '2,00',
+        },
+        focus: { x: 25, y: 116 },
+        layers: [{ src: '/content/1/27.png', offset: 110 }],
+      },
+      {
+        prompt: {
+          type: 'quiz',
+          description:
+            'Aus welchen bekannten Größen kannst du nun den Flächeninhalt des Dreiecks ATP berechnen?',
+          correctChoice: 'Längen AT und TP sowie Winkel PTA',
+          wrong1: 'Länge AT und Höhe',
+          wrong2: 'Winkel TPA und PAT sowie Siete AT',
+        },
+        focus: { x: 4, y: 120 },
+        layers: [{ src: '/content/1/28.png', offset: 109 }],
+      },
+      {
+        prompt: {
+          type: 'quiz',
+          description: 'Wie groß ist schließlich der Flächeninhalt von ATP ?',
+          correctChoice: '5,34 cm²',
+          wrong1: '10,68 cm²',
+          wrong2: '1,88 cm²',
+        },
+        focus: { x: 14, y: 124 },
+        layers: [{ src: '/content/1/29.png', offset: 109 }],
       },
     ],
   },
