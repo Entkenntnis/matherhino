@@ -1,149 +1,160 @@
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { Exercise } from '../data'
+import { ExerciseData, LayerData } from '../data/types'
+import { percentToGrade } from '../utils/percentToGrade'
+import { AudioPrompt } from './AudioPrompt'
+import { ExerciseLayout } from './ExerciseLayout'
 import GraphPaper from './GraphPaper'
-import { ProgressBar } from './ProgressBar'
-import { ProgressSlider } from './ProgressSlider'
-import { Prompt } from './Prompt'
+import { QuizPrompt } from './QuizPrompt'
+import { ResultPrompt } from './ResultPrompt'
+import { TaskImage } from './TaskImage'
 
 export interface ExercisePlayerProps {
-  exercise: Exercise
-}
-
-function percentToGrade(p: number) {
-  if (p >= 90) return 1
-  if (p >= 80) return 2
-  if (p >= 70) return 3
-  if (p >= 60) return 4
-  if (p >= 30) return 5
-  return 6
+  exercise: ExerciseData
 }
 
 export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const storageKey = `head_${exercise.id}`
-  const [head, setHead] = useState(0)
-  const [step, setStep] = useState(head)
+  const [step, setStep] = useState(0)
   const [wrongs, setWrongs] = useState<number[]>([])
+  const [showNotice, setShowNotice] = useState(false)
 
   useEffect(() => {
-    loadFromLocalStorage()
-    window.onbeforeunload = () => {
-      sessionStorage.removeItem(storageKey)
-      return 'Fortschritt geht verloren'
-    }
+    try {
+      const data = JSON.parse(localStorage.getItem(storageKey) || '{}')
+      if (data.__version == 1) {
+        setStep(parseInt(data.step))
+        setWrongs(data.wrongs.map((w: string) => parseInt(w)))
+        if (parseInt(data.step) > 0) {
+          setShowNotice(true)
+          setTimeout(() => {
+            setShowNotice(false)
+          }, 10000)
+        }
+      }
+    } catch (e) {}
   }, [])
 
   useEffect(() => {
-    saveToLocalStorage()
-  }, [head, step, wrongs])
+    localStorage.setItem(
+      storageKey,
+      JSON.stringify({ step: step, wrongs, __version: 1 })
+    )
+  }, [step, wrongs])
 
-  function loadFromLocalStorage() {
-    try {
-      const data = JSON.parse(sessionStorage.getItem(storageKey) || '{}')
-      if (data.head !== undefined && data.step !== undefined && data.wrongs) {
-        setHead(data.head)
-        setStep(data.step)
-        setWrongs(data.wrongs)
-      }
-    } catch (e) {
-      //
-    }
+  function incrStep() {
+    setStep(step + 1)
+    if (showNotice) setShowNotice(false)
   }
 
-  function saveToLocalStorage() {
-    sessionStorage.setItem(storageKey, JSON.stringify({ head, step, wrongs }))
+  function restart() {
+    setStep(0)
+    setWrongs([])
+    localStorage.removeItem(storageKey)
+    setShowNotice(false)
   }
 
-  const moveForward = () => {
-    const newStep = step + 1
-    setStep(newStep)
-    if (newStep > head) {
-      setHead(newStep)
-    }
-  }
+  const currentPrompt = exercise.steps[step]?.prompt
 
-  const addWrong = () => {
-    if (!wrongs.includes(step) && step == head) {
-      setWrongs([...wrongs, step])
-      saveToLocalStorage()
-    }
-  }
-
-  const visibleLayers: any = []
-
-  for (let i = 0; i < step; i++) {
-    visibleLayers.push.apply(visibleLayers, exercise.steps[i].layers)
-  }
-
-  const quizes = exercise.steps.filter(
-    (exercise) => exercise.prompt.type == 'quiz'
+  const quizCount = exercise.steps.filter((s) => s.prompt.type == 'quiz').length
+  const quizNr = exercise.steps.filter(
+    (s, i) => s.prompt.type == 'quiz' && i <= step
   ).length
-  const correct = quizes - wrongs.length
+  const correctPercentage =
+    quizNr == 1 ? 0 : Math.round((1 - wrongs.length / (quizNr - 1)) * 100)
+  const grade = percentToGrade(correctPercentage)
 
-  const warnings = []
+  const titleText = !currentPrompt
+    ? 'Ende'
+    : currentPrompt.type == 'audio'
+    ? currentPrompt.title
+    : `Frage ${quizNr} / ${quizCount}${
+        quizNr == 1 ? '' : ` | ${correctPercentage}% richtig | Note ${grade}`
+      }`
 
-  for (let i = 0; i <= head && i < exercise.steps.length; i++) {
-    if (wrongs.includes(i)) {
-      warnings.push(exercise.steps[i].focus)
+  const layers: LayerData[] = []
+  for (let i = 0; i <= step; i++) {
+    const stepData = exercise.steps[i]
+    for (const layer of stepData.layers) {
+      layers.push(layer)
+    }
+    if (i < step && stepData.layersAfter) {
+      for (const layer of stepData.layersAfter) {
+        layers.push(layer)
+      }
     }
   }
 
   return (
     <>
       <Head>
-        <title>
-          Schritt {step + 1} von {exercise.steps.length + 1}
-        </title>
+        <title>{titleText}</title>
       </Head>
-      <div
-        className="w-full remainingHeight flex"
-        style={{ height: 'calc(100vh - 0px)' }}
-      >
-        <div className="w-1/2 flex-none  flex flex-col">
-          <div className="h-1/2 flex-none overflow-y-auto">
-            <img
-              className="w-full"
-              style={{ minWidth: 700 }}
-              src={exercise.task}
-            />
-          </div>
-          <div className="h-1/2 flex-none p-3 xl:mx-4 overflow-auto">
-            {step < exercise.steps.length ? (
-              <Prompt
-                data={exercise.steps[step].prompt}
-                moveForward={
-                  step < exercise.steps.length ? moveForward : undefined
-                }
-                step={step}
-                addWrong={addWrong}
-              />
-            ) : (
-              <div>
-                <img
-                  src={
-                    Math.round((correct / quizes) * 100) < 60
-                      ? '/finish_sad.png'
-                      : 'finish.png'
-                  }
-                />
-                <p className="mt-4">
-                  {correct} von {quizes} richtig (
-                  {Math.round((correct / quizes) * 100)}%) = Note{' '}
-                  {percentToGrade(Math.round((correct / quizes) * 100))}
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="w-1/2 flex-none overflow-auto">
+      <ExerciseLayout
+        leftTop={<TaskImage src={exercise.task} />}
+        leftBottom={
+          <div className="p-3 xl:px-6 overflow-auto">{renderPrompt()}</div>
+        }
+        right={
           <GraphPaper
-            content={visibleLayers}
             height={exercise.height}
-            focus={exercise.steps[step]?.focus}
-            warnings={warnings}
+            content={layers}
+            warnings={wrongs.map((w) => exercise.steps[w].cursor)}
+            cursor={exercise.steps[step]?.cursor}
           />
+        }
+      />
+      {showNotice && (
+        <div className="fixed right-6 bottom-4 rounded bg-lime-100 p-1 shadow">
+          Fortschritt geladen ✓ | stattdessen{' '}
+          <span
+            className="text-blue-500 cursor-pointer underline"
+            onClick={() => {
+              const val = window.confirm('Fortschritt wird zurückgesetzt')
+              if (val) {
+                restart
+              } else {
+                setShowNotice(false)
+              }
+            }}
+          >
+            neu starten
+          </span>
         </div>
-      </div>
+      )}
     </>
   )
+
+  function renderPrompt() {
+    if (step == exercise.steps.length) {
+      // result prompt
+      return (
+        <ResultPrompt
+          grade={grade}
+          text={`${
+            quizCount - wrongs.length
+          } von ${quizCount} Fragen richtig (${correctPercentage}% = Note ${grade})`}
+          onRestart={restart}
+        />
+      )
+    } else {
+      const prompt = exercise.steps[step].prompt
+      if (prompt.type == 'quiz') {
+        return (
+          <QuizPrompt
+            data={prompt}
+            onDone={(correct) => {
+              if (!correct) {
+                setWrongs([...wrongs, step])
+              }
+              incrStep()
+            }}
+            key={step}
+          />
+        )
+      } else {
+        return <AudioPrompt data={prompt} onDone={incrStep} key={step} />
+      }
+    }
+  }
 }

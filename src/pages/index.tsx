@@ -1,14 +1,16 @@
 import Head from 'next/head'
+import Link from 'next/link'
+import { PlayIcon } from '../components/icons/PlayIcon'
 
 export default function Home() {
   return (
     <div className="container mx-auto px-2">
       <Head>
-        <title>Mathe üben online - Abitur, Mittlere Reife, ...</title>
+        <title>mathe.arrrg.de</title>
       </Head>
 
       <h1 className="text-7xl mt-32 text-gray-900">
-        Angst vor langen Mathe-Aufgaben?
+        Kein Bock auf lange Mathe-Aufgaben?
       </h1>
 
       <p className="text-3xl mt-20 text-gray-700">
@@ -24,7 +26,10 @@ export default function Home() {
 
       <div className="h-3" />
 
-      <Start title="Realschule 10. Klasse Buch S. 118 Aufgabe 1" href="/1" />
+      <Start
+        title="Realschule 10. Klasse Buch S. 118 Aufgabe 1 (Trigonometrie)"
+        href="/1"
+      />
 
       <div className="h-20" />
     </div>
@@ -34,22 +39,15 @@ export default function Home() {
 function Start({ title, href }: { title: string; href: string }) {
   return (
     <p className="mt-6">
-      <a href={href}>
-        {' '}
-        <button className="bg-lime-400 hover:bg-gray text-gray-900 font-bold py-2 px-4 rounded inline-flex items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
-            className="w-4 h-4 mr-2"
-          >
-            <path
-              fill="currentColor"
-              d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"
-            ></path>
-          </svg>
-          <span>{title}</span>
-        </button>
-      </a>
+      <Link href={href}>
+        <a href={href}>
+          {' '}
+          <button className="bg-lime-400 hover:bg-gray text-gray-900 font-bold py-2 px-4 rounded inline-flex items-center">
+            <PlayIcon className="w-4 h-4 mr-2" />
+            <span>{title}</span>
+          </button>
+        </a>
+      </Link>
     </p>
   )
 }
