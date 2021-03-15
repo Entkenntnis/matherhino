@@ -45,6 +45,19 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   function incrStep() {
     setStep(step + 1)
     if (showNotice) setShowNotice(false)
+
+    // preload images
+    if (step + 2 < exercise.steps.length) {
+      const nextStep = exercise.steps[step + 2]
+      for (const layer of nextStep.layers) {
+        new Image().src = layer.src
+      }
+      if (nextStep.layersAfter) {
+        for (const layer of nextStep.layersAfter) {
+          new Image().src = layer.src
+        }
+      }
+    }
   }
 
   function restart() {
@@ -112,7 +125,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             onClick={() => {
               const val = window.confirm('Fortschritt wird zurückgesetzt.')
               if (val) {
-                restart
+                restart()
               } else {
                 setShowNotice(false)
               }
