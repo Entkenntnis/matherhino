@@ -23,9 +23,10 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
     try {
       const data = JSON.parse(localStorage.getItem(storageKey) || '{}')
       if (data.__version == 1) {
-        setStep(parseInt(data.step))
+        const s = parseInt(data.step)
+        setStep(s)
         setWrongs(data.wrongs.map((w: string) => parseInt(w)))
-        if (parseInt(data.step) > 0) {
+        if (s > 0 && s < exercise.steps.length) {
           setShowNotice(true)
           setTimeout(() => {
             setShowNotice(false)
@@ -78,7 +79,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const grade = percentToGrade(correctPercentage)
 
   const titleText = !currentPrompt
-    ? 'Ende'
+    ? 'Fertig'
     : currentPrompt.type == 'audio'
     ? currentPrompt.title
     : `Frage ${quizNr} / ${quizCount}${
@@ -87,6 +88,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
 
   const layers: LayerData[] = []
   for (let i = 0; i <= step; i++) {
+    if (i >= exercise.steps.length) continue
     const stepData = exercise.steps[i]
     for (const layer of stepData.layers) {
       layers.push(layer)
