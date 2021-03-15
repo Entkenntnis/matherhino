@@ -110,7 +110,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           <span
             className="text-blue-500 cursor-pointer underline"
             onClick={() => {
-              const val = window.confirm('Fortschritt wird zurückgesetzt')
+              const val = window.confirm('Fortschritt wird zurückgesetzt.')
               if (val) {
                 restart
               } else {
