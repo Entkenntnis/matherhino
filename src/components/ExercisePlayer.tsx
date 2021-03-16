@@ -120,7 +120,10 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         }
       />
       {showNotice && (
-        <div className="fixed right-6 bottom-4 rounded bg-lime-100 p-1 shadow">
+        <div
+          style={{ zIndex: 200 }}
+          className="fixed left-0 right-0 bottom-0 md:left-auto md:right-6 md:bottom-4 rounded bg-lime-100 p-1 shadow"
+        >
           Fortschritt geladen ✓ | stattdessen{' '}
           <span
             className="text-blue-500 cursor-pointer underline"
@@ -135,6 +138,12 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           >
             neu starten
           </span>
+          <div
+            className="absolute right-4 top-0 md:invisible text-xl cursor-pointer"
+            onClick={() => setShowNotice(false)}
+          >
+            ×
+          </div>
         </div>
       )}
     </>
