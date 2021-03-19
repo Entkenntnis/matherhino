@@ -125,7 +125,7 @@ export const exercise1: ExerciseData = {
     {
       prompt: {
         type: 'quiz',
-        description: 'Mit welcher Methode lässt sich ε berechnen?',
+        description: 'Mit welcher Methode lässt sich TH berechnen?',
         correctChoice: 'Tangens im Dreieck DTH',
         wrong1: 'Sinus im Dreieck DTH',
         wrong2: 'Kosinus im Dreieck DTH',
