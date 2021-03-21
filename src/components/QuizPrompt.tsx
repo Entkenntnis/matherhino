@@ -4,10 +4,11 @@ import { shuffleArray } from '../utils/shuffleArray'
 
 export interface QuizPromptProps {
   data: QuizPromptData
-  onDone: (correct: boolean) => void
+  onDone?: (correct: boolean) => void
+  onSuccess?: () => void
 }
 
-export function QuizPrompt({ data, onDone }: QuizPromptProps) {
+export function QuizPrompt({ data, onDone, onSuccess }: QuizPromptProps) {
   const [choices, setChoices] = useState(() =>
     shuffleArray([
       { correct: true, id: 0, value: data.correctChoice },
@@ -38,6 +39,9 @@ export function QuizPrompt({ data, onDone }: QuizPromptProps) {
               setSelected([...selected, choice.id])
               if (choice.correct) {
                 setIsCorrect(true)
+                if (onSuccess) {
+                  onSuccess()
+                }
               }
             }
           }}
@@ -45,7 +49,7 @@ export function QuizPrompt({ data, onDone }: QuizPromptProps) {
           {choice.value}
         </div>
       ))}
-      {isCorrect && (
+      {isCorrect && onDone && (
         <button
           className="bg-lime-500 rounded p-2 inline-flex mt-5"
           onClick={() => onDone(selected.length == 1)}
