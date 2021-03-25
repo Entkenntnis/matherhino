@@ -4,8 +4,8 @@ export interface ExerciseData {
   height: number
   steps: {
     prompt: PromptData
-    layers: LayerData[]
-    layersAfter?: LayerData[]
+    layersPre?: LayerData[]
+    layersPost?: LayerData[]
     cursor: { x: number; y: number }
   }[]
 }

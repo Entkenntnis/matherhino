@@ -5,9 +5,10 @@ import { shuffleArray } from '../utils/shuffleArray'
 export interface QuizPromptProps {
   data: QuizPromptData
   onDone: (correct: boolean) => void
+  onFinished: () => void
 }
 
-export function QuizPrompt({ data, onDone }: QuizPromptProps) {
+export function QuizPrompt({ data, onDone, onFinished }: QuizPromptProps) {
   const [choices, setChoices] = useState(() =>
     shuffleArray([
       { correct: true, id: 0, value: data.correctChoice },
@@ -38,6 +39,7 @@ export function QuizPrompt({ data, onDone }: QuizPromptProps) {
               setSelected([...selected, choice.id])
               if (choice.correct) {
                 setIsCorrect(true)
+                onFinished()
               }
             }
           }}

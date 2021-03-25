@@ -11,8 +11,8 @@ export const exercise1: ExerciseData = {
         title: 'Aufgabenstellung',
         src: '/content/1/task.mp3',
       },
-      layers: [],
       cursor: { x: 1, y: 1 },
+      layersPost: [{ src: '/content/1/1.PNG', offset: 1 }],
     },
     {
       prompt: {
@@ -21,7 +21,7 @@ export const exercise1: ExerciseData = {
         src: '/content/1/task_a.mp3',
       },
       cursor: { x: 3, y: 1 },
-      layers: [{ src: '/content/1/1.PNG', offset: 1 }],
+      layersPost: [{ src: '/content/1/2.PNG', offset: 1 }],
     },
     {
       prompt: {
@@ -33,10 +33,8 @@ export const exercise1: ExerciseData = {
         wrong2: '12 Kästchendiagonalen',
       },
       cursor: { x: 27, y: 23 },
-      layers: [
-        { src: '/content/1/2.PNG', offset: 1 },
-        { src: '/content/1/3.PNG', offset: 4 },
-      ],
+      layersPre: [{ src: '/content/1/3.PNG', offset: 4 }],
+      layersPost: [{ src: '/content/1/4.PNG', offset: 5 }],
     },
     {
       prompt: {
@@ -45,7 +43,7 @@ export const exercise1: ExerciseData = {
         src: '/content/1/task_b.mp3',
       },
       cursor: { x: 1, y: 33 },
-      layers: [{ src: '/content/1/4.PNG', offset: 5 }],
+      layersPost: [{ src: '/content/1/5.PNG', offset: 33 }],
     },
     {
       prompt: {
@@ -56,7 +54,7 @@ export const exercise1: ExerciseData = {
         wrong2: 'Bei DAS',
       },
       cursor: { x: 6, y: 32 },
-      layers: [{ src: '/content/1/5.PNG', offset: 33 }],
+      layersPost: [{ src: '/content/1/6.PNG', offset: 33 }],
     },
     {
       prompt: {
@@ -68,7 +66,7 @@ export const exercise1: ExerciseData = {
         wrong2: 'Mit dem Tangens im Dreieck ADS',
       },
       cursor: { x: 28, y: 32 },
-      layers: [{ src: '/content/1/6.PNG', offset: 33 }],
+      layersPost: [{ src: '/content/1/7.PNG', offset: 32 }],
     },
     {
       prompt: {
@@ -79,7 +77,7 @@ export const exercise1: ExerciseData = {
         wrong2: '70,48°',
       },
       cursor: { x: 21, y: 40 },
-      layers: [{ src: '/content/1/7.PNG', offset: 32 }],
+      layersPost: [{ src: '/content/1/8.PNG', offset: 40 }],
     },
     {
       prompt: {
@@ -91,7 +89,7 @@ export const exercise1: ExerciseData = {
         wrong2: '15',
       },
       cursor: { x: 29, y: 48 },
-      layers: [{ src: '/content/1/8.PNG', offset: 40 }],
+      layersPost: [{ src: '/content/1/9.PNG', offset: 41 }],
     },
     {
       prompt: {
@@ -100,7 +98,7 @@ export const exercise1: ExerciseData = {
         src: '/content/1/task_c.mp3',
       },
       cursor: { x: 1, y: 51 },
-      layers: [{ src: '/content/1/9.PNG', offset: 41 }],
+      layersPost: [{ src: '/content/1/10.PNG', offset: 51 }],
     },
     {
       prompt: {
@@ -111,7 +109,7 @@ export const exercise1: ExerciseData = {
         wrong2: 'Zirkel',
       },
       cursor: { x: 15, y: 18 },
-      layers: [{ src: '/content/1/10.PNG', offset: 51 }],
+      layersPost: [{ src: '/content/1/11.PNG', offset: 19 }],
     },
     {
       prompt: {
@@ -120,7 +118,7 @@ export const exercise1: ExerciseData = {
         src: '/content/1/task_d.mp3',
       },
       cursor: { x: 1, y: 54 },
-      layers: [{ src: '/content/1/11.PNG', offset: 19 }],
+      layersPost: [{ src: '/content/1/12.PNG', offset: 54 }],
     },
     {
       prompt: {
@@ -131,7 +129,7 @@ export const exercise1: ExerciseData = {
         wrong2: 'Kosinus im Dreieck DTH',
       },
       cursor: { x: 6, y: 56 },
-      layers: [{ src: '/content/1/12.PNG', offset: 54 }],
+      layersPost: [{ src: '/content/1/13.PNG', offset: 54 }],
     },
     {
       prompt: {
@@ -143,7 +141,7 @@ export const exercise1: ExerciseData = {
         wrong2: 'DH geteilt durch DT',
       },
       cursor: { x: 14, y: 56 },
-      layers: [{ src: '/content/1/13.PNG', offset: 54 }],
+      layersPost: [{ src: '/content/1/14.PNG', offset: 56 }],
     },
     {
       prompt: {
@@ -152,7 +150,6 @@ export const exercise1: ExerciseData = {
         src: '/content/1/task_e.mp3',
       },
       cursor: { x: 1, y: 63 },
-      layers: [{ src: '/content/1/14.PNG', offset: 56 }],
     },
     {
       prompt: {
@@ -164,7 +161,8 @@ export const exercise1: ExerciseData = {
         wrong2: 'DH geteilt durch TU',
       },
       cursor: { x: 16, y: 66 },
-      layers: [{ src: '/content/1/15.PNG', offset: 63 }],
+      layersPre: [{ src: '/content/1/15.PNG', offset: 63 }],
+      layersPost: [{ src: '/content/1/16.PNG', offset: 66 }],
     },
     {
       prompt: {
@@ -176,7 +174,7 @@ export const exercise1: ExerciseData = {
         wrong2: '2',
       },
       cursor: { x: 24, y: 71 },
-      layers: [{ src: '/content/1/16.PNG', offset: 66 }],
+      layersPost: [{ src: '/content/1/17.PNG', offset: 70 }],
     },
     {
       prompt: {
@@ -185,7 +183,7 @@ export const exercise1: ExerciseData = {
         src: '/content/1/task_f.mp3',
       },
       cursor: { x: 1, y: 79 },
-      layers: [{ src: '/content/1/17.PNG', offset: 70 }],
+      layersPost: [{ src: '/content/1/18.PNG', offset: 79 }],
     },
     {
       prompt: {
@@ -197,7 +195,7 @@ export const exercise1: ExerciseData = {
         wrong2: 'Beide befinden sich innerhalb des Dreiecks ADS',
       },
       cursor: { x: 21, y: 85 },
-      layers: [{ src: '/content/1/18.PNG', offset: 79 }],
+      layersPost: [{ src: '/content/1/19.PNG', offset: 79 }],
     },
     {
       prompt: {
@@ -206,7 +204,6 @@ export const exercise1: ExerciseData = {
         src: '/content/1/task_g.mp3',
       },
       cursor: { x: 1, y: 88 },
-      layers: [{ src: '/content/1/19.PNG', offset: 79 }],
     },
     {
       prompt: {
@@ -218,10 +215,11 @@ export const exercise1: ExerciseData = {
         wrong2: '60°',
       },
       cursor: { x: 12, y: 90 },
-      layers: [
-        { src: '/content/1/20.PNG', offset: 88 },
+      layersPre: [
         { src: '/content/1/19a.png', offset: 14 },
+        { src: '/content/1/20.PNG', offset: 88 },
       ],
+      layersPost: [{ src: '/content/1/21.png', offset: 90 }],
     },
     {
       prompt: {
@@ -233,7 +231,7 @@ export const exercise1: ExerciseData = {
         wrong2: 'Kosinus',
       },
       cursor: { x: 32, y: 95 },
-      layers: [{ src: '/content/1/21.png', offset: 90 }],
+      layersPost: [{ src: '/content/1/22.png', offset: 92 }],
     },
     {
       prompt: {
@@ -244,7 +242,7 @@ export const exercise1: ExerciseData = {
         wrong2: '16,7°',
       },
       cursor: { x: 30, y: 98 },
-      layers: [{ src: '/content/1/22.png', offset: 92 }],
+      layersPost: [{ src: '/content/1/23.png', offset: 98 }],
     },
     {
       prompt: {
@@ -255,7 +253,7 @@ export const exercise1: ExerciseData = {
         wrong2: '18,24',
       },
       cursor: { x: 22, y: 104 },
-      layers: [{ src: '/content/1/23.png', offset: 98 }],
+      layersPost: [{ src: '/content/1/24.png', offset: 100 }],
     },
     {
       prompt: {
@@ -267,7 +265,7 @@ export const exercise1: ExerciseData = {
         wrong2: '80°',
       },
       cursor: { x: 22, y: 108 },
-      layers: [{ src: '/content/1/24.png', offset: 100 }],
+      layersPost: [{ src: '/content/1/25.png', offset: 103 }],
     },
     {
       prompt: {
@@ -279,7 +277,7 @@ export const exercise1: ExerciseData = {
         wrong2: 'Satz des Pythagoras',
       },
       cursor: { x: 4, y: 113 },
-      layers: [{ src: '/content/1/25.png', offset: 103 }],
+      layersPost: [{ src: '/content/1/26.png', offset: 111 }],
     },
     {
       prompt: {
@@ -291,7 +289,7 @@ export const exercise1: ExerciseData = {
         wrong2: '2,00',
       },
       cursor: { x: 25, y: 116 },
-      layers: [{ src: '/content/1/26.png', offset: 111 }],
+      layersPost: [{ src: '/content/1/27.png', offset: 113 }],
     },
     {
       prompt: {
@@ -303,7 +301,7 @@ export const exercise1: ExerciseData = {
         wrong2: 'Winkel TPA und PAT sowie Seite AT',
       },
       cursor: { x: 4, y: 120 },
-      layers: [{ src: '/content/1/27.png', offset: 113 }],
+      layersPost: [{ src: '/content/1/28.png', offset: 118 }],
     },
     {
       prompt: {
@@ -314,8 +312,7 @@ export const exercise1: ExerciseData = {
         wrong2: '1,88 cm²',
       },
       cursor: { x: 14, y: 124 },
-      layers: [{ src: '/content/1/28.png', offset: 118 }],
-      layersAfter: [{ src: '/content/1/29.png', offset: 122 }],
+      layersPost: [{ src: '/content/1/29.png', offset: 122 }],
     },
   ],
 }

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ExerciseData, LayerData } from '../data/types'
 import { percentToGrade } from '../utils/percentToGrade'
 import { AudioPrompt } from './AudioPrompt'
@@ -18,6 +18,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const [step, setStep] = useState(0)
   const [wrongs, setWrongs] = useState<number[]>([])
   const [showNotice, setShowNotice] = useState(false)
+  const [stepFinished, setStepFinished] = useState(false)
+  const graphPaperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     try {
@@ -26,12 +28,14 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         const s = parseInt(data.step)
         setStep(s)
         setWrongs(data.wrongs.map((w: string) => parseInt(w)))
+        setStepFinished(false)
         if (s > 0 && s < exercise.steps.length) {
           setShowNotice(true)
           setTimeout(() => {
             setShowNotice(false)
           }, 10000)
         }
+        scrollGraphPaperToCursor(step)
       }
     } catch (e) {}
   }, [])
@@ -45,20 +49,25 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
 
   function incrStep() {
     setStep(step + 1)
+    setStepFinished(false)
     if (showNotice) setShowNotice(false)
 
     // preload images
     if (step + 2 < exercise.steps.length) {
       const nextStep = exercise.steps[step + 2]
-      for (const layer of nextStep.layers) {
-        new Image().src = layer.src
+      if (nextStep.layersPre) {
+        for (const layer of nextStep.layersPre) {
+          new Image().src = layer.src
+        }
       }
-      if (nextStep.layersAfter) {
-        for (const layer of nextStep.layersAfter) {
+      if (nextStep.layersPost) {
+        for (const layer of nextStep.layersPost) {
           new Image().src = layer.src
         }
       }
     }
+
+    scrollGraphPaperToCursor(step + 1)
   }
 
   function restart() {
@@ -90,11 +99,13 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   for (let i = 0; i <= step; i++) {
     if (i >= exercise.steps.length) continue
     const stepData = exercise.steps[i]
-    for (const layer of stepData.layers) {
-      layers.push(layer)
+    if (stepData.layersPre) {
+      for (const layer of stepData.layersPre) {
+        layers.push(layer)
+      }
     }
-    if (i < step && stepData.layersAfter) {
-      for (const layer of stepData.layersAfter) {
+    if ((i < step || stepFinished) && stepData.layersPost) {
+      for (const layer of stepData.layersPost) {
         layers.push(layer)
       }
     }
@@ -111,18 +122,20 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           <div className="p-3 xl:px-6 overflow-auto">{renderPrompt()}</div>
         }
         right={
-          <GraphPaper
-            height={exercise.height}
-            content={layers}
-            warnings={wrongs.map((w) => exercise.steps[w].cursor)}
-            cursor={exercise.steps[step]?.cursor}
-          />
+          <div className="overflow-auto h-full w-full" ref={graphPaperRef}>
+            <GraphPaper
+              height={exercise.height}
+              content={layers}
+              warnings={wrongs.map((w) => exercise.steps[w].cursor)}
+              cursor={exercise.steps[step]?.cursor}
+            />
+          </div>
         }
       />
       {showNotice && (
         <div
           style={{ zIndex: 200 }}
-          className="fixed left-0 right-0 bottom-0 md:left-auto md:right-6 md:bottom-4 rounded bg-lime-100 p-1 shadow"
+          className="fixed left-0 right-0 bottom-0 md:left-auto md:right-6 md:bottom-4 rounded bg-gray-100 p-1 shadow"
         >
           Fortschritt geladen ✓ | stattdessen{' '}
           <span
@@ -173,12 +186,34 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
               }
               incrStep()
             }}
+            onFinished={() => {
+              setStepFinished(true)
+              scrollGraphPaperToCursor(step)
+            }}
             key={step}
           />
         )
       } else {
-        return <AudioPrompt data={prompt} onDone={incrStep} key={step} />
+        return (
+          <AudioPrompt
+            data={prompt}
+            onDone={() => {
+              incrStep()
+            }}
+            key={step}
+          />
+        )
       }
+    }
+  }
+
+  function scrollGraphPaperToCursor(step: number) {
+    if (graphPaperRef.current && step < exercise.steps.length) {
+      const offsetY = exercise.steps[step].cursor.y
+      const newScrollTop =
+        (graphPaperRef.current.scrollWidth / 35) * offsetY -
+        window.document.body.offsetHeight * 0.66
+      graphPaperRef.current.scrollTop = newScrollTop
     }
   }
 }
