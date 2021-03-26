@@ -6,61 +6,37 @@ export default function Home() {
   return (
     <div className="container mx-auto px-2">
       <Head>
-        <title>BERTA - Mathematik Lernen mit Spaß für die Sekundarstufe</title>
+        <title>BERTA - Mathematik Lernen mit Spaß und Köpfchen</title>
       </Head>
 
       <h1 className="text-5xl mt-16 text-gray-900">BERTA</h1>
       <p className="text-xl mt-6 text-gray-700">
-        Mathematik Lernen mit Spaß für die Sekundarstufe
+        Mathematik Üben mit Spaß und Köpfchen
       </p>
 
       <h2 className="text-3xl mt-20 mb-8 border-b-2 border-gray-100">Themen</h2>
 
-      {/*<div className="p-4 rounded-xl border-blue-100 border-2">
+      <div className="mt-8">
         <h3 className="text-2xl mt-2 mb-4">
           Mittlerer Schulabschluss (Realschule) Bayern, 2018, Zweig I
         </h3>
 
         <ul className="mt-3 list-disc list-inside">
           <li>
-            <a href="" className="text-blue-500">
-              Aufgabe A1
-            </a>
+            <Link href="/2" passHref>
+              <a className="text-blue-500">Aufgabe A1</a>
+            </Link>
             :{' '}
             <span className="text-gray-700">
-              Exponentialfunktion, Gleichung, Logarithmus
+              Exponentialfunktion, Gleichung lösen, Logarithmus
             </span>
           </li>
-          <li>
-            <a href="" className="text-blue-500">
-              Aufgabe A2
-            </a>
-            :{' '}
-            <span className="text-gray-700">
-              Raumgeometrie, Trigonometrie, Schrägbild, Tangens,
-              Vierstreckensatz
-            </span>
-          </li>
-          <li>
-            <a href="" className="text-blue-500">
-              Aufgabe A3
-            </a>
-            : <span className="text-gray-700">---</span>
-          </li>
-          <li>
-            <a href="" className="text-blue-500">
-              Aufgabe B1
-            </a>
-            : <span className="text-gray-700">---</span>
-          </li>
-          <li>
-            <a href="" className="text-blue-500">
-              Aufgabe B2
-            </a>
-            : <span className="text-gray-700">---</span>
-          </li>
+          <li>Aufgabe A2 (coming soon)</li>
+          <li>Aufgabe A3 (coming soon)</li>
+          <li>Aufgabe B1 (coming soon)</li>
+          <li>Aufgabe B2 (coming soon)</li>
         </ul>
-  </div>*/}
+      </div>
 
       <div className="mt-8">
         <h3 className="text-2xl mt-2 mb-4">Prototypen</h3>

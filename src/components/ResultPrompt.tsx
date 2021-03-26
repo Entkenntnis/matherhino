@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export interface ResultPromptProps {
   grade: number
   text: string
@@ -18,11 +20,17 @@ export function ResultPrompt({ grade, text, onRestart }: ResultPromptProps) {
       />
       <p className="mt-4">{text}</p>
       <p>
+        <Link href="/" passHref>
+          <a className="underline text-blue-500 cursor-pointer select-none">
+            zurück zur Startseite
+          </a>
+        </Link>{' '}
+        |{' '}
         <span
           className="underline text-blue-500 cursor-pointer select-none"
           onClick={onRestart}
         >
-          Neu starten
+          neu starten
         </span>
       </p>
     </div>

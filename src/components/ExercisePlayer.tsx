@@ -19,6 +19,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const [wrongs, setWrongs] = useState<number[]>([])
   const [showNotice, setShowNotice] = useState(false)
   const [stepFinished, setStepFinished] = useState(false)
+  const [reflection, setReflection] = useState('')
+  const [streakReflection, setStreakReflection] = useState(false)
   const graphPaperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -89,10 +91,12 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
 
   const titleText = !currentPrompt
     ? 'Fertig'
+    : reflection
+    ? 'Reflektion'
     : currentPrompt.type == 'audio'
     ? currentPrompt.title
     : `Frage ${quizNr} / ${quizCount}${
-        quizNr == 1 ? '' : ` | ${correctPercentage}% richtig | Note ${grade}`
+        quizNr == 1 ? '' : `, bisher ${correctPercentage}% richtig`
       }`
 
   const layers: LayerData[] = []
@@ -119,7 +123,11 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
       <ExerciseLayout
         leftTop={<TaskImage src={exercise.task} />}
         leftBottom={
-          <div className="p-3 xl:px-6 overflow-auto">{renderPrompt()}</div>
+          reflection ? (
+            renderReflection()
+          ) : (
+            <div className="p-3 xl:px-6 overflow-auto">{renderPrompt()}</div>
+          )
         }
         right={
           <div className="overflow-auto h-full w-full" ref={graphPaperRef}>
@@ -127,7 +135,11 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
               height={exercise.height}
               content={layers}
               warnings={wrongs.map((w) => exercise.steps[w].cursor)}
-              cursor={exercise.steps[step]?.cursor}
+              cursor={
+                reflection || wrongs.includes(step)
+                  ? undefined
+                  : exercise.steps[step]?.cursor
+              }
             />
           </div>
         }
@@ -182,11 +194,30 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             data={prompt}
             onDone={(correct) => {
               if (!correct) {
+                setReflection('wrong')
+              } else {
+                // add refection if 5 correct in a row
+                let streak = 0
+                for (let s = step; s >= 0; s--) {
+                  if (exercise.steps[s].prompt.type == 'quiz') {
+                    if (!wrongs.includes(s)) {
+                      streak++
+                    } else {
+                      break
+                    }
+                  }
+                }
+                if (streak >= 5 && !streakReflection) {
+                  setStreakReflection(true)
+                  setReflection('streak')
+                }
+                incrStep()
+              }
+            }}
+            onFinished={(correct) => {
+              if (!correct && !wrongs.includes(step)) {
                 setWrongs([...wrongs, step])
               }
-              incrStep()
-            }}
-            onFinished={() => {
               setStepFinished(true)
               scrollGraphPaperToCursor(step)
             }}
@@ -215,5 +246,70 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         window.document.body.offsetHeight * 0.66
       graphPaperRef.current.scrollTop = newScrollTop
     }
+  }
+
+  function renderReflection() {
+    return (
+      <div
+        className={`p-2 xl:px-5 h-full border-4 ${
+          reflection == 'wrong' ? 'border-blue-500' : 'border-lime-500'
+        } overflow-auto`}
+      >
+        {reflection == 'wrong' ? (
+          <QuizPrompt
+            data={{
+              type: 'reflection',
+              description:
+                'Reflektion: Du hast die vorherige Frage nicht richtig beantwortet. Aus welchem Grund konntest du die Frage nicht richtig beantworten?',
+              choices: [
+                'Ich habe mich nicht angestrengt.',
+                'Ich wusste nicht, wie ich die Frage angehen soll.',
+                'Ich habe mich verrechnet oder vertan.',
+                'Die Frage war für mich nicht relevant.',
+                'Anderer Grund.',
+              ],
+              feedback: [
+                'Konzentraktion! Fokus! Ohne ein bisschen Anstrengung wird auch der Lernerfolg auf sich warten lassen. Falls du schon länger übst, hilft dir vielleicht eine kurze Pause.',
+                'Schaue dir die Musterlösung auf der rechten Seite an und versuche sie nachzuvollziehen. Falls dir zu dieser Aufgabe das Grundwissen fehlt, suche einen Unterlagen oder im Internet nach einer Erklärung des Themas. Vielleicht hast du auch jemand in der Nähe, der dir persönlich helfen kann?',
+                'Fehler gehören zum Lernen dazu. Lerne aus deinen Fehler und versuche, sie beim nächsten Mal zu vermeiden.',
+                'Kein Problem - entscheide selber darüber, welche Fragen für dich wichtig sind.',
+                `%%Rückmeldung%%${exercise.id}/${step}`,
+              ],
+            }}
+            onFinished={() => {}}
+            onDone={() => {
+              setReflection('')
+              incrStep()
+            }}
+            onRepeat={() => {
+              setReflection('')
+              setStepFinished(false)
+            }}
+          />
+        ) : (
+          <QuizPrompt
+            data={{
+              type: 'reflection',
+              description:
+                'Herzlichen Glückwunsch! Du hast die letzten fünf Fragen in Folge richtig beantwortet. Wie ist dir das gelungen?',
+              choices: [
+                'Die Aufgaben fallen mir leicht.',
+                'Ich habe die Antworten aus einem vorherigen Durchlauf notiert.',
+                'Ich habe mir bei der Bearbeitung Mühe gegeben.',
+              ],
+              feedback: [
+                'Das ist schön zu hören!',
+                'Das ist ein erster Schritt in die richtige Richtung. Wenn du dich langsam sicherer mit den Fragen fühlst, dann überlege dir mal, die Fragen ohne Unterlagen erneut zu lösen.',
+                'Bravo! Keep it up!',
+              ],
+            }}
+            onFinished={() => {}}
+            onDone={() => {
+              setReflection('')
+            }}
+          />
+        )}
+      </div>
+    )
   }
 }
