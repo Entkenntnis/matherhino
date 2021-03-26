@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="container mx-auto px-2">
       <Head>
-        <title>BERTA - Mathematik Lernen mit Spaß und Köpfchen</title>
+        <title>BERTA - Mathematik Üben mit Spaß und Köpfchen</title>
       </Head>
 
       <h1 className="text-5xl mt-16 text-gray-900">BERTA</h1>
