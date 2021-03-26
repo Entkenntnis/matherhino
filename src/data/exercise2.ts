@@ -50,17 +50,14 @@ export const exercise2: ExerciseData = {
     {
       prompt: {
         type: 'quiz',
-        description: 'Was beschreibt die Variable x?',
-        correctChoice: 'Die Zeit, bis das Wasser auf 60°C abgekühlt ist.',
-        wrong1:
-          'Die Zeit, bis das Wasser auf Umgebungstemperatur abgekühlt ist.',
-        wrong2: 'Die Temperatur des Wassers am Ende des Versuchs.',
+        description: 'Welche Variable ist in dieser Aufgabe gesucht?',
+        correctChoice: 'Die Zeit x in Minuten',
+        wrong1: 'Die Zeit x in Sekunden',
+        wrong2: 'Die Temperatur y des Wassers',
       },
       cursor: { x: 20, y: 6 },
-      layersPost: [
-        { src: '/content/2/4.PNG', offset: 6 },
-        { src: '/content/2/5.PNG', offset: 6 },
-      ],
+      layersPre: [{ src: '/content/2/4.PNG', offset: 6 }],
+      layersPost: [{ src: '/content/2/5.PNG', offset: 6 }],
     },
     {
       prompt: {
@@ -103,7 +100,8 @@ export const exercise2: ExerciseData = {
     {
       prompt: {
         type: 'quiz',
-        description: 'Welches Ergebnis erhältst du für x ?',
+        description:
+          'Welches Ergebnis erhältst du für x ? Benutze zur Berechnung einen Taschenrechner.',
         correctChoice: '6,0',
         wrong1: '-0,6',
         wrong2: '5,0',
@@ -149,11 +147,11 @@ export const exercise2: ExerciseData = {
     {
       prompt: {
         type: 'quiz',
-        description: 'Welche Werte sind im ersten Raum bekannt?',
+        description: 'Für welche Größen stehen die Werte 72°C, 18°C und 3 ?',
         correctChoice: 'Anfangstemperatur, Umgebungstemperatur, Zeit',
         wrong1:
-          'Umgebungstemperatur, Zeit, Temperatur des Wassers nach der Zeit',
-        wrong2: 'Nur Anfangstemperatur und Umgebungstemperatur',
+          'Umgebungstemperatur, Temperatur des Wassers nach der Zeit, Zeit',
+        wrong2: 'Umgebungstemperatur, Anfangstemperatur, Zeit',
       },
       cursor: { x: 31, y: 34 },
       layersPre: [{ src: '/content/2/18.PNG', offset: 34 }],
@@ -163,7 +161,7 @@ export const exercise2: ExerciseData = {
       prompt: {
         type: 'quiz',
         description:
-          'Diese Werte lassen sich in die Funktionsgleichung einsetzen. Welches Ergebnis kommt heraus?',
+          'Diese Werte lassen sich in die Funktionsgleichung einsetzen. Welches Ergebnis kommt heraus? Benutze einen Taschenrechner.',
         correctChoice: '57,4',
         wrong1: '28,7',
         wrong2: '67,8',
@@ -176,10 +174,10 @@ export const exercise2: ExerciseData = {
       prompt: {
         type: 'quiz',
         description:
-          'Du hast nun den Wert 57,4 berechnet. Für welche Variable im zweiten Raum kann dieser Wert verwendet werden?',
-        correctChoice: 'yₐ',
-        wrong1: 'x',
-        wrong2: 'y',
+          'Du hast nun den Wert 57,4 berechnet. Für welche Größe im zweiten Raum kann dieser Wert verwendet werden?',
+        correctChoice: 'Anfangstemperatur',
+        wrong1: 'Umgebungstemperatur',
+        wrong2: 'Wassertemperatur nach 8 Minuten',
       },
       cursor: { x: 31, y: 38 },
       layersPre: [{ src: '/content/2/22.PNG', offset: 38 }],
