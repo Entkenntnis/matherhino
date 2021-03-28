@@ -9,8 +9,11 @@ export interface GraphPaperProps {
     src: string
   }[]
   height: number
-  cursor?: { x: number; y: number }
+  cursor: { x: number; y: number }
   warnings: { x: number; y: number }[]
+  showContinue: boolean
+  onContinue: () => void
+  hideCursor?: boolean
 }
 
 export default function GraphPaper({
@@ -18,9 +21,17 @@ export default function GraphPaper({
   height,
   cursor,
   warnings,
+  showContinue,
+  onContinue,
+  hideCursor,
 }: GraphPaperProps) {
   return (
-    <div className="min-w-500 xl:min-w-700">
+    <div
+      className="mx-auto"
+      style={{
+        maxWidth: 1182,
+      }}
+    >
       <div
         className="relative"
         style={{
@@ -29,7 +40,7 @@ export default function GraphPaper({
       >
         <div className="absolute top-0 inset-0 overflow-hidden">
           <div
-            className="w-full h-full bg-repeat-y relative"
+            className="h-full bg-repeat-y relative"
             style={{
               backgroundImage: 'url("/background.png")',
               backgroundSize: '100% auto',
@@ -53,9 +64,21 @@ export default function GraphPaper({
                 </div>
               </GraphPaperArea>
             ))}
-            {cursor && (
+            {cursor && !hideCursor && (
               <GraphPaperArea {...cursor}>
                 <PencilIcon className="absolute inset-0 text-lime-500 animate-wiggle " />
+              </GraphPaperArea>
+            )}
+            {showContinue && (
+              <GraphPaperArea x={0} width={25} y={cursor.y + 1} height={2}>
+                <div className="flex justify-center mt-5 md:mt-10 md:text-3xl xl:mt-16 xl:text-4xl">
+                  <span
+                    className="bg-lime-400 rounded px-2 cursor-pointer select-none"
+                    onClick={onContinue}
+                  >
+                    Weiter
+                  </span>
+                </div>
               </GraphPaperArea>
             )}
           </div>

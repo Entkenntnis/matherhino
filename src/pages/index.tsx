@@ -38,7 +38,7 @@ export default function Home() {
         </ul>
       </div>
 
-      <div className="mt-8">
+      {/*<div className="mt-8">
         <h3 className="text-2xl mt-2 mb-4">Prototypen</h3>
 
         <ul className="mt-3 list-disc list-inside">
@@ -53,7 +53,7 @@ export default function Home() {
             </span>
           </li>
         </ul>
-      </div>
+  </div>*/}
 
       <h2 className="text-3xl mt-20 mb-4 border-b-2 border-gray-100">
         Spenden
@@ -79,21 +79,5 @@ export default function Home() {
         </a>
 </p>*/}
     </div>
-  )
-}
-
-function Start({ title, href }: { title: string; href: string }) {
-  return (
-    <p className="mt-6">
-      <Link href={href}>
-        <a href={href}>
-          {' '}
-          <button className="bg-lime-400 hover:bg-gray text-gray-900 font-bold py-2 px-4 rounded inline-flex items-center">
-            <PlayIcon className="w-4 h-4 mr-2" />
-            <span>{title}</span>
-          </button>
-        </a>
-      </Link>
-    </p>
   )
 }

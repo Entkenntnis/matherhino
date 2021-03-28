@@ -4,7 +4,18 @@ import { allExercises } from '../data'
 import { ExerciseData } from '../data/types'
 
 export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
-  return <ExercisePlayer exercise={exercise} />
+  return (
+    <>
+      <ExercisePlayer exercise={exercise} />
+      <style jsx global>{`
+        body,
+        html,
+        #__next {
+          height: 100%;
+        }
+      `}</style>
+    </>
+  )
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {

@@ -2,28 +2,22 @@ export interface ExerciseData {
   id: number
   task: string
   height: number
-  steps: {
-    prompt: PromptData
+  quiz: {
+    description: any
+    correctChoice: any
+    wrong1: any
+    wrong2: any
     layersPre?: LayerData[]
     layersPost?: LayerData[]
     cursor: { x: number; y: number }
   }[]
+  audio?: {
+    mp3: string
+    ogg: string
+    position: { left: number; top: number }
+    size: number
+    beforeQuiz: number
+  }[]
 }
-
-export interface AudioPromptData {
-  type: 'audio'
-  title: string
-  src: string
-}
-
-export interface QuizPromptData {
-  type: 'quiz'
-  description: any
-  correctChoice: any
-  wrong1: any
-  wrong2: any
-}
-
-export type PromptData = AudioPromptData | QuizPromptData
 
 export type LayerData = { src: string; offset?: number }

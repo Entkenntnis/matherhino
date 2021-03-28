@@ -1,314 +1,376 @@
 import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { ExerciseData, LayerData } from '../data/types'
 import { percentToGrade } from '../utils/percentToGrade'
-import { AudioPrompt } from './AudioPrompt'
-import { ExerciseLayout } from './ExerciseLayout'
+import { shuffleArray } from '../utils/shuffleArray'
 import GraphPaper from './GraphPaper'
-import { QuizPrompt } from './QuizPrompt'
-import { ResultPrompt } from './ResultPrompt'
-import { TaskImage } from './TaskImage'
+import Link from 'next/link'
+import { AudioIcon } from './icons/AudioIcon'
 
 export interface ExercisePlayerProps {
   exercise: ExerciseData
 }
 
 export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
-  const storageKey = `head_${exercise.id}`
+  const [tabIndex, setTabIndex] = useState(0)
+  const [quizChoices, setQuizChoices] = useState<any[]>([])
+  const [quizSelected, setQuizSelected] = useState<number[]>([])
   const [step, setStep] = useState(0)
   const [wrongs, setWrongs] = useState<number[]>([])
-  const [showNotice, setShowNotice] = useState(false)
-  const [stepFinished, setStepFinished] = useState(false)
-  const [reflection, setReflection] = useState('')
-  const [streakReflection, setStreakReflection] = useState(false)
-  const graphPaperRef = useRef<HTMLDivElement>(null)
+  const [tab2Fog, setTab2Fog] = useState(false)
+  const [showStartup, setShowStartup] = useState(false)
+  const [audioId, setAudioId] = useState(-1)
+  const scrollDivRef = useRef<HTMLDivElement>(null)
+  const [playedAudio, setPlayedAudio] = useState<number[]>([])
+
+  const storageKey = `progress_v1_${exercise.id}`
+
+  const endReached = step == exercise.quiz.length
+  const quizDone =
+    !endReached &&
+    quizChoices.some(
+      (choice) => quizSelected.includes(choice.id) && choice.correct
+    )
+
+  const audio = useRef<HTMLAudioElement>(null)
+
+  useEffect(() => {
+    if (tabIndex == 2 && !endReached) {
+      scrollTab2ToCursor(step)
+    }
+    setTab2Fog(false)
+  }, [tabIndex])
 
   useEffect(() => {
     try {
-      const data = JSON.parse(localStorage.getItem(storageKey) || '{}')
-      if (data.__version == 1) {
-        const s = parseInt(data.step)
-        setStep(s)
-        setWrongs(data.wrongs.map((w: string) => parseInt(w)))
-        setStepFinished(false)
-        if (s > 0 && s < exercise.steps.length) {
-          setShowNotice(true)
-          setTimeout(() => {
-            setShowNotice(false)
-          }, 10000)
-        }
-        scrollGraphPaperToCursor(step)
+      const data = JSON.parse(localStorage.getItem(storageKey) ?? '{}')
+      if (data.step && Array.isArray(data.wrongs)) {
+        // valid data
+        setShowStartup(true)
       }
     } catch (e) {}
   }, [])
 
   useEffect(() => {
-    localStorage.setItem(
-      storageKey,
-      JSON.stringify({ step: step, wrongs, __version: 1 })
-    )
+    if (step > 0) {
+      localStorage.setItem(storageKey, JSON.stringify({ step, wrongs }))
+    }
   }, [step, wrongs])
 
-  function incrStep() {
-    setStep(step + 1)
-    setStepFinished(false)
-    if (showNotice) setShowNotice(false)
-
-    // preload images
-    if (step + 2 < exercise.steps.length) {
-      const nextStep = exercise.steps[step + 2]
-      if (nextStep.layersPre) {
-        for (const layer of nextStep.layersPre) {
-          new Image().src = layer.src
-        }
-      }
-      if (nextStep.layersPost) {
-        for (const layer of nextStep.layersPost) {
-          new Image().src = layer.src
-        }
-      }
+  useEffect(() => {
+    if (!endReached) {
+      setQuizChoices(
+        shuffleArray([
+          { correct: true, id: 0, value: exercise.quiz[step].correctChoice },
+          { correct: false, id: 1, value: exercise.quiz[step].wrong1 },
+          { correct: false, id: 2, value: exercise.quiz[step].wrong2 },
+        ])
+      )
     }
+  }, [step])
 
-    scrollGraphPaperToCursor(step + 1)
-  }
-
-  function restart() {
-    setStep(0)
-    setWrongs([])
-    localStorage.removeItem(storageKey)
-    setShowNotice(false)
-  }
-
-  const currentPrompt = exercise.steps[step]?.prompt
-
-  const quizCount = exercise.steps.filter((s) => s.prompt.type == 'quiz').length
-  const quizNr = exercise.steps.filter(
-    (s, i) => s.prompt.type == 'quiz' && i <= step
-  ).length
-  const correctPercentage =
-    quizNr == 1 ? 0 : Math.round((1 - wrongs.length / (quizNr - 1)) * 100)
-  const grade = percentToGrade(correctPercentage)
-
-  const titleText = !currentPrompt
-    ? 'Fertig'
-    : reflection
-    ? 'Reflektion'
-    : currentPrompt.type == 'audio'
-    ? currentPrompt.title
-    : `Frage ${quizNr} / ${quizCount}${
-        quizNr == 1 ? '' : `, bisher ${correctPercentage}% richtig`
-      }`
+  const notifyIndex = endReached
+    ? 1
+    : quizDone
+    ? 2
+    : exercise.audio?.some(
+        (audio, i) => audio.beforeQuiz == step && !playedAudio.includes(i)
+      )
+    ? 0
+    : 1
 
   const layers: LayerData[] = []
   for (let i = 0; i <= step; i++) {
-    if (i >= exercise.steps.length) continue
-    const stepData = exercise.steps[i]
-    if (stepData.layersPre) {
-      for (const layer of stepData.layersPre) {
+    if (i >= exercise.quiz.length) continue
+    const quizData = exercise.quiz[i]
+    if (quizData.layersPre) {
+      for (const layer of quizData.layersPre) {
         layers.push(layer)
       }
     }
-    if ((i < step || stepFinished) && stepData.layersPost) {
-      for (const layer of stepData.layersPost) {
+    if ((i < step || quizDone) && quizData.layersPost) {
+      for (const layer of quizData.layersPost) {
         layers.push(layer)
       }
     }
+  }
+
+  if (showStartup) {
+    return (
+      <>
+        <Head>
+          <title>Laden</title>
+        </Head>
+        <div className="h-full flex flex-col justify-center">
+          <div className="mx-auto flex flex-col align-middle  ">
+            <button
+              className="p-3 bg-lime-500 select-none rounded"
+              onClick={() => {
+                setShowStartup(false)
+                const data = JSON.parse(
+                  localStorage.getItem(storageKey) ?? '{}'
+                )
+                setStep(data.step)
+                setWrongs(data.wrongs)
+                setTabIndex(1)
+                setPlayedAudio([])
+              }}
+            >
+              Übung mit vorhandenen Fortschritt fortsetzen
+            </button>
+            <br />
+            <button
+              className="mt-4 text-blue-500 cursor-pointer underline"
+              onClick={() => {
+                localStorage.removeItem(storageKey)
+                setShowStartup(false)
+              }}
+            >
+              Übung neu starten
+            </button>
+          </div>
+        </div>
+      </>
+    )
   }
 
   return (
     <>
       <Head>
-        <title>{titleText}</title>
+        <title>
+          {endReached
+            ? 'Fertig'
+            : `Frage ${step + 1} / ${exercise.quiz.length}`}
+        </title>
       </Head>
-      <ExerciseLayout
-        leftTop={<TaskImage src={exercise.task} />}
-        leftBottom={
-          reflection ? (
-            renderReflection()
-          ) : (
-            <div className="p-3 xl:px-6 overflow-auto">{renderPrompt()}</div>
-          )
-        }
-        right={
-          <div className="overflow-auto h-full w-full" ref={graphPaperRef}>
-            <GraphPaper
-              height={exercise.height}
-              content={layers}
-              warnings={wrongs.map((w) => exercise.steps[w].cursor)}
-              cursor={
-                reflection || wrongs.includes(step)
-                  ? undefined
-                  : exercise.steps[step]?.cursor
-              }
-            />
-          </div>
-        }
+      <audio
+        ref={audio}
+        onEnded={() => {
+          setAudioId(-1)
+        }}
       />
-      {showNotice && (
+      <Tabs
+        className="h-full"
+        selectedIndex={tabIndex}
+        onSelect={(index) => {
+          setTabIndex(index)
+          if (index == 2) {
+            if (tabIndex != 2) {
+              setTab2Fog(true)
+            } else {
+              scrollTab2ToCursor(step)
+            }
+          }
+          if (tabIndex == 0 && index != 0 && audioId >= 0) {
+            if (audio.current && !audio.current.paused) {
+              audio.current.pause()
+              setAudioId(-1)
+            }
+          }
+        }}
+      >
+        <TabList className="flex justify-around p-1 pb-0.5 bg-gray-100 border-b-2">
+          {renderTab('Aufgabe', 0)}
+          {renderTab('Quiz', 1)}
+          {renderTab('Lösung', 2)}
+        </TabList>
+
         <div
-          style={{ zIndex: 200 }}
-          className="fixed left-0 right-0 bottom-0 md:left-auto md:right-6 md:bottom-4 rounded bg-gray-100 p-1 shadow"
+          style={{ height: `calc(100% - 32px)` }}
+          className="overflow-auto"
+          ref={scrollDivRef}
         >
-          Fortschritt geladen ✓ | stattdessen{' '}
+          <TabPanel>
+            <div className="max-w-full my-6 flex flex-initial justify-center">
+              <div className="relative">
+                <img className="" src={exercise.task}></img>
+                {exercise.audio &&
+                  exercise.audio.map((data, index) => (
+                    <div
+                      className={`absolute ${
+                        data.beforeQuiz == step && !playedAudio.includes(index)
+                          ? 'text-lime-400'
+                          : 'text-gray-600'
+                      } cursor-pointer ${
+                        index == audioId ? 'animate-pulse' : ''
+                      }`}
+                      key={index}
+                      style={{
+                        left: `${data.position.left}%`,
+                        top: `${data.position.top}%`,
+                        height: `${data.size}%`,
+                        width: `${data.size}%`,
+                      }}
+                    >
+                      <div
+                        onClick={() => {
+                          if (audio.current) {
+                            if (!audio.current.paused && audioId == index) {
+                              audio.current.pause()
+                              setAudioId(-1)
+                              return
+                            }
+                            const src = audio.current.canPlayType('audio/mpeg')
+                              ? data.mp3
+                              : data.ogg
+                            audio.current.src = src
+                            audio.current.play()
+                            setAudioId(index)
+                            if (!playedAudio.includes(index)) {
+                              setPlayedAudio([...playedAudio, index])
+                            }
+                          }
+                        }}
+                      >
+                        <AudioIcon className="" />
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </TabPanel>
+          <TabPanel>
+            {endReached ? (
+              renderEnd()
+            ) : (
+              <div className="max-w-xl mx-auto">
+                <p
+                  className="mt-6 mx-2 md:mt-10 xl:mt-24"
+                  dangerouslySetInnerHTML={{
+                    __html: exercise.quiz[step].description,
+                  }}
+                ></p>
+                <div className="flex flex-wrap mt-4 p-2">
+                  {quizChoices.map((choice: any) => (
+                    <div
+                      key={choice.id}
+                      onClick={() => {
+                        if (!quizSelected.includes(choice.id) && !quizDone) {
+                          const newSelected = [...quizSelected, choice.id]
+                          setQuizSelected(newSelected)
+                        }
+                        if (
+                          !quizDone &&
+                          !choice.correct &&
+                          !wrongs.includes(step)
+                        ) {
+                          setWrongs([...wrongs, step])
+                        }
+                      }}
+                      className={`px-4 py-2 rounded bg-gray-100 mr-4 mb-4 select-none ${
+                        quizSelected.includes(choice.id)
+                          ? choice.correct
+                            ? 'bg-lime-500'
+                            : 'line-through text-gray-500 bg-yellow-500'
+                          : quizDone
+                          ? ''
+                          : 'cursor-pointer'
+                      }`}
+                      dangerouslySetInnerHTML={{ __html: choice.value }}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </TabPanel>
+          <TabPanel>
+            <div className={tab2Fog ? 'opacity-0' : ''}>
+              <GraphPaper
+                height={exercise.height}
+                content={layers}
+                warnings={wrongs.map((w) => exercise.quiz[w].cursor)}
+                cursor={exercise.quiz[step]?.cursor}
+                showContinue={!endReached && quizDone}
+                onContinue={() => {
+                  setQuizSelected([])
+                  setStep(step + 1)
+                  scrollTab2ToCursor(step + 1)
+                }}
+                hideCursor={wrongs.includes(step)}
+              />
+            </div>
+          </TabPanel>
+        </div>
+      </Tabs>
+    </>
+  )
+
+  function renderTab(title: string, index: number) {
+    return (
+      <Tab className="relative">
+        <span
+          className={`cursor-pointer select-none ${
+            tabIndex == index ? 'font-bold' : ''
+          } relative z-50`}
+        >
+          {title}
+        </span>
+        {notifyIndex == index && (
+          <span className="flex h-2 w-2 absolute top-0.5 -right-1 z-0">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-500"></span>
+          </span>
+        )}
+      </Tab>
+    )
+  }
+
+  function scrollTab2ToCursor(step: number) {
+    if (scrollDivRef.current && step < exercise.quiz.length) {
+      const offsetY = exercise.quiz[step].cursor.y
+      const newScrollTop =
+        (Math.min(scrollDivRef.current.scrollWidth, 1654) / 25) * offsetY -
+        window.document.body.offsetHeight * 0.6
+      scrollDivRef.current.scrollTop = newScrollTop
+    }
+  }
+
+  function renderEnd() {
+    const correctPercentage =
+      step == 0
+        ? 0
+        : Math.round((1 - wrongs.length / exercise.quiz.length) * 100)
+    const grade = percentToGrade(correctPercentage)
+    const text = `${exercise.quiz.length - wrongs.length} von ${
+      exercise.quiz.length
+    } Fragen richtig (${correctPercentage}% = Note ${grade})`
+
+    return (
+      <div className="mx-auto px-1 max-w-xl md:mt-10">
+        <img
+          className="mx-auto"
+          src={
+            grade >= 5
+              ? '/finish_sad.png'
+              : grade >= 2
+              ? '/finish.png'
+              : '/finish_1.png'
+          }
+        />
+        <p className="mt-4 text-center">{text}</p>
+        <p className="mt-4 text-center">
+          <Link href="/" passHref>
+            <a className="underline text-blue-500 cursor-pointer select-none">
+              zurück zur Startseite
+            </a>
+          </Link>{' '}
+          |{' '}
           <span
-            className="text-blue-500 cursor-pointer underline"
+            className="underline text-blue-500 cursor-pointer select-none"
             onClick={() => {
-              const val = window.confirm('Fortschritt wird zurückgesetzt.')
-              if (val) {
-                restart()
-              } else {
-                setShowNotice(false)
-              }
+              setStep(0)
+              setWrongs([])
+              setQuizSelected([])
+              setQuizChoices([])
+              setAudioId(-1)
+              setPlayedAudio([])
+              setTabIndex(0)
             }}
           >
             neu starten
           </span>
-          <div
-            className="absolute right-4 top-0 md:invisible text-xl cursor-pointer"
-            onClick={() => setShowNotice(false)}
-          >
-            ×
-          </div>
-        </div>
-      )}
-    </>
-  )
-
-  function renderPrompt() {
-    if (step == exercise.steps.length) {
-      // result prompt
-      return (
-        <ResultPrompt
-          grade={grade}
-          text={`${
-            quizCount - wrongs.length
-          } von ${quizCount} Fragen richtig (${correctPercentage}% = Note ${grade})`}
-          onRestart={restart}
-        />
-      )
-    } else {
-      const prompt = exercise.steps[step].prompt
-      if (prompt.type == 'quiz') {
-        return (
-          <QuizPrompt
-            data={prompt}
-            onDone={(correct) => {
-              if (!correct) {
-                setReflection('wrong')
-              } else {
-                // add refection if 5 correct in a row
-                let streak = 0
-                for (let s = step; s >= 0; s--) {
-                  if (exercise.steps[s].prompt.type == 'quiz') {
-                    if (!wrongs.includes(s)) {
-                      streak++
-                    } else {
-                      break
-                    }
-                  }
-                }
-                if (streak >= 5 && !streakReflection) {
-                  setStreakReflection(true)
-                  setReflection('streak')
-                }
-                incrStep()
-              }
-            }}
-            onFinished={(correct) => {
-              if (!correct && !wrongs.includes(step)) {
-                setWrongs([...wrongs, step])
-              }
-              setStepFinished(true)
-              scrollGraphPaperToCursor(step)
-            }}
-            key={step}
-          />
-        )
-      } else {
-        return (
-          <AudioPrompt
-            data={prompt}
-            onDone={() => {
-              incrStep()
-            }}
-            key={step}
-          />
-        )
-      }
-    }
-  }
-
-  function scrollGraphPaperToCursor(step: number) {
-    if (graphPaperRef.current && step < exercise.steps.length) {
-      const offsetY = exercise.steps[step].cursor.y
-      const newScrollTop =
-        (graphPaperRef.current.scrollWidth / 35) * offsetY -
-        window.document.body.offsetHeight * 0.66
-      graphPaperRef.current.scrollTop = newScrollTop
-    }
-  }
-
-  function renderReflection() {
-    return (
-      <div
-        className={`p-2 xl:px-5 h-full border-4 ${
-          reflection == 'wrong' ? 'border-blue-500' : 'border-lime-500'
-        } overflow-auto`}
-      >
-        {reflection == 'wrong' ? (
-          <QuizPrompt
-            data={{
-              type: 'reflection',
-              description:
-                'Reflektion: Du hast die vorherige Frage nicht richtig beantwortet. Aus welchem Grund konntest du die Frage nicht richtig beantworten?',
-              choices: [
-                'Ich habe mich nicht angestrengt.',
-                'Ich wusste nicht, wie ich die Frage angehen soll.',
-                'Ich habe mich verrechnet oder vertan.',
-                'Die Frage war für mich nicht relevant.',
-                'Anderer Grund.',
-              ],
-              feedback: [
-                'Konzentraktion! Fokus! Ohne ein bisschen Anstrengung wird auch der Lernerfolg auf sich warten lassen. Falls du schon länger übst, hilft dir vielleicht eine kurze Pause.',
-                'Schaue dir die Musterlösung auf der rechten Seite an und versuche sie nachzuvollziehen. Falls dir zu dieser Aufgabe das Grundwissen fehlt, suche einen Unterlagen oder im Internet nach einer Erklärung des Themas. Vielleicht hast du auch jemand in der Nähe, der dir persönlich helfen kann?',
-                'Fehler gehören zum Lernen dazu. Lerne aus deinen Fehler und versuche, sie beim nächsten Mal zu vermeiden.',
-                'Kein Problem - entscheide selber darüber, welche Fragen für dich wichtig sind.',
-                `%%Rückmeldung%%${exercise.id}/${step}`,
-              ],
-            }}
-            onFinished={() => {}}
-            onDone={() => {
-              setReflection('')
-              incrStep()
-            }}
-            onRepeat={() => {
-              setReflection('')
-              setStepFinished(false)
-            }}
-          />
-        ) : (
-          <QuizPrompt
-            data={{
-              type: 'reflection',
-              description:
-                'Herzlichen Glückwunsch! Du hast die letzten fünf Fragen in Folge richtig beantwortet. Wie ist dir das gelungen?',
-              choices: [
-                'Die Aufgaben fallen mir leicht.',
-                'Ich habe die Antworten aus einem vorherigen Durchlauf notiert.',
-                'Ich habe mir bei der Bearbeitung Mühe gegeben.',
-              ],
-              feedback: [
-                'Das ist schön zu hören!',
-                'Das ist ein erster Schritt in die richtige Richtung. Wenn du dich langsam sicherer mit den Fragen fühlst, dann überlege dir mal, die Fragen ohne Unterlagen erneut zu lösen.',
-                'Bravo! Keep it up!',
-              ],
-            }}
-            onFinished={() => {}}
-            onDone={() => {
-              setReflection('')
-            }}
-          />
-        )}
+        </p>
       </div>
     )
   }
