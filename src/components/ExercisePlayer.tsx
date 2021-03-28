@@ -286,6 +286,20 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
                   setQuizSelected([])
                   setStep(step + 1)
                   scrollTab2ToCursor(step + 1)
+                  // preload images
+                  if (step + 2 < exercise.quiz.length) {
+                    const nextStep = exercise.quiz[step + 2]
+                    if (nextStep.layersPre) {
+                      for (const layer of nextStep.layersPre) {
+                        new Image().src = layer.src
+                      }
+                    }
+                    if (nextStep.layersPost) {
+                      for (const layer of nextStep.layersPost) {
+                        new Image().src = layer.src
+                      }
+                    }
+                  }
                 }}
                 hideCursor={wrongs.includes(step)}
               />
@@ -321,7 +335,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
       const offsetY = exercise.quiz[step].cursor.y
       const newScrollTop =
         (Math.min(scrollDivRef.current.scrollWidth, 1654) / 25) * offsetY -
-        window.document.body.offsetHeight * 0.6
+        window.document.body.offsetHeight * 0.6 // TODO: This value feels inconsistent across desktop / mobile
       scrollDivRef.current.scrollTop = newScrollTop
     }
   }
