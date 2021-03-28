@@ -334,8 +334,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
     if (scrollDivRef.current && step < exercise.quiz.length) {
       const offsetY = exercise.quiz[step].cursor.y
       const newScrollTop =
-        (Math.min(scrollDivRef.current.scrollWidth, 1654) / 25) * offsetY -
-        window.document.body.offsetHeight * 0.6 // TODO: This value feels inconsistent across desktop / mobile
+        (Math.min(scrollDivRef.current.scrollWidth, 1182) / 25) * offsetY -
+        window.document.body.offsetHeight * 0.6
       scrollDivRef.current.scrollTop = newScrollTop
     }
   }
