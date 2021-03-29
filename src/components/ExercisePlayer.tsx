@@ -333,9 +333,11 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   function scrollTab2ToCursor(step: number) {
     if (scrollDivRef.current && step < exercise.quiz.length) {
       const offsetY = exercise.quiz[step].cursor.y
-      const newScrollTop =
-        (Math.min(scrollDivRef.current.scrollWidth, 1182) / 25) * offsetY -
-        window.document.body.offsetHeight * 0.55
+      const singleHeight = Math.min(scrollDivRef.current.scrollWidth, 1182) / 25
+      const heightCount =
+        (window.document.body.offsetHeight - 32) / singleHeight
+      const value = Math.min(heightCount - 4, 8)
+      const newScrollTop = singleHeight * (offsetY - value)
       scrollDivRef.current.scrollTop = newScrollTop
     }
   }
