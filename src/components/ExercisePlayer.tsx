@@ -39,7 +39,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         onTabChange(tabIndex - 1)
       }
     },
-    delta: 50,
+    delta: 30,
+    trackMouse: true,
   })
 
   const refPassthrough = (el: HTMLDivElement) => {
@@ -199,7 +200,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           <TabPanel>
             <div className="max-w-full my-6 flex flex-initial justify-center">
               <div className="relative">
-                <img className="" src={exercise.task}></img>
+                <img className="" src={exercise.task} draggable={false}></img>
                 {exercise.audio &&
                   exercise.audio.map((data, index) => (
                     <div
