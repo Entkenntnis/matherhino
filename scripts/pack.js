@@ -20,6 +20,12 @@ for (const exercise of exercises) {
       const data = fs.readFileSync('./public' + src)
       const png = PNG.sync.read(data)
       
+      if (png.height == 5573) {
+        // re-export
+        console.log('re-export')
+        offset = undefined
+      }
+      
       let cropTop = 0
       while (cropTop * 47 < png.height) {
         const rangeStart = cropTop * 47 * png.width * 4
