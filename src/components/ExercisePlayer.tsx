@@ -335,7 +335,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
       const offsetY = exercise.quiz[step].cursor.y
       const newScrollTop =
         (Math.min(scrollDivRef.current.scrollWidth, 1182) / 25) * offsetY -
-        window.document.body.offsetHeight * 0.6
+        window.document.body.offsetHeight * 0.55
       scrollDivRef.current.scrollTop = newScrollTop
     }
   }
