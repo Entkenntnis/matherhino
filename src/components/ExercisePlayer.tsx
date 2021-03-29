@@ -7,6 +7,7 @@ import { shuffleArray } from '../utils/shuffleArray'
 import GraphPaper from './GraphPaper'
 import Link from 'next/link'
 import { AudioIcon } from './icons/AudioIcon'
+import { useSwipeable } from 'react-swipeable'
 
 export interface ExercisePlayerProps {
   exercise: ExerciseData
@@ -21,8 +22,33 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const [tab2Fog, setTab2Fog] = useState(false)
   const [showStartup, setShowStartup] = useState(false)
   const [audioId, setAudioId] = useState(-1)
-  const scrollDivRef = useRef<HTMLDivElement>(null)
   const [playedAudio, setPlayedAudio] = useState<number[]>([])
+
+  const scrollDivRef = useRef<HTMLDivElement | null>(null)
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      if (tabIndex < 2) {
+        setTabIndex(tabIndex + 1)
+        onTabChange(tabIndex + 1)
+      }
+    },
+    onSwipedRight: () => {
+      if (tabIndex > 0) {
+        setTabIndex(tabIndex - 1)
+        onTabChange(tabIndex - 1)
+      }
+    },
+    delta: 50,
+  })
+
+  const refPassthrough = (el: HTMLDivElement) => {
+    // call useSwipeable ref prop with el
+    handlers.ref(el)
+
+    // set myRef el so you can access it yourself
+    scrollDivRef.current = el
+  }
 
   const storageKey = `progress_v1_${exercise.id}`
 
@@ -155,19 +181,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         selectedIndex={tabIndex}
         onSelect={(index) => {
           setTabIndex(index)
-          if (index == 2) {
-            if (tabIndex != 2) {
-              setTab2Fog(true)
-            } else {
-              scrollTab2ToCursor(step)
-            }
-          }
-          if (tabIndex == 0 && index != 0 && audioId >= 0) {
-            if (audio.current && !audio.current.paused) {
-              audio.current.pause()
-              setAudioId(-1)
-            }
-          }
+          onTabChange(index)
         }}
       >
         <TabList className="flex justify-around p-1 pb-0.5 bg-gray-100 border-b-2">
@@ -179,7 +193,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         <div
           style={{ height: `calc(100% - 32px)` }}
           className="overflow-auto"
-          ref={scrollDivRef}
+          {...handlers}
+          ref={refPassthrough}
         >
           <TabPanel>
             <div className="max-w-full my-6 flex flex-initial justify-center">
@@ -336,9 +351,25 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
       const singleHeight = Math.min(scrollDivRef.current.scrollWidth, 1182) / 25
       const heightCount =
         (window.document.body.offsetHeight - 32) / singleHeight
-      const value = Math.min(heightCount - 4, 8)
+      const value = Math.min(heightCount - 4, 10)
       const newScrollTop = singleHeight * (offsetY - value)
       scrollDivRef.current.scrollTop = newScrollTop
+    }
+  }
+
+  function onTabChange(newIndex: number) {
+    if (newIndex == 2) {
+      if (tabIndex != 2) {
+        setTab2Fog(true)
+      } else {
+        scrollTab2ToCursor(step)
+      }
+    }
+    if (tabIndex == 0 && newIndex != 0 && audioId >= 0) {
+      if (audio.current && !audio.current.paused) {
+        audio.current.pause()
+        setAudioId(-1)
+      }
     }
   }
 
