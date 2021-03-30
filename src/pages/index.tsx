@@ -4,17 +4,21 @@ import { PlayIcon } from '../components/icons/PlayIcon'
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-2">
+    <div className="container mx-auto px-5">
       <Head>
-        <title>BERTA - Mathematik Üben mit Spaß und Köpfchen</title>
+        <title>
+          NASHORN - Durchbrich deine Denkblockaden | Mathematik interaktiv üben
+        </title>
       </Head>
 
-      <h1 className="text-5xl mt-16 text-gray-900">BERTA</h1>
+      <h1 className="text-5xl mt-16 text-gray-900">NASHORN</h1>
       <p className="text-xl mt-6 text-gray-700">
-        Mathematik Üben mit Spaß und Köpfchen
+        Durchbrich deine Denkblockaden
       </p>
 
-      <h2 className="text-3xl mt-20 mb-8 border-b-2 border-gray-100">Themen</h2>
+      <h2 className="text-3xl mt-20 mb-8 border-b-2 border-gray-100">
+        Mathematik
+      </h2>
 
       <div className="mt-8">
         <h3 className="text-2xl mt-2 mb-4">
@@ -59,8 +63,8 @@ export default function Home() {
         Spenden
       </h2>
 
-      <p>
-        Hat dir BERTA weitergeholfen? Unterstütze die weitere Entwicklung mit{' '}
+      <p className="mb-10">
+        Hat dir NASHORN weitergeholfen? Unterstütze die weitere Entwicklung mit{' '}
         <a
           href="http://paypal.me/Dav1dL1"
           target="_blank"

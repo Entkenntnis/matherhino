@@ -352,7 +352,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
       const singleHeight = Math.min(scrollDivRef.current.scrollWidth, 1182) / 25
       const heightCount =
         (window.document.body.offsetHeight - 32) / singleHeight
-      const value = Math.min(heightCount - 4, 10)
+      const value = Math.min(heightCount - 4, (heightCount - 4) / 2)
       const newScrollTop = singleHeight * (offsetY - value)
       scrollDivRef.current.scrollTop = newScrollTop
     }
