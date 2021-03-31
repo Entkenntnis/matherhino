@@ -9,7 +9,7 @@ export default function Home() {
         <title>Das alte Nashorn</title>
       </Head>
 
-      <h1 className="text-3xl sm:text-5xl mt-16 text-gray-900">
+      <h1 className="text-3xl sm:text-5xl mt-8 sm:mt-16 text-gray-900">
         Das alte Nashorn
       </h1>
 
