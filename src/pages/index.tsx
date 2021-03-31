@@ -6,19 +6,24 @@ export default function Home() {
   return (
     <div className="container mx-auto px-5">
       <Head>
-        <title>
-          NASHORN - Durchbrich deine Denkblockaden | Mathematik interaktiv üben
-        </title>
+        <title>Das alte Nashorn</title>
       </Head>
 
-      <h1 className="text-5xl mt-16 text-gray-900">NASHORN</h1>
+      <h1 className="text-5xl mt-16 text-gray-900">Das alte Nashorn</h1>
+
+      <img
+        className="mt-4"
+        src="/nashorn.png"
+        alt="Nashorn"
+        style={{ width: 500 }}
+      />
+
       <p className="text-xl mt-6 text-gray-700">
-        Durchbrich deine Denkblockaden
+        Gewinnt keine Schönheitswettbewerbe mehr, kann dafür gut Mathematik
+        erklären
       </p>
 
-      <h2 className="text-3xl mt-20 mb-8 border-b-2 border-gray-100">
-        Mathematik
-      </h2>
+      <h2 className="text-3xl mt-10 mb-8 border-b-2 border-gray-100">Themen</h2>
 
       <div className="mt-8">
         <h3 className="text-2xl mt-2 mb-4">
