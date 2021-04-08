@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .frac {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    letter-spacing: 0.001em;
+    text-align: center;
+    @apply mx-0.5;
+  }
+  .frac > span {
+    display: block;
+    padding: 0.1em;
+  }
+  .frac span:last-child {
+    border-top: thin solid black;
+  }
+}
+
+@layer utilities {
+  .overline {
+    @apply border-t border-black;
+  }
+}

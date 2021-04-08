@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { getHOffset } from '../utils/pixelOffsets'
 import { GraphPaperArea } from './GraphPaperArea'
 import { PencilIcon } from './icons/PencilIcon'
@@ -14,9 +15,10 @@ export interface GraphPaperProps {
   showContinue: boolean
   onContinue: () => void
   hideCursor?: boolean
+  fadeImgs: string[]
 }
 
-export default function GraphPaper({
+export function GraphPaper({
   content,
   height,
   cursor,
@@ -24,7 +26,14 @@ export default function GraphPaper({
   showContinue,
   onContinue,
   hideCursor,
+  fadeImgs,
 }: GraphPaperProps) {
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    setLoaded(true)
+  }, [])
+
   return (
     <div
       className="mx-auto"
@@ -48,12 +57,15 @@ export default function GraphPaper({
           >
             {content.map((c, i) => (
               <div
-                className="w-full h-full bg-no-repeat absolute top-0 left-0"
+                className={`w-full h-full bg-no-repeat absolute top-0 left-0 ${
+                  !fadeImgs.includes(c.src) || loaded ? '' : 'opacity-0'
+                }`}
                 key={i}
                 style={{
                   backgroundImage: `url("${c.src}")`,
                   backgroundSize: '100% auto',
                   marginTop: getHOffset(c.offset ?? 0),
+                  transition: 'opacity 2.5s ease 0s',
                 }}
               />
             ))}
@@ -71,7 +83,7 @@ export default function GraphPaper({
             )}
             {showContinue && (
               <GraphPaperArea x={0} width={25} y={cursor.y + 1} height={2}>
-                <div className="flex justify-center mt-5 md:mt-10 md:text-3xl xl:mt-16 xl:text-4xl">
+                <div className="flex justify-center mt-7 sm:mt-10 sm:text-3xl md:mt-16 xl:text-4xl">
                   <span
                     className="bg-lime-400 rounded px-2 cursor-pointer select-none"
                     onClick={onContinue}

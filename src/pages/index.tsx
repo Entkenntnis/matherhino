@@ -6,11 +6,11 @@ export default function Home() {
   return (
     <div className="container mx-auto px-5">
       <Head>
-        <title>Das alte Nashorn</title>
+        <title>MatheNashorn</title>
       </Head>
 
       <h1 className="text-3xl sm:text-5xl mt-8 sm:mt-16 text-gray-900">
-        Das alte Nashorn
+        MatheNashorn
       </h1>
 
       <img
@@ -21,14 +21,12 @@ export default function Home() {
       />
 
       <p className="text-xl mt-6 text-gray-700">
-        Gewinnt keine Schönheitswettbewerbe mehr, kann dafür gut Mathematik
-        erklären
+        Bearbeite Aufgaben interaktiv. Wähle dein Thema und beginne mit dem
+        Üben:
       </p>
 
-      <h2 className="text-3xl mt-10 mb-8 border-b-2 border-gray-100">Themen</h2>
-
       <div className="mt-8">
-        <h3 className="text-2xl mt-2 mb-4">
+        <h3 className="text-xl mt-2 mb-4">
           Mittlerer Schulabschluss (Realschule) Bayern, 2018, Zweig I
         </h3>
 
@@ -42,7 +40,15 @@ export default function Home() {
               Exponentialfunktion, Gleichung lösen, Logarithmus
             </span>
           </li>
-          <li>Aufgabe A2 (coming soon)</li>
+          <li>
+            <Link href="/3" passHref>
+              <a className="text-blue-500">Aufgabe A2</a>
+            </Link>
+            :{' '}
+            <span className="text-gray-700">
+              Raumgeometrie, Trigonometrie, Strahlensatz, Flächen und Volumen
+            </span>
+          </li>
           <li>Aufgabe A3 (coming soon)</li>
           <li>Aufgabe B1 (coming soon)</li>
           <li>Aufgabe B2 (coming soon)</li>
@@ -67,7 +73,7 @@ export default function Home() {
   </div>*/}
 
       <h2 className="text-3xl mt-20 mb-4 border-b-2 border-gray-100">
-        Spenden
+        Unterstützung
       </h2>
 
       <p className="mb-10">
