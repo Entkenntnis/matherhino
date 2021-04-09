@@ -31,6 +31,13 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const [startTime, setStartTime] = useState(0)
   const [timeTaken, setTimeTaken] = useState<{ [step: number]: number }>({})
 
+  const [jokers, setJokers] = useState(0)
+  const [jokersUsedAt, setJokersUsedAt] = useState<number[]>([])
+
+  const [exitModal, setExitModal] = useState(false)
+  const [showJokerReceived, setShowJokerReceived] = useState(false)
+  const [showJokerUsable, setShowJokerUsable] = useState(false)
+
   // effects
 
   useEffect(() => {
@@ -86,6 +93,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             <title>{getTitle()}</title>
           </Head>
           {renderTabber()}
+          {exitModal && renderExitModal()}
         </>
       )
     }
@@ -119,6 +127,9 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         autoScroll1={(div) => (div.scrollTop = 0)}
         autoScroll2={autoScrollSolution}
         autoScroller={tabberRef}
+        onBack={() => {
+          setExitModal(true)
+        }}
       />
     )
   }
@@ -156,28 +167,76 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
       return renderAudioNotice()
     }
     return (
-      <Quiz
-        quiz={exercise.quiz[step]}
-        selected={currentSelected}
-        shuffling={shufflings[step]}
-        smallHeight={smallHeight}
-        interactive={!quizDone}
-        onSelect={(index) => {
-          if (!currentSelected.includes(index)) {
-            const newSelected = JSON.parse(JSON.stringify(quizSelected))
-            if (!newSelected[step]) newSelected[step] = []
-            newSelected[step].push(index)
-            setQuizSelected(newSelected)
-            if (index == 0) {
-              const timeDelta = Math.round((Date.now() - startTime) / 1000)
-              const newTimeTaken = JSON.parse(JSON.stringify(timeTaken))
-              newTimeTaken[step] = timeDelta
-              console.log(newTimeTaken)
-              setTimeTaken(newTimeTaken)
+      <>
+        <Quiz
+          quiz={exercise.quiz[step]}
+          selected={currentSelected}
+          shuffling={shufflings[step]}
+          smallHeight={smallHeight}
+          interactive={!quizDone}
+          onSelect={(index) => {
+            if (!currentSelected.includes(index)) {
+              const preStreak = getStreakCount()
+
+              if (jokers < 3 && index == 0 && quizSelected[step]?.length == 0) {
+                if (preStreak == 5 || preStreak == 11 || preStreak == 17) {
+                  setShowJokerReceived(true)
+                  setJokers(jokers + 1)
+                }
+              }
+
+              const newSelected = JSON.parse(JSON.stringify(quizSelected))
+              if (!newSelected[step]) newSelected[step] = []
+              newSelected[step].push(index)
+              setQuizSelected(newSelected)
+
+              if (index == 0) {
+                const timeDelta = Math.round((Date.now() - startTime) / 1000)
+                const newTimeTaken = JSON.parse(JSON.stringify(timeTaken))
+                newTimeTaken[step] = timeDelta
+                setTimeTaken(newTimeTaken)
+              }
+
+              if (index != 0 && jokers > 0) {
+                setShowJokerUsable(true)
+              }
             }
-          }
-        }}
-      />
+          }}
+          jokers={jokers}
+        />
+        {showJokerReceived && (
+          <div className="mx-auto max-w-2xl my-5">
+            <p className="mx-3">
+              Herzlichen Glückwunsch! Du hast die letzten 6 Aufgaben am Stück
+              richtig beantwortet. Dafür erhältst du einen Joker. Damit kannst
+              du eine falsch beantwortete Frage sofort neu versuchen.
+            </p>
+          </div>
+        )}
+        {showJokerUsable && (
+          <div className="mx-auto max-w-xl my-5">
+            <p className="mx-3">
+              Du kannsts deinen{' '}
+              <span
+                className="text-blue-500 cursor-pointer hover:underline"
+                onClick={() => {
+                  setJokers(jokers - 1)
+                  const newSelected = JSON.parse(JSON.stringify(quizSelected))
+                  newSelected[step] = []
+                  setQuizSelected(newSelected)
+                  setShowJokerUsable(false)
+                  if (!jokersUsedAt.includes(step)) {
+                    setJokersUsedAt([...jokersUsedAt, step])
+                  }
+                }}
+              >
+                Joker einsetzen
+              </span>{' '}
+              und diese Aufgabe sofort neu versuchen.
+            </p>
+          </div>
+        )}
+      </>
     )
   }
 
@@ -194,6 +253,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           newSelected[step + 1] = []
           setQuizSelected(newSelected)
           preloadImages(step + 2)
+          setShowJokerReceived(false)
+          setShowJokerUsable(false)
         }}
         hideCursor={wrongs.includes(step)}
         fadeImgs={
@@ -254,6 +315,47 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         <p className="text-center text-gray-700">
           Höre dir zuerst die Aufgabenstellung an.
         </p>
+      </div>
+    )
+  }
+
+  function renderExitModal() {
+    return (
+      <div
+        className="flex items-center justify-center fixed left-0 bottom-0 w-full h-full z-50"
+        style={{ background: 'rgba(80,80,80,0.8)' }}
+        onClick={() => {
+          setExitModal(false)
+        }}
+      >
+        <div
+          className="bg-white rounded-lg max-w-1/2 p-10 m-3"
+          onClick={(e) => {
+            e.stopPropagation()
+          }}
+        >
+          Aufgabe schließen und zur Übersicht zurückkehren?
+          {jokers > 0 && (
+            <>
+              <br />
+              <br />
+              Hinweis: Deine Joker gehen dadurch verloren.
+            </>
+          )}
+          <div className="flex justify-around mt-4">
+            <Link href="/" passHref>
+              <a className="p-3 bg-gray-100 rounded cursor-pointer">Ja</a>
+            </Link>
+            <div
+              className="bg-blue-100 cursor-pointer p-3 rounded"
+              onClick={() => {
+                setExitModal(false)
+              }}
+            >
+              Nein
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -363,8 +465,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   }
 
   function getTitle() {
-    if (endReached) return 'Auswertung - MatheNashorn'
-    return `Frage ${step + 1} / ${exercise.quiz.length} - MatheNashorn`
+    if (endReached) return 'Auswertung - MatheRhino'
+    return `Frage ${step + 1} / ${exercise.quiz.length} - MatheRhino`
   }
 
   function getShufflings() {
@@ -415,11 +517,26 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   function autoScrollSolution(div: any) {
     if (!endReached) {
       const offsetY = exercise.quiz[step].cursor.y
-      const singleHeight = Math.min(div.scrollWidth, 1182) / 25
+      const singleHeight = Math.min(div.scrollWidth, 672) / 25
       const heightCount = (getBodyHeight() - 32) / singleHeight
       const value = Math.min(heightCount - 4, (heightCount - 4) / 2)
       const newScrollTop = singleHeight * (offsetY - value)
       div.scrollTop = newScrollTop
     }
+  }
+
+  function getStreakCount() {
+    let currentStep = step
+    while (currentStep > 0) {
+      const preStep = currentStep - 1
+      if (jokersUsedAt.includes(preStep)) {
+        break
+      }
+      if (quizSelected[preStep].length > 1) {
+        break
+      }
+      currentStep = preStep
+    }
+    return step - currentStep
   }
 }

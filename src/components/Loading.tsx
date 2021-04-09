@@ -4,7 +4,7 @@ export function Loading() {
   return (
     <>
       <Head>
-        <title>MatheNashorn</title>
+        <title>MatheRhino</title>
       </Head>
       <div className="flex justify-center items-center h-full">
         <div
