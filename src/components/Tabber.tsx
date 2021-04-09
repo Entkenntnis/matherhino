@@ -11,6 +11,7 @@ export interface TabberProps {
   autoScroll1: (x: any) => void
   autoScroll2: (x: any) => void
   autoScroller: { current: any }
+  onBack: () => void
 }
 
 export function Tabber({
@@ -21,6 +22,7 @@ export function Tabber({
   autoScroll1,
   autoScroll2,
   autoScroller,
+  onBack,
 }: TabberProps) {
   const [tabIndex, setTabIndex] = useState(notifyIndex)
   const [autoScrollPending, setAutoScrollPending] = useState(notifyIndex)
@@ -65,15 +67,16 @@ export function Tabber({
   return (
     <>
       <ul
-        className={`flex justify-evenly p-1 pb-0.5 bg-gray-100 border-b-2 ${
-          smallHeight ? '' : 'h-12 items-center relative'
+        className={`flex justify-evenly p-1 pb-0.5 bg-gray-100 border-b-2 relative ${
+          smallHeight ? '' : 'h-12 items-center'
         }`}
       >
-        <Link href="/">
-          <div className="absolute w-4 h-4 sm:w-6 sm:h-6 left-1 cursor-pointer text-gray-300">
-            <ChevronLeft className="w-full h-full " />
-          </div>
-        </Link>
+        <div
+          className="absolute w-4 h-4 sm:w-6 sm:h-6 left-1 cursor-pointer text-gray-300"
+          onClick={onBack}
+        >
+          <ChevronLeft className="w-full h-full " />
+        </div>
         {renderTab('Aufgabe', 0)}
         {renderTab('Quiz', 1)}
         {renderTab('Lösung', 2)}

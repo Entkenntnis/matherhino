@@ -16,6 +16,8 @@ export interface GraphPaperProps {
   onContinue: () => void
   hideCursor?: boolean
   fadeImgs: string[]
+  numbering?: { position: { x: number; y: number }; num: number }[]
+  numberingClicked?: (num: number) => void
 }
 
 export function GraphPaper({
@@ -27,6 +29,8 @@ export function GraphPaper({
   onContinue,
   hideCursor,
   fadeImgs,
+  numbering,
+  numberingClicked,
 }: GraphPaperProps) {
   const [loaded, setLoaded] = useState(false)
 
@@ -35,12 +39,7 @@ export function GraphPaper({
   }, [])
 
   return (
-    <div
-      className="mx-auto"
-      style={{
-        maxWidth: 1182,
-      }}
-    >
+    <div className="mx-auto max-w-2xl">
       <div
         className="relative"
         style={{
@@ -83,7 +82,7 @@ export function GraphPaper({
             )}
             {showContinue && (
               <GraphPaperArea x={0} width={25} y={cursor.y + 1} height={2}>
-                <div className="flex justify-center mt-7 sm:mt-10 sm:text-3xl md:mt-16 xl:text-4xl">
+                <div className="flex justify-center mt-7 sm:mt-10 sm:text-2xl">
                   <span
                     className="bg-lime-400 rounded px-2 cursor-pointer select-none"
                     onClick={onContinue}
@@ -93,6 +92,21 @@ export function GraphPaper({
                 </div>
               </GraphPaperArea>
             )}
+            {numbering &&
+              numbering.map((el) => (
+                <GraphPaperArea {...el.position}>
+                  <div
+                    className="text-xs sm:text-base md:text-xl opacity-90 rounded-full border-2 cursor-pointer z-20 absolute inset-0 border-lime-500 text-lime-500 flex justify-center items-center bg-lime-50"
+                    onClick={() => {
+                      if (numberingClicked) {
+                        numberingClicked(el.num)
+                      }
+                    }}
+                  >
+                    <div>{el.num}</div>
+                  </div>
+                </GraphPaperArea>
+              ))}
           </div>
         </div>
       </div>
