@@ -36,6 +36,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
 
   const [exitModal, setExitModal] = useState(false)
   const [showJokerReceived, setShowJokerReceived] = useState(false)
+  const [modalOpacity, setModalOpacity] = useState(false)
   const [showJokerUsable, setShowJokerUsable] = useState(false)
 
   // effects
@@ -99,6 +100,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           </Head>
           {renderTabber()}
           {exitModal && renderExitModal()}
+          {renderStreakBar()}
         </>
       )
     }
@@ -187,6 +189,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
               if (jokers < 3 && index == 0 && quizSelected[step]?.length == 0) {
                 if (preStreak == 5 || preStreak == 11 || preStreak == 17) {
                   setShowJokerReceived(true)
+                  setModalOpacity(true)
+                  setTimeout(() => setModalOpacity(false), 0)
                   setJokers(jokers + 1)
                 }
               }
@@ -427,7 +431,9 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   function renderJokerModal() {
     return (
       <div
-        className="flex items-center justify-center fixed left-0 bottom-0 w-full h-full z-50"
+        className={`flex items-center justify-center fixed left-0 bottom-0 w-full h-full z-50 transition-opacity ${
+          modalOpacity ? 'opacity-0' : 'opacity-100'
+        }`}
         style={{ background: 'rgba(80,80,80,0.8)' }}
         onClick={() => {
           setShowJokerReceived(false)
@@ -453,6 +459,26 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             </div>
           </div>
         </div>
+      </div>
+    )
+  }
+
+  function renderStreakBar() {
+    return (
+      <div className="fixed bottom-0 w-full h-1.5 bg-gray-100">
+        {(quizSelected[step] && quizSelected[step].some((x) => x > 0)) ||
+        jokersUsedAt.includes(step) ? (
+          <div className="bg-yellow-500 h-full w-full" />
+        ) : (
+          <div
+            className="bg-lime-500 h-full"
+            style={{
+              width: `${
+                10 + 15 * ((getStreakCount() % 6) + (quizDone ? 1 : 0))
+              }%`,
+            }}
+          />
+        )}
       </div>
     )
   }

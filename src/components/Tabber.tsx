@@ -58,7 +58,9 @@ export function Tabber({
         {renderTab('Lösung', 2)}
       </ul>
       <div
-        style={{ height: `calc(100% - ${smallHeight ? '32px' : '48px'})` }}
+        style={{
+          height: `calc(100% - ${smallHeight ? '32px' : '48px'} - 6px)`,
+        }}
         className={`overflow-auto ${autoScrollPending >= 0 ? 'invisible' : ''}`}
         ref={scrollDivRef}
       >
