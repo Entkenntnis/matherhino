@@ -1,6 +1,4 @@
-import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-import { useSwipeable } from 'react-swipeable'
 import { ChevronLeft } from './icons/ChevronLeftIcon'
 
 export interface TabberProps {
@@ -28,20 +26,6 @@ export function Tabber({
   const [autoScrollPending, setAutoScrollPending] = useState(notifyIndex)
   const scrollDivRef = useRef<HTMLDivElement | null>(null)
 
-  const handlers = useSwipeable({
-    onSwipedLeft: ({ absY, absX }) => {
-      if (tabIndex < 2 && absY / absX < 0.5) {
-        changeTag(tabIndex + 1)
-      }
-    },
-    onSwipedRight: ({ absY, absX }) => {
-      if (tabIndex > 0 && absY / absX < 0.5) {
-        changeTag(tabIndex - 1)
-      }
-    },
-    delta: 15,
-  })
-
   autoScroller.current = {
     setAutoScroll: (index: number) => {
       setAutoScrollPending(index)
@@ -55,14 +39,6 @@ export function Tabber({
     autoScroll()
     setAutoScrollPending(-1)
   }, [autoScrollPending])
-
-  const refPassthrough = (el: HTMLDivElement) => {
-    // call useSwipeable ref prop with el
-    handlers.ref(el)
-
-    // set myRef el so you can access it yourself
-    scrollDivRef.current = el
-  }
 
   return (
     <>
@@ -84,8 +60,7 @@ export function Tabber({
       <div
         style={{ height: `calc(100% - ${smallHeight ? '32px' : '48px'})` }}
         className={`overflow-auto ${autoScrollPending >= 0 ? 'invisible' : ''}`}
-        {...handlers}
-        ref={refPassthrough}
+        ref={scrollDivRef}
       >
         {render(tabIndex)}
       </div>

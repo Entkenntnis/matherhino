@@ -3,13 +3,7 @@ export interface ExerciseData {
   task: string
   height: number
   quiz: QuizData[]
-  audio: {
-    mp3: string
-    ogg: string
-    position: { left: number; top: number }
-    size: number
-    beforeQuiz: number
-  }[]
+  audio: AudioData[]
 }
 
 export type QuizData = {
@@ -20,6 +14,15 @@ export type QuizData = {
   layersPre?: LayerData[]
   layersPost?: LayerData[]
   cursor: { x: number; y: number }
+  quickviews?: { type: 'task' | 'solution'; start: number; end: number }[]
+}
+
+export type AudioData = {
+  mp3: string
+  ogg: string
+  position: { left: number; top: number }
+  size: number
+  beforeQuiz: number
 }
 
 export type LayerData = { src: string; offset?: number }

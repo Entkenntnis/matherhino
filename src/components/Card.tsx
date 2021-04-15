@@ -1,8 +1,5 @@
 import Link from 'next/link'
-import { join } from 'path'
-import { title } from 'process'
 import { useEffect, useState } from 'react'
-import { useSwipeable } from 'react-swipeable'
 import { PlayIcon } from './icons/PlayIcon'
 
 export interface CardProps {

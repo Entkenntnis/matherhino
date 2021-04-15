@@ -48,13 +48,6 @@ export function Quiz({
             <div
               key={index}
               onClick={() => {
-                /*if (!quizSelected.includes(choice.id) && !quizDone) {
-                  const newSelected = [...quizSelected, choice.id]
-                  setQuizSelected(newSelected)
-                }
-                if (!quizDone && !choice.correct && !wrongs.includes(step)) {
-                  setWrongs([...wrongs, step])
-                }*/
                 if (interactive) onSelect(index)
               }}
               className={`px-4 py-2 rounded bg-gray-100 ${

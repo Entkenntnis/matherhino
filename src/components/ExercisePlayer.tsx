@@ -22,7 +22,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const [smallHeight, setSmallHeight] = useState(false)
   const tabberRef = useRef<any>(null)
 
-  const [shufflings] = useState(getShufflings())
+  const [shufflings, setShufflings] = useState(getShufflings())
 
   const [audioPlayed, setAudioPlayed] = useState<string[]>([])
   const [quizSelected, setQuizSelected] = useState<{
@@ -54,6 +54,11 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
       tabberRef.current?.triggerAutoScroll()
     }
     window.addEventListener('resize', checkHeightListener)
+
+    // preload
+    preloadImages(0)
+    preloadImages(1)
+    preloadImages(2)
 
     return () => {
       window.removeEventListener('resize', checkHeightListener)
@@ -166,10 +171,11 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
     if (hasAudio) {
       return renderAudioNotice()
     }
+    const currentQuiz = exercise.quiz[step]
     return (
       <>
         <Quiz
-          quiz={exercise.quiz[step]}
+          quiz={currentQuiz}
           selected={currentSelected}
           shuffling={shufflings[step]}
           smallHeight={smallHeight}
@@ -204,15 +210,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           }}
           jokers={jokers}
         />
-        {showJokerReceived && (
-          <div className="mx-auto max-w-2xl my-5">
-            <p className="mx-3">
-              Herzlichen Glückwunsch! Du hast die letzten 6 Aufgaben am Stück
-              richtig beantwortet. Dafür erhältst du einen Joker. Damit kannst
-              du eine falsch beantwortete Frage sofort neu versuchen.
-            </p>
-          </div>
-        )}
+        {showJokerReceived && renderJokerModal()}
         {showJokerUsable && (
           <div className="mx-auto max-w-xl my-5">
             <p className="mx-3">
@@ -228,6 +226,9 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
                   if (!jokersUsedAt.includes(step)) {
                     setJokersUsedAt([...jokersUsedAt, step])
                   }
+                  const newShufflings = JSON.parse(JSON.stringify(shufflings))
+                  newShufflings[step] = shuffleArray(newShufflings[step])
+                  setShufflings(newShufflings)
                 }}
               >
                 Joker einsetzen
@@ -236,6 +237,64 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             </p>
           </div>
         )}
+        {currentQuiz.quickviews &&
+          currentQuiz.quickviews.map((view) => {
+            return (
+              <div className="mx-auto max-w-2xl md:mt-10 my-5 border-t-2 border-b-2 border-gray-100">
+                {view.type == 'task' ? (
+                  <div
+                    className="relative overflow-hidden"
+                    style={{ paddingBottom: `${view.end - view.start}%` }}
+                  >
+                    <img
+                      className="absolute"
+                      style={{ marginTop: `-${view.start}%` }}
+                      src={exercise.task}
+                      draggable={false}
+                    ></img>
+                    <div className="absolute left-0 right-0 top-0 h-6 bg-gradient-to-b from-gray-100 to-transparent" />
+                    <div className="absolute left-0 right-0 bottom-0 h-6 bg-gradient-to-t from-gray-100 to-transparent" />
+                  </div>
+                ) : (
+                  <div
+                    className="relative overflow-hidden"
+                    style={{
+                      paddingBottom: `${
+                        (view.end - view.start + 2) * (100 / 25)
+                      }%`,
+                    }}
+                  >
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        marginTop: `-${view.start * (100 / 25)}%`,
+                      }}
+                    >
+                      <GraphPaper
+                        height={exercise.height}
+                        content={getLayers()}
+                        warnings={[]}
+                        cursor={{ x: 0, y: 0 }}
+                        showContinue={false}
+                        onContinue={() => {}}
+                        hideCursor={true}
+                        fadeImgs={
+                          quizDone
+                            ? exercise.quiz[step].layersPost?.map(
+                                (l) => l.src
+                              ) ?? []
+                            : []
+                        }
+                        key={`step-${quizDone}`}
+                      />
+                    </div>
+                    <div className="absolute left-0 right-0 top-0 h-3 md:h-6 bg-gradient-to-b from-gray-100 to-transparent" />
+                    <div className="absolute left-0 right-0 bottom-0 h-3 md:h-6 bg-gradient-to-t from-gray-100 to-transparent" />
+                  </div>
+                )}
+              </div>
+            )
+          })}
       </>
     )
   }
@@ -299,7 +358,12 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           <span
             className="underline text-blue-500 cursor-pointer select-none"
             onClick={() => {
-              reset()
+              const result = confirm(
+                'Fortschritt zurücksetzen und neu starten?'
+              )
+              if (result) {
+                reset()
+              }
             }}
           >
             neu starten
@@ -335,7 +399,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           }}
         >
           Aufgabe schließen und zur Übersicht zurückkehren?
-          {jokers > 0 && (
+          {jokers > 0 && !endReached && (
             <>
               <br />
               <br />
@@ -353,6 +417,39 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
               }}
             >
               Nein
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  function renderJokerModal() {
+    return (
+      <div
+        className="flex items-center justify-center fixed left-0 bottom-0 w-full h-full z-50"
+        style={{ background: 'rgba(80,80,80,0.8)' }}
+        onClick={() => {
+          setShowJokerReceived(false)
+        }}
+      >
+        <div
+          className="bg-white rounded-lg max-w-sm p-10 m-3"
+          onClick={(e) => {
+            e.stopPropagation()
+          }}
+        >
+          Herzlichen Glückwunsch! Du hast die letzten 6 Aufgaben am Stück
+          richtig beantwortet. Dafür erhältst du einen Joker. Damit kannst du
+          eine falsch beantwortete Frage sofort neu versuchen.
+          <div className="flex justify-around mt-4">
+            <div
+              className="bg-gray-100 cursor-pointer p-3 rounded"
+              onClick={() => {
+                setShowJokerReceived(false)
+              }}
+            >
+              Ok
             </div>
           </div>
         </div>

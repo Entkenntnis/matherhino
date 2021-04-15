@@ -56,6 +56,10 @@ export const exercise3: ExerciseData = {
       wrong1: 'Sinus',
       wrong2: 'Kosinus',
       cursor: { x: 8, y: 7 },
+      quickviews: [
+        { type: 'task', start: 85, end: 125 },
+        { type: 'task', start: 15, end: 27 },
+      ],
       layersPre: [
         { src: '/content/3/1.PNG', offset: 1 },
         { src: '/content/3/2.PNG', offset: 1 },
@@ -70,6 +74,10 @@ export const exercise3: ExerciseData = {
       wrong1: '<div class="frac"><span>8</span><span>0,5 · 10</span></div>',
       wrong2: '<div class="frac"><span>10</span><span>8</span></div>',
       cursor: { x: 13, y: 7 },
+      quickviews: [
+        { type: 'task', start: 85, end: 125 },
+        { type: 'task', start: 0, end: 27 },
+      ],
       layersPre: [{ src: '/content/3/4.PNG', offset: 7 }],
       layersPost: [{ src: '/content/3/5.PNG', offset: 2 }],
     },
@@ -80,6 +88,7 @@ export const exercise3: ExerciseData = {
       wrong1: 'Sinus',
       wrong2: 'Division durch Tangens',
       cursor: { x: 23, y: 10 },
+      quickviews: [{ type: 'solution', start: 5, end: 11 }],
       layersPre: [{ src: '/content/3/6.PNG', offset: 10 }],
       layersPost: [{ src: '/content/3/7.PNG', offset: 6 }],
     },
@@ -90,6 +99,7 @@ export const exercise3: ExerciseData = {
       wrong1: 'X',
       wrong2: 'Z',
       cursor: { x: 21, y: 27 },
+      quickviews: [{ type: 'task', start: 133, end: 156 }],
       layersPre: [
         { src: '/content/3/8.PNG', offset: 12 },
         { src: '/content/3/9.PNG', offset: 12 },
@@ -103,6 +113,10 @@ export const exercise3: ExerciseData = {
       wrong1: 'F<sub>1</sub> und G<sub>1</sub>',
       wrong2: 'E<sub>1</sub> und F<sub>1</sub>',
       cursor: { x: 22, y: 27 },
+      quickviews: [
+        { type: 'task', start: 156, end: 186 },
+        { type: 'solution', start: 12, end: 40 },
+      ],
       layersPre: [],
       layersPost: [],
     },
@@ -113,6 +127,7 @@ export const exercise3: ExerciseData = {
       wrong1: 'Y',
       wrong2: 'Z',
       cursor: { x: 23, y: 27 },
+      quickviews: [{ type: 'task', start: 156, end: 186 }],
       layersPre: [],
       layersPost: [{ src: '/content/3/11.PNG', offset: 26 }],
     },
@@ -123,6 +138,7 @@ export const exercise3: ExerciseData = {
       wrong1: 'Y',
       wrong2: 'X',
       cursor: { x: 24, y: 27 },
+      quickviews: [{ type: 'task', start: 156, end: 186 }],
       layersPre: [],
       layersPost: [
         { src: '/content/3/12.PNG', offset: 23 },
@@ -131,11 +147,12 @@ export const exercise3: ExerciseData = {
     },
     {
       description:
-        'Die Strecke [DP<sub>n</sub>] liegt innerhalb mehrerer rechtwinkliger Dreiecke. Welches davon hilft bei der Bestimmung der Länge? <img class="p-3" src="/content/3/a2_4.png" />',
+        'Die Strecke [DP<sub>n</sub>] liegt innerhalb mehrerer rechtwinkliger Dreiecke. Welches davon hilft bei der Bestimmung der Länge?',
       correctChoice: 'Dreieck ADP<sub>n</sub>',
       wrong1: 'Dreieck DP<sub>n</sub>E<sub>n</sub>',
       wrong2: 'Dreieck DN<sub>n</sub>P<sub>n</sub>',
       cursor: { x: 16, y: 45 },
+      quickviews: [{ type: 'solution', start: 22, end: 38 }],
       layersPre: [{ src: '/content/3/14.PNG', offset: 40 }],
       layersPost: [{ src: '/content/3/15.PNG', offset: 40 }],
     },
@@ -146,6 +163,10 @@ export const exercise3: ExerciseData = {
       wrong1: '8,5',
       wrong2: '5',
       cursor: { x: 23, y: 47 },
+      quickviews: [
+        { type: 'solution', start: 39, end: 49 },
+        { type: 'task', start: 15, end: 27 },
+      ],
       layersPre: [{ src: '/content/3/16.PNG', offset: 46 }],
       layersPost: [{ src: '/content/3/17.PNG', offset: 46 }],
     },
@@ -156,32 +177,35 @@ export const exercise3: ExerciseData = {
       wrong1: 'D',
       wrong2: 'A',
       cursor: { x: 12, y: 52 },
+      quickviews: [{ type: 'solution', start: 12, end: 38 }],
       layersPre: [{ src: '/content/3/18.PNG', offset: 50 }],
       layersPost: [{ src: '/content/3/19.PNG', offset: 52 }],
     },
     {
       description:
-        'Welche Strecke mit bekannter Länge liegt parallel zu [E<sub>n</sub>N<sub>n</sub>] und eignet sich für den Strahlensatz? <img class="p-3" src="/content/3/a2_4_x.png" />',
+        'Welche Strecke mit bekannter Länge liegt parallel zu [E<sub>n</sub>N<sub>n</sub>] und eignet sich für den Strahlensatz?',
       correctChoice: '[AM]',
       wrong1: '[AD]',
       wrong2: '[BC]',
       cursor: { x: 22, y: 54 },
+      quickviews: [{ type: 'solution', start: 12, end: 38 }],
       layersPre: [{ src: '/content/3/20.PNG', offset: 54 }],
       layersPost: [{ src: '/content/3/21.PNG', offset: 54 }],
     },
     {
       description:
-        'Welche zwei Strecken mit bekannter Länge liegen auf einem Strahl und sind zu den parallenen Strecken [E<sub>n</sub>N<sub>n</sub>], [AM] zugehörig? <img class="p-3" src="/content/3/a2_4_x.png" />',
+        'Welche zwei Strecken mit bekannter Länge liegen auf einem Strahl und sind zu den parallenen Strecken [E<sub>n</sub>N<sub>n</sub>], [AM] zugehörig?',
       correctChoice: '[P<sub>n</sub>S], [DS]',
       wrong1: '[DS], [P<sub>n</sub>S]',
       wrong2: '[P<sub>n</sub>S], [DP<sub>n</sub>]',
       cursor: { x: 22, y: 56 },
+      quickviews: [{ type: 'solution', start: 12, end: 38 }],
       layersPre: [{ src: '/content/3/22.PNG', offset: 55 }],
       layersPost: [{ src: '/content/3/23.PNG', offset: 56 }],
     },
     {
       description:
-        'Welcher Ausdruck beschreibt die Länge <span class="overline">P<sub>n</sub>S</span> ? <img class="p-3" src="/content/3/a2_4_x.png" />',
+        'Welcher Ausdruck beschreibt die Länge <span class="overline">P<sub>n</sub>S</span> ?',
       correctChoice:
         '<span class="overline">DS</span> - <span class="overline">DP<sub>n</sub></span>',
       wrong1:
@@ -189,12 +213,13 @@ export const exercise3: ExerciseData = {
       wrong2:
         '<span class="overline">DS</span> / <span class="overline">DP<sub>n</sub></span>',
       cursor: { x: 16, y: 58 },
+      quickviews: [{ type: 'solution', start: 12, end: 38 }],
       layersPre: [{ src: '/content/3/24.PNG', offset: 58 }],
       layersPost: [{ src: '/content/3/25.PNG', offset: 58 }],
     },
     {
       description:
-        'Nach dem Strahlensatz kann eine Gleichung der Verhältnisse aufgestellt werden. Welcher Bruch passt auf die rechte Seite der Gleichung? <img class="p-3" src="/content/3/a2_4_x.png" />',
+        'Nach dem Strahlensatz kann eine Gleichung der Verhältnisse aufgestellt werden. Welcher Bruch passt auf die rechte Seite der Gleichung?',
       correctChoice:
         '<div class="frac"><span><span class="overline">DS</span> - <span class="overline">DP<sub>n</sub></span></span><span><span class="overline">DS</span></span></div>',
       wrong1:
@@ -202,6 +227,7 @@ export const exercise3: ExerciseData = {
       wrong2:
         '<div class="frac"><span><span class="overline">AM</span></span><span><span class="overline">DS</span></span></div>',
       cursor: { x: 18, y: 61 },
+      quickviews: [{ type: 'solution', start: 53, end: 62 }],
       layersPre: [
         { src: '/content/3/26.PNG', offset: 60 },
         { src: '/content/3/27.PNG', offset: 62 },
@@ -218,6 +244,11 @@ export const exercise3: ExerciseData = {
       wrong2:
         '<div class="frac"><span>8,5 - 8 · tan φ</span><span>8,5</span></div> · 4,5',
       cursor: { x: 22, y: 65 },
+      quickviews: [
+        { type: 'solution', start: 59, end: 66 },
+        { type: 'task', start: 15, end: 27 },
+        { type: 'solution', start: 46, end: 48 },
+      ],
       layersPre: [{ src: '/content/3/29.PNG', offset: 65 }],
       layersPost: [{ src: '/content/3/30.PNG', offset: 64 }],
     },
@@ -228,6 +259,7 @@ export const exercise3: ExerciseData = {
       wrong1: '8',
       wrong2: '4,2',
       cursor: { x: 18, y: 71 },
+      quickviews: [{ type: 'solution', start: 63, end: 72 }],
       layersPre: [{ src: '/content/3/30b.PNG', offset: 67 }],
       layersPost: [{ src: '/content/3/31.PNG', offset: 71 }],
     },
@@ -238,15 +270,21 @@ export const exercise3: ExerciseData = {
       wrong1: '<div class="frac"><span>1</span><span>2</span></div>',
       wrong2: '<div class="frac"><span>1</span><span>6</span></div>',
       cursor: { x: 7, y: 77 },
-      layersPre: [{ src: '/content/3/32.PNG', offset: 74 }, { src: '/content/3/33.PNG', offset: 72 }],
+      quickviews: [{ type: 'solution', start: 73, end: 78 }],
+      layersPre: [
+        { src: '/content/3/32.PNG', offset: 74 },
+        { src: '/content/3/33.PNG', offset: 72 },
+      ],
       layersPost: [{ src: '/content/3/34.PNG', offset: 76 }],
     },
     {
-      description: 'Welche Länge entspricht der Höhe der Pyramide?',
+      description:
+        'Welche Länge entspricht der Höhe der Pyramide E<sub>1</sub>F<sub>1</sub>G<sub>1</sub>D?',
       correctChoice: '<span class="overline">DP<sub>1</sub></span>',
       wrong1: '<span class="overline">F<sub>1</sub>G<sub>1</sub></span>',
       wrong2: '<span class="overline">E<sub>1</sub>N<sub>1</sub></span>',
       cursor: { x: 21, y: 77 },
+      quickviews: [{ type: 'solution', start: 22, end: 38 }],
       layersPre: [],
       layersPost: [{ src: '/content/3/35.PNG', offset: 77 }],
     },
@@ -258,6 +296,11 @@ export const exercise3: ExerciseData = {
       wrong1: 'Flächenformel mit dem Sinus',
       wrong2: 'Satz des Pythagoras',
       cursor: { x: 19, y: 80 },
+      quickviews: [
+        { type: 'solution', start: 22, end: 38 },
+        { type: 'solution', start: 70, end: 71 },
+        { type: 'task', start: 122, end: 135 },
+      ],
       layersPre: [],
       layersPost: [{ src: '/content/3/36.PNG', offset: 76 }],
     },
@@ -268,6 +311,7 @@ export const exercise3: ExerciseData = {
       wrong1: '<span class="overline">E<sub>1</sub>N<sub>1</sub></span>',
       wrong2: '<span class="overline">N<sub>1</sub>G<sub>1</sub></span>',
       cursor: { x: 13, y: 77 },
+      quickviews: [{ type: 'solution', start: 22, end: 38 }],
       layersPre: [],
       layersPost: [{ src: '/content/3/37.PNG', offset: 76 }],
     },
@@ -277,26 +321,37 @@ export const exercise3: ExerciseData = {
       wrong1: '<span class="overline">DP<sub>1</sub></span>',
       wrong2: '<span class="overline">E<sub>1</sub>F<sub>1</sub></span>',
       cursor: { x: 15, y: 77 },
+      quickviews: [{ type: 'solution', start: 22, end: 38 }],
       layersPre: [],
       layersPost: [{ src: '/content/3/38.PNG', offset: 76 }],
     },
     {
       description:
-        'Berechne <span class="overline">DP<sub>1</sub></span>. Wie lautet der gerundete Wert?',
+        'Berechne <span class="overline">DP<sub>1</sub></span>. Wie lautet der gerundete Wert? Benutze einen Taschenrechner.',
       correctChoice: '3,78',
       wrong1: '2,54',
       wrong2: '2,96',
       cursor: { x: 21, y: 82 },
+      quickviews: [
+        { type: 'solution', start: 81, end: 82 },
+        { type: 'solution', start: 46, end: 48 },
+        { type: 'task', start: 144, end: 155 },
+      ],
       layersPre: [{ src: '/content/3/39.PNG', offset: 82 }],
       layersPost: [{ src: '/content/3/40.PNG', offset: 82 }],
     },
     {
       description:
-        'Wie lautet der gerundete Wert für <span class="overline">E<sub>1</sub>N<sub>1</sub></span> ?',
+        'Wie lautet der gerundete Wert für <span class="overline">E<sub>1</sub>N<sub>1</sub></span> ? Benutze einen Taschenrechner.',
       correctChoice: '4,44',
       wrong1: '5,55',
       wrong2: '3,07',
       cursor: { x: 23, y: 84 },
+      quickviews: [
+        { type: 'solution', start: 83, end: 84 },
+        { type: 'solution', start: 70, end: 71 },
+        { type: 'task', start: 144, end: 155 },
+      ],
       layersPre: [{ src: '/content/3/41.PNG', offset: 84 }],
       layersPost: [{ src: '/content/3/42.PNG', offset: 84 }],
     },
@@ -307,6 +362,11 @@ export const exercise3: ExerciseData = {
       wrong1: '40°',
       wrong2: '60°',
       cursor: { x: 9, y: 87 },
+      quickviews: [
+        { type: 'solution', start: 85, end: 88 },
+        { type: 'solution', start: 22, end: 38 },
+        { type: 'task', start: 122, end: 135 },
+      ],
       layersPre: [{ src: '/content/3/43.PNG', offset: 86 }],
       layersPost: [{ src: '/content/3/44.PNG', offset: 87 }],
     },
@@ -316,6 +376,10 @@ export const exercise3: ExerciseData = {
       wrong1: '4,24',
       wrong2: '3,78',
       cursor: { x: 13, y: 88 },
+      quickviews: [
+        { type: 'solution', start: 81, end: 88 },
+        { type: 'solution', start: 22, end: 38 },
+      ],
       layersPre: [],
       layersPost: [{ src: '/content/3/45.PNG', offset: 88 }],
     },
@@ -326,6 +390,10 @@ export const exercise3: ExerciseData = {
       wrong1: '2,78',
       wrong2: '8,88',
       cursor: { x: 14, y: 94 },
+      quickviews: [
+        { type: 'solution', start: 85, end: 94 },
+        { type: 'solution', start: 22, end: 38 },
+      ],
       layersPre: [{ src: '/content/3/46.PNG', offset: 90 }],
       layersPost: [{ src: '/content/3/47.PNG', offset: 90 }],
     },
@@ -336,6 +404,7 @@ export const exercise3: ExerciseData = {
       wrong1: '16 cm³',
       wrong2: '42,72 cm³',
       cursor: { x: 14, y: 100 },
+      quickviews: [{ type: 'solution', start: 73, end: 101 }],
       layersPre: [{ src: '/content/3/48.PNG', offset: 97 }],
       layersPost: [{ src: '/content/3/49.PNG', offset: 96 }],
     },
