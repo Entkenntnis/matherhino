@@ -38,6 +38,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const [showJokerReceived, setShowJokerReceived] = useState(false)
   const [modalOpacity, setModalOpacity] = useState(false)
   const [showJokerUsable, setShowJokerUsable] = useState(false)
+  const [showQuickViews, setShowQuicViews] = useState(false)
 
   // effects
 
@@ -241,7 +242,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             </p>
           </div>
         )}
-        {currentQuiz.quickviews &&
+        {showQuickViews &&
+          currentQuiz.quickviews &&
           currentQuiz.quickviews.map((view) => {
             return (
               <div className="mx-auto max-w-2xl md:mt-10 my-5 border-t-2 border-b-2 border-gray-100">
@@ -299,6 +301,19 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
               </div>
             )
           })}
+
+        {currentQuiz.quickviews && !showQuickViews && (
+          <div className="text-center mb-20 mt-6">
+            <span
+              className="text-blue-500 hover:underline cursor-pointer"
+              onClick={() => {
+                setShowQuicViews(true)
+              }}
+            >
+              Hilfestellungen anzeigen
+            </span>
+          </div>
+        )}
       </>
     )
   }
@@ -318,6 +333,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           preloadImages(step + 2)
           setShowJokerReceived(false)
           setShowJokerUsable(false)
+          setShowQuicViews(false)
         }}
         hideCursor={wrongs.includes(step)}
         fadeImgs={
