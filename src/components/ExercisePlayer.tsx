@@ -244,9 +244,12 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         )}
         {showQuickViews &&
           currentQuiz.quickviews &&
-          currentQuiz.quickviews.map((view) => {
+          currentQuiz.quickviews.map((view, index) => {
             return (
-              <div className="mx-auto max-w-2xl md:mt-10 my-5 border-t-2 border-b-2 border-gray-100">
+              <div
+                className="mx-auto max-w-2xl md:mt-10 my-5 border-t-2 border-b-2 border-gray-100"
+                key={index}
+              >
                 {view.type == 'task' ? (
                   <div
                     className="relative overflow-hidden"
@@ -310,7 +313,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
                 setShowQuicViews(true)
               }}
             >
-              Hilfestellungen anzeigen
+              Angabe einblenden
             </span>
           </div>
         )}
@@ -427,7 +430,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             </>
           )}
           <div className="flex justify-around mt-4">
-            <Link href="/" passHref>
+            <Link href={exercise.backTo} passHref>
               <a className="p-3 bg-gray-100 rounded cursor-pointer">Ja</a>
             </Link>
             <div

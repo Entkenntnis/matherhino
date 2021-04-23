@@ -1,6 +1,7 @@
 export interface ExerciseData {
   id: number
   task: string
+  backTo: string
   height: number
   quiz: QuizData[]
   audio: AudioData[]
