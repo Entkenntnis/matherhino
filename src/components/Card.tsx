@@ -24,9 +24,9 @@ export function Card({ id, title, topics, count }: CardProps) {
   }, [])
 
   return (
-    <div className="p-3 bg-gray-100 rounded my-12 max-w-lg">
+    <div className="p-3 bg-gray-100 rounded my-12">
       <div className="flex justify-between">
-        <span className="text-3xl">{title}</span>
+        <span className="text-3xl font-bold">{title}</span>
         <Link href={`/preview/${id}`} passHref>
           <a className="underline cursor-pointer">Vorschau</a>
         </Link>

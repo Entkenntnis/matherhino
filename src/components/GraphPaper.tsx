@@ -93,8 +93,8 @@ export function GraphPaper({
               </GraphPaperArea>
             )}
             {numbering &&
-              numbering.map((el) => (
-                <GraphPaperArea {...el.position}>
+              numbering.map((el, index) => (
+                <GraphPaperArea {...el.position} key={index}>
                   <div
                     className="text-xs sm:text-base md:text-xl opacity-90 rounded-full border-2 cursor-pointer z-20 absolute inset-0 border-lime-500 text-lime-500 flex justify-center items-center bg-lime-50"
                     onClick={() => {
