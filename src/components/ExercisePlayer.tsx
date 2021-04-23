@@ -313,7 +313,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
                 setShowQuicViews(true)
               }}
             >
-              Hilfestellungen anzeigen
+              Angabe einblenden
             </span>
           </div>
         )}
@@ -430,7 +430,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             </>
           )}
           <div className="flex justify-around mt-4">
-            <Link href="/" passHref>
+            <Link href={exercise.backTo} passHref>
               <a className="p-3 bg-gray-100 rounded cursor-pointer">Ja</a>
             </Link>
             <div

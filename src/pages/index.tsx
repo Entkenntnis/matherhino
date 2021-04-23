@@ -56,10 +56,43 @@ export default function Home() {
           </a>{' '}
           zu übermitteln.
         </p>
-        <div className="flex flex-col sm:flex-row justify-between mt-20 mb-4">
-          <span className="text-gray-600 hover:text-black cursor-pointer">
-            Datenschutz
+        <h2 className="mt-20 text-3xl font-bold">Nutzungshinweise</h2>
+        <p className="mt-4">
+          Die Verwendung von MatheRhino ist kostenlos. Nicht nur das: Der
+          Quellcode findet sich auf{' '}
+          <a
+            href="https://github.com/Entkenntnis/mathe.arrrg.de"
+            className="text-blue-500 hover:underline"
+          >
+            GitHub
+          </a>
+          , außerdem stehen alle handschriftlichen Lösungen, Quize und
+          Audiospuren unter Public Domain CC0. Beim Lernen mit MatheRhino wird
+          dein Fortschritt auf diesem Gerät gespeichert. Du kannst hier deinen{' '}
+          <span
+            className="cursor-pointer text-blue-500 hover:underline"
+            onClick={() => {
+              const result = confirm(
+                'Möchtest du deinen gesamten Lernfortschritt auf diesem Gerät zurücksetzen?\n\nDieser Vorgang kann nicht rückgängig gemacht werden.'
+              )
+              if (result) {
+                for (let i = 0; i < localStorage.length; i++) {
+                  const key = localStorage.key(i)
+                  if (key?.startsWith('progress_v2_')) {
+                    localStorage.removeItem(key)
+                  }
+                }
+              }
+            }}
+          >
+            Fortschritt auf diesem Gerät zurücksetzen
           </span>
+          .
+        </p>
+        <div className="flex flex-col sm:flex-row justify-between mt-20 mb-4">
+          <a className="text-gray-600 hover:text-black" href="/datenschutz">
+            Datenschutz
+          </a>
           <span
             className="text-gray-600 hover:text-black cursor-pointer"
             onClick={() => setShowContact(true)}
@@ -98,28 +131,4 @@ export default function Home() {
       )}
     </>
   )
-
-  /*
-
-      <p className="mb-6">
-        <span
-          className="cursor-pointer text-blue-500 hover:underline"
-          onClick={() => {
-            const result = confirm(
-              'Möchtest du deinen gesamten Lernfortschritt auf diesem Gerät zurücksetzen?\n\nDieser Vorgang kann nicht rückgängig gemacht werden.'
-            )
-            if (result) {
-              for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i)
-                if (key?.startsWith('progress_v2_')) {
-                  localStorage.removeItem(key)
-                }
-              }
-            }
-          }}
-        >
-          Fortschritt auf diesem Gerät zurücksetzen
-        </span>
-      </p>
-*/
 }

@@ -24,15 +24,15 @@ export default function Page() {
           topics="Raumgeometrie, Trigonometrie, Strahlensatz, Flächen und Volumen"
         />
 
-        <Card id={4} count={27} title="A3" topics="coming soon" />
+        <Card id={4} count={27} title="A3 (todo)" topics="coming soon" />
 
-        <Card id={5} count={27} title="B1" topics="coming soon" />
+        <Card id={5} count={27} title="B1 (todo)" topics="coming soon" />
 
-        <Card id={6} count={27} title="B2" topics="coming soon" />
+        <Card id={6} count={27} title="B2 (todo)" topics="coming soon" />
 
         <div className=" text-center my-8">
           <a href="/" className="text-blue-500 hover:underline cursor-pointer">
-            zurück
+            zurück zur Startseite
           </a>
         </div>
       </div>

@@ -55,7 +55,11 @@ export function Card({ id, title, topics, count }: CardProps) {
             ) : (
               <>
                 {getDones()} richtig / {getWrongs()} falsch
-                {!data.quizSelected[count] ? ' - in Bearbeitung' : ''}
+                {!data.quizSelected[count]
+                  ? ' - in Bearbeitung'
+                  : Math.round((getDones() / count) * 100) < 75
+                  ? ' - erreiche 75% zum Bestehen'
+                  : ''}
               </>
             )}{' '}
           </div>

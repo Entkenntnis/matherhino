@@ -3,6 +3,7 @@ import { ExerciseData } from './types'
 export const exercise6: ExerciseData = {
   id: 6,
   task: '/content/6/task.png',
+  backTo: '/bayern-rs-zweig-i-2018',
   height: 55,
   audio: [
     {
