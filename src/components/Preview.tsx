@@ -23,7 +23,7 @@ export function Preview({ exercise }: PreviewProps) {
         <title>MatheRhino</title>
       </Head>
       <div className="flex bg-gray-100 h-12 items-center justify-center relative">
-        <Link href="/">
+        <Link href={exercise.backTo}>
           <div className="absolute w-4 h-4 sm:w-6 sm:h-6 left-1 cursor-pointer text-gray-300">
             <ChevronLeft className="w-full h-full " />
           </div>
