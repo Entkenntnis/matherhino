@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getHOffset } from '../utils/pixelOffsets'
 import { GraphPaperArea } from './GraphPaperArea'
 import { PencilIcon } from './icons/PencilIcon'
+import { RedoIcon } from './icons/RedoIcon'
 import { WarningIcon } from './icons/WarningIcon'
 
 export interface GraphPaperProps {
@@ -18,6 +19,11 @@ export interface GraphPaperProps {
   fadeImgs: string[]
   numbering?: { position: { x: number; y: number }; num: number }[]
   numberingClicked?: (num: number) => void
+  retry?: {
+    position: { x: number; y: number }
+    style: 'warn' | 'success' | 'invisible'
+  }[]
+  onRetryClick?: (index: number) => void
 }
 
 export function GraphPaper({
@@ -31,6 +37,8 @@ export function GraphPaper({
   fadeImgs,
   numbering,
   numberingClicked,
+  retry,
+  onRetryClick,
 }: GraphPaperProps) {
   const [loaded, setLoaded] = useState(false)
 
@@ -104,6 +112,27 @@ export function GraphPaper({
                     }}
                   >
                     <div>{el.num}</div>
+                  </div>
+                </GraphPaperArea>
+              ))}
+            {retry &&
+              retry.map((el, index) => (
+                <GraphPaperArea {...el.position} key={index}>
+                  <div
+                    onClick={() => {
+                      if (onRetryClick) {
+                        onRetryClick(index)
+                      }
+                    }}
+                    className={`${
+                      el.style == 'invisible'
+                        ? 'invisible'
+                        : el.style == 'warn'
+                        ? 'bg-yellow-500'
+                        : 'bg-lime-500'
+                    } p-0.5 sm:p-1 rounded cursor-pointer`}
+                  >
+                    <RedoIcon className="text-white" />
                   </div>
                 </GraphPaperArea>
               ))}

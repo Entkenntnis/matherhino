@@ -28,6 +28,18 @@ export const exercise2: ExerciseData = {
       beforeQuiz: 9,
     },
   ],
+  checkpoints: [
+    {
+      position: { x: 24, y: 1 },
+      title: 'Teilaufgabe A 1.1',
+      audioIndex: 1,
+    },
+    {
+      position: { x: 24, y: 26 },
+      title: 'Teilaufgabe A 1.2',
+      audioIndex: 2,
+    },
+  ],
   quiz: [
     {
       description:

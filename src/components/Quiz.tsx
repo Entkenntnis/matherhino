@@ -7,7 +7,6 @@ export interface QuizProps {
   smallHeight: boolean
   interactive: boolean
   onSelect: (index: number) => void
-  jokers?: number
 }
 
 export function Quiz({
@@ -17,7 +16,6 @@ export function Quiz({
   smallHeight,
   interactive,
   onSelect,
-  jokers,
 }: QuizProps) {
   const entries = [
     { id: 0, value: quiz.correctChoice },
@@ -26,15 +24,13 @@ export function Quiz({
   ]
 
   return (
-    <div className="max-w-xl mx-auto relative">
-      {jokers !== undefined && jokers > 0 && (
-        <div className="text-gray-500 absolute right-1 top-1">
-          Jokers: {jokers}
-        </div>
-      )}
-      <div className="mx-3">
+    <div className={`max-w-xl mx-auto relative`}>
+      <div
+        className={`px-3 border-2 rounded border-gray-200 ${
+          smallHeight ? 'pt-3' : 'pt-3 mt-3 sm:mt-13 xl:mt-20'
+        }`}
+      >
         <p
-          className={`${smallHeight ? 'pt-3' : 'pt-6 sm:pt-16 xl:pt-24'}`}
           dangerouslySetInnerHTML={{
             __html: quiz.description,
           }}

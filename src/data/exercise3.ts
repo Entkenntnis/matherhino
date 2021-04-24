@@ -49,6 +49,29 @@ export const exercise3: ExerciseData = {
       beforeQuiz: 16,
     },
   ],
+  checkpoints: [
+    {
+      position: { x: 23, y: 1 },
+      title: 'Teilaufgabe A 2.1',
+      audioIndex: 1,
+    },
+    {
+      position: { x: 23, y: 12 },
+      title: 'Teilaufgabe A 2.2 und A 2.3',
+      audioIndex: 2,
+      span: 2,
+    },
+    {
+      position: { x: 23, y: 40 },
+      title: 'Teilaufgabe A 2.4',
+      audioIndex: 4,
+    },
+    {
+      position: { x: 23, y: 74 },
+      title: 'Teilaufgabe A 2.5',
+      audioIndex: 5,
+    },
+  ],
   quiz: [
     {
       description:

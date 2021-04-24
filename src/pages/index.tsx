@@ -78,7 +78,7 @@ export default function Home() {
               if (result) {
                 for (let i = 0; i < localStorage.length; i++) {
                   const key = localStorage.key(i)
-                  if (key?.startsWith('progress_v2_')) {
+                  if (key?.startsWith('progress_v')) {
                     localStorage.removeItem(key)
                   }
                 }

@@ -6,16 +6,15 @@ export interface CardProps {
   id: number
   title: string
   topics: string
-  count: number
 }
 
-export function Card({ id, title, topics, count }: CardProps) {
+export function Card({ id, title, topics }: CardProps) {
   const [loaded, setLoaded] = useState(false)
   const [data, setData] = useState<any>({ quizSelected: {} })
 
   useEffect(() => {
     try {
-      const data = localStorage.getItem(`progress_v2_${id}`)
+      const data = localStorage.getItem(`progress_v3_${id}`)
       if (data) {
         setData(JSON.parse(data ?? '{}'))
       }
@@ -39,25 +38,25 @@ export function Card({ id, title, topics, count }: CardProps) {
           <div className="relative my-3 rounded bg-gray-300 h-3 overflow-hidden">
             <div
               className="absolute left-0 h-full bg-lime-300 "
-              style={{ width: `${(getDones() / count) * 100}%` }}
+              style={{ width: `${(getDones() / data.__count) * 100}%` }}
             ></div>
             <div
               className="absolute h-full bg-red-400"
               style={{
-                left: `${(getDones() / count) * 100}%`,
-                width: `${(getWrongs() / count) * 100}%`,
+                left: `${(getDones() / data.__count) * 100}%`,
+                width: `${(getWrongs() / data.__count) * 100}%`,
               }}
             ></div>
           </div>
           <div className="text-sm my-3">
             {getDones() == 0 && getWrongs() == 0 ? (
-              <>{count} Fragen</>
+              <>{data.__count} Fragen</>
             ) : (
               <>
                 {getDones()} richtig / {getWrongs()} falsch
-                {!data.quizSelected[count]
+                {!data.quizSelected[data.__count]
                   ? ' - in Bearbeitung'
-                  : Math.round((getDones() / count) * 100) < 75
+                  : Math.round((getDones() / data.__count) * 100) < 75
                   ? ' - erreiche 75% zum Bestehen'
                   : ''}
               </>
@@ -72,22 +71,22 @@ export function Card({ id, title, topics, count }: CardProps) {
           <Link href={`/${id}`} passHref>
             <a className="border-blue-500 border-2 px-3 py-1 rounded cursor-pointer text-xl">
               <PlayIcon className="w-4 h-4 inline pb-1" />{' '}
-              {data.quizSelected[count] && getDones() < count
+              {data.quizSelected[data.__count] && getDones() < data.__count
                 ? 'Erneut versuchen'
-                : !data.quizSelected[1] || getDones() == count
+                : !data.quizSelected[1] || getDones() == data.__count
                 ? 'Start'
                 : 'Weiter'}
             </a>
           </Link>
           <span className="text-xl">
-            {Math.round((getDones() / count) * 100)}%
+            {Math.round((getDones() / data.__count) * 100)}%
             {getDones() == 0 && getWrongs() == 0
               ? ''
-              : !data.quizSelected[count]
+              : !data.quizSelected[data.__count]
               ? ''
-              : Math.round((getDones() / count) * 100) < 75
+              : Math.round((getDones() / data.__count) * 100) < 75
               ? ' - nicht bestanden'
-              : getDones() == count
+              : getDones() == data.__count
               ? ' - perfekt'
               : ' - bestanden'}
           </span>
@@ -98,11 +97,11 @@ export function Card({ id, title, topics, count }: CardProps) {
 
   function getDones() {
     let c = 0
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < data.__count; i++) {
       if (data.quizSelected[i]) {
         if (
           data.quizSelected[i]?.includes(0) &&
-          data.quizSelected[i]?.length == 1
+          data.quizSelected[i]?.length == 2
         ) {
           c++
         }
@@ -113,11 +112,11 @@ export function Card({ id, title, topics, count }: CardProps) {
 
   function getWrongs() {
     let c = 0
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < data.__count; i++) {
       if (data.quizSelected[i]) {
         if (
           data.quizSelected[i].includes(0) &&
-          data.quizSelected[i].length > 1
+          data.quizSelected[i].length > 2
         ) {
           c++
         }

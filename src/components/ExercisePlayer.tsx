@@ -22,7 +22,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const [smallHeight, setSmallHeight] = useState(false)
   const tabberRef = useRef<any>(null)
 
-  const [shufflings, setShufflings] = useState(getShufflings())
+  const [shufflings] = useState(getShufflings())
 
   const [audioPlayed, setAudioPlayed] = useState<string[]>([])
   const [quizSelected, setQuizSelected] = useState<{
@@ -31,14 +31,11 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const [startTime, setStartTime] = useState(0)
   const [timeTaken, setTimeTaken] = useState<{ [step: number]: number }>({})
 
-  const [jokers, setJokers] = useState(0)
-  const [jokersUsedAt, setJokersUsedAt] = useState<number[]>([])
-
   const [exitModal, setExitModal] = useState(false)
-  const [showJokerReceived, setShowJokerReceived] = useState(false)
-  const [modalOpacity, setModalOpacity] = useState(false)
-  const [showJokerUsable, setShowJokerUsable] = useState(false)
   const [showQuickViews, setShowQuicViews] = useState(false)
+
+  const [retryModal, setRetryModal] = useState(false)
+  const [retryIndex, setRetryIndex] = useState(-1)
 
   // effects
 
@@ -71,7 +68,12 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
     if (loading || selectProgress) return
     localStorage.setItem(
       key,
-      JSON.stringify({ audioPlayed, quizSelected, timeTaken })
+      JSON.stringify({
+        audioPlayed,
+        quizSelected,
+        timeTaken,
+        __count: exercise.quiz.length,
+      })
     )
   }, [audioPlayed, quizSelected, timeTaken])
 
@@ -101,7 +103,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           </Head>
           {renderTabber()}
           {exitModal && renderExitModal()}
-          {renderStreakBar()}
+          {retryModal && renderRetryModal()}
         </>
       )
     }
@@ -185,17 +187,6 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           interactive={!quizDone}
           onSelect={(index) => {
             if (!currentSelected.includes(index)) {
-              const preStreak = getStreakCount()
-
-              if (jokers < 3 && index == 0 && quizSelected[step]?.length == 0) {
-                if (preStreak == 5 || preStreak == 11 || preStreak == 17) {
-                  setShowJokerReceived(true)
-                  setModalOpacity(true)
-                  setTimeout(() => setModalOpacity(false), 0)
-                  setJokers(jokers + 1)
-                }
-              }
-
               const newSelected = JSON.parse(JSON.stringify(quizSelected))
               if (!newSelected[step]) newSelected[step] = []
               newSelected[step].push(index)
@@ -207,41 +198,9 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
                 newTimeTaken[step] = timeDelta
                 setTimeTaken(newTimeTaken)
               }
-
-              if (index != 0 && jokers > 0) {
-                setShowJokerUsable(true)
-              }
             }
           }}
-          jokers={jokers}
         />
-        {showJokerReceived && renderJokerModal()}
-        {showJokerUsable && (
-          <div className="mx-auto max-w-xl my-5">
-            <p className="mx-3">
-              Du kannsts deinen{' '}
-              <span
-                className="text-blue-500 cursor-pointer hover:underline"
-                onClick={() => {
-                  setJokers(jokers - 1)
-                  const newSelected = JSON.parse(JSON.stringify(quizSelected))
-                  newSelected[step] = []
-                  setQuizSelected(newSelected)
-                  setShowJokerUsable(false)
-                  if (!jokersUsedAt.includes(step)) {
-                    setJokersUsedAt([...jokersUsedAt, step])
-                  }
-                  const newShufflings = JSON.parse(JSON.stringify(shufflings))
-                  newShufflings[step] = shuffleArray(newShufflings[step])
-                  setShufflings(newShufflings)
-                }}
-              >
-                Joker einsetzen
-              </span>{' '}
-              und diese Aufgabe sofort neu versuchen.
-            </p>
-          </div>
-        )}
         {showQuickViews &&
           currentQuiz.quickviews &&
           currentQuiz.quickviews.map((view, index) => {
@@ -313,7 +272,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
                 setShowQuicViews(true)
               }}
             >
-              Angabe einblenden
+              Angaben einblenden
             </span>
           </div>
         )}
@@ -331,12 +290,15 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         showContinue={!endReached && quizDone}
         onContinue={() => {
           const newSelected = JSON.parse(JSON.stringify(quizSelected))
-          newSelected[step + 1] = []
+          newSelected[step].push(9 /*magic token*/)
+          if (!newSelected[step + 1] || !newSelected[step + 1]?.includes(9))
+            newSelected[step + 1] = []
           setQuizSelected(newSelected)
           preloadImages(step + 2)
-          setShowJokerReceived(false)
-          setShowJokerUsable(false)
           setShowQuicViews(false)
+          setTimeout(() => {
+            tabberRef.current?.triggerAutoScroll()
+          }, 0)
         }}
         hideCursor={wrongs.includes(step)}
         fadeImgs={
@@ -344,6 +306,18 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             ? exercise.quiz[step].layersPost?.map((l) => l.src) ?? []
             : []
         }
+        retry={exercise.checkpoints
+          .filter((cp) => exercise.audio[cp.audioIndex].beforeQuiz < step)
+          .map((cp) => {
+            return {
+              position: cp.position,
+              style: shouldShowCheckpoint(cp.audioIndex, cp.span ?? 1),
+            }
+          })}
+        onRetryClick={(index) => {
+          setRetryIndex(index)
+          setRetryModal(true)
+        }}
       />
     )
   }
@@ -422,13 +396,6 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
           }}
         >
           Aufgabe schließen und zur Übersicht zurückkehren?
-          {jokers > 0 && !endReached && (
-            <>
-              <br />
-              <br />
-              Hinweis: Deine Joker gehen dadurch verloren.
-            </>
-          )}
           <div className="flex justify-around mt-4">
             <Link href={exercise.backTo} passHref>
               <a className="p-3 bg-gray-100 rounded cursor-pointer">Ja</a>
@@ -447,57 +414,75 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
     )
   }
 
-  function renderJokerModal() {
+  function renderRetryModal() {
     return (
       <div
-        className={`flex items-center justify-center fixed left-0 bottom-0 w-full h-full z-50 transition-opacity ${
-          modalOpacity ? 'opacity-0' : 'opacity-100'
-        }`}
+        className="flex items-center justify-center fixed left-0 bottom-0 w-full h-full z-50"
         style={{ background: 'rgba(80,80,80,0.8)' }}
         onClick={() => {
-          setShowJokerReceived(false)
+          setRetryModal(false)
         }}
       >
         <div
-          className="bg-white rounded-lg max-w-sm p-10 m-3"
+          className="bg-white rounded-lg max-w-1/2 p-10 m-3"
           onClick={(e) => {
             e.stopPropagation()
           }}
         >
-          Herzlichen Glückwunsch! Du hast die letzten 6 Aufgaben am Stück
-          richtig beantwortet. Dafür erhältst du einen Joker. Damit kannst du
-          eine falsch beantwortete Frage sofort neu versuchen.
+          {exercise.checkpoints[retryIndex].title} zurücksetzen und erneut
+          versuchen?
           <div className="flex justify-around mt-4">
+            <button
+              className="p-3 bg-blue-100 rounded cursor-pointer"
+              onClick={() => {
+                const startIndex =
+                  exercise.audio[exercise.checkpoints[retryIndex].audioIndex]
+                    .beforeQuiz
+                const endIndex =
+                  exercise.checkpoints[retryIndex].audioIndex + 1 >=
+                  exercise.audio.length
+                    ? exercise.quiz.length
+                    : exercise.audio[
+                        exercise.checkpoints[retryIndex].audioIndex +
+                          (exercise.checkpoints[retryIndex].span ?? 1)
+                      ].beforeQuiz
+
+                const newSelected = JSON.parse(JSON.stringify(quizSelected))
+                for (let i = startIndex; i < endIndex; i++) {
+                  delete newSelected[i]
+                }
+
+                const resetAudio: string[] = []
+
+                exercise.audio.forEach((audio) => {
+                  if (
+                    audio.beforeQuiz >= startIndex &&
+                    audio.beforeQuiz < endIndex
+                  ) {
+                    resetAudio.push(audio.ogg)
+                  }
+                })
+
+                setAudioPlayed(
+                  audioPlayed.filter((audio) => !resetAudio.includes(audio))
+                )
+
+                setQuizSelected(newSelected)
+                setRetryModal(false)
+              }}
+            >
+              Ja
+            </button>
             <div
               className="bg-gray-100 cursor-pointer p-3 rounded"
               onClick={() => {
-                setShowJokerReceived(false)
+                setRetryModal(false)
               }}
             >
-              Ok
+              Nein
             </div>
           </div>
         </div>
-      </div>
-    )
-  }
-
-  function renderStreakBar() {
-    return (
-      <div className="fixed bottom-0 w-full h-1.5 bg-gray-100">
-        {(quizSelected[step] && quizSelected[step].some((x) => x > 0)) ||
-        jokersUsedAt.includes(step) ? (
-          <div className="bg-yellow-500 h-full w-full" />
-        ) : (
-          <div
-            className="bg-lime-500 h-full"
-            style={{
-              width: `${
-                10 + 15 * ((getStreakCount() % 6) + (quizDone ? 1 : 0))
-              }%`,
-            }}
-          />
-        )}
       </div>
     )
   }
@@ -511,7 +496,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   }
 
   function generateLocalStorageKey() {
-    return `progress_v2_${exercise.id}`
+    return `progress_v3_${exercise.id}`
   }
 
   function getCurrentStep() {
@@ -519,7 +504,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
       if (
         quizSelected[i] &&
         isQuizDone(quizSelected[i]) &&
-        quizSelected[i + 1]
+        quizSelected[i].includes(9 /*magic token*/)
       ) {
         continue
       }
@@ -631,13 +616,28 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         }
       }
     }
+    for (let i = step + 1; i < exercise.quiz.length; i++) {
+      if (quizSelected[i]?.includes(9 /* magic number */)) {
+        const quizData = exercise.quiz[i]
+        if (quizData.layersPre) {
+          for (const layer of quizData.layersPre) {
+            layers.push(layer)
+          }
+        }
+        if (quizData.layersPost) {
+          for (const layer of quizData.layersPost) {
+            layers.push(layer)
+          }
+        }
+      }
+    }
     return layers
   }
 
   function getWrongSteps() {
     return Object.keys(quizSelected)
       .map((i) => parseInt(i))
-      .filter((i) => isQuizDone(quizSelected[i]) && quizSelected[i].length > 1)
+      .filter((i) => isQuizDone(quizSelected[i]) && quizSelected[i].length > 2)
   }
 
   function preloadImages(step: number) {
@@ -667,18 +667,24 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
     }
   }
 
-  function getStreakCount() {
-    let currentStep = step
-    while (currentStep > 0) {
-      const preStep = currentStep - 1
-      if (jokersUsedAt.includes(preStep)) {
-        break
+  function shouldShowCheckpoint(audioIndex: number, span: number) {
+    const startIndex = exercise.audio[audioIndex].beforeQuiz
+    const endIndex =
+      audioIndex + 1 >= exercise.audio.length
+        ? exercise.quiz.length
+        : exercise.audio[audioIndex + span].beforeQuiz
+
+    if (wrongs.some((i) => i >= startIndex && i < endIndex)) return 'warn'
+
+    let allComplete = true
+    for (let i = startIndex; i < endIndex; i++) {
+      if (!quizSelected[i]?.includes(9 /* magic number */)) {
+        allComplete = false
       }
-      if (quizSelected[preStep].length > 1) {
-        break
-      }
-      currentStep = preStep
     }
-    return step - currentStep
+
+    if (!allComplete) return 'invisible'
+
+    return 'success'
   }
 }

@@ -35,21 +35,26 @@ export const exercise4: ExerciseData = {
       beforeQuiz: 999,
     },
   ],
+  checkpoints: [],
   quiz: [
-    /*{
-      description: 'TODO',
-      correctChoice: '---',
-      wrong1: '---',
-      wrong2: '---',
-      cursor: { x: 8, y: 7 },
-      quickviews: [
-        { type: 'task', start: 85, end: 125 },
-        { type: 'task', start: 15, end: 27 },
-      ],
-      layersPre: [{ src: '/content/3/1.PNG' }, { src: '/content/3/2.PNG' }],
-      layersPost: [{ src: '/content/3/3.PNG' }],
-    },
     {
+      description:
+        'An welcher Position befindet sich der Punkt B<sub>1</sub> ? <img class="p-3" src="/content/4/a3_1.png" />',
+      correctChoice: 'Position 2',
+      wrong1: 'Position 1',
+      wrong2: 'Position 3',
+      cursor: { x: 19, y: 14 },
+      quickviews: [
+        { type: 'task', start: 30, end: 39 },
+        { type: 'task', start: 15, end: 23 },
+      ],
+      layersPre: [
+        { src: '/content/4/1.PNG', offset: 1 },
+        { src: '/content/4/2.PNG', offset: 2 },
+      ],
+      layersPost: [{ src: '/content/4/3.PNG', offset: 4 }],
+    },
+    /*{
       description: 'TODO',
       correctChoice: '---',
       wrong1: '---',

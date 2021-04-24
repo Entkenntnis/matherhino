@@ -12,23 +12,21 @@ export default function Page() {
 
         <Card
           id={2}
-          count={22}
           title="A1"
           topics="Exponentialfunktion, Gleichung lösen, Logarithmus"
         />
 
         <Card
           id={3}
-          count={27}
           title="A2"
           topics="Raumgeometrie, Trigonometrie, Strahlensatz, Flächen und Volumen"
         />
 
-        <Card id={4} count={27} title="A3 (todo)" topics="coming soon" />
+        <Card id={4} title="A3 (todo)" topics="coming soon" />
 
-        <Card id={5} count={27} title="B1 (todo)" topics="coming soon" />
+        <Card id={5} title="B1 (todo)" topics="coming soon" />
 
-        <Card id={6} count={27} title="B2 (todo)" topics="coming soon" />
+        <Card id={6} title="B2 (todo)" topics="coming soon" />
 
         <div className=" text-center my-8">
           <a href="/" className="text-blue-500 hover:underline cursor-pointer">

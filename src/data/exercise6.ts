@@ -56,6 +56,7 @@ export const exercise6: ExerciseData = {
       beforeQuiz: 999,
     },
   ],
+  checkpoints: [],
   quiz: [
     {
       description: 'TODO',

@@ -3,6 +3,12 @@ export interface ExerciseData {
   task: string
   backTo: string
   height: number
+  checkpoints: {
+    position: { x: number; y: number }
+    title: string
+    audioIndex: number
+    span?: number
+  }[]
   quiz: QuizData[]
   audio: AudioData[]
 }

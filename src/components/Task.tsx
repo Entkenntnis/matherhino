@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ExerciseData } from '../data/types'
 import { AudioIcon } from './icons/AudioIcon'
+import { RedoIcon } from './icons/RedoIcon'
 
 export interface TaskProps {
   exercise: ExerciseData
