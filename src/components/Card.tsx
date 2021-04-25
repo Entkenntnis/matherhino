@@ -50,11 +50,13 @@ export function Card({ id, title, topics }: CardProps) {
           </div>
           <div className="text-sm my-3">
             {getDones() == 0 && getWrongs() == 0 ? (
-              <>{data.__count} Fragen</>
+              data.__count == undefined ? null : (
+                <>{data.__count} Fragen</>
+              )
             ) : (
               <>
                 {getDones()} richtig / {getWrongs()} falsch
-                {!data.quizSelected[data.__count]
+                {!isDone()
                   ? ' - in Bearbeitung'
                   : Math.round((getDones() / data.__count) * 100) < 75
                   ? ' - erreiche 75% zum Bestehen'
@@ -71,7 +73,7 @@ export function Card({ id, title, topics }: CardProps) {
           <Link href={`/${id}`} passHref>
             <a className="border-blue-500 border-2 px-3 py-1 rounded cursor-pointer text-xl">
               <PlayIcon className="w-4 h-4 inline pb-1" />{' '}
-              {data.quizSelected[data.__count] && getDones() < data.__count
+              {isDone() && getDones() < data.__count
                 ? 'Erneut versuchen'
                 : !data.quizSelected[1] || getDones() == data.__count
                 ? 'Start'
@@ -79,10 +81,12 @@ export function Card({ id, title, topics }: CardProps) {
             </a>
           </Link>
           <span className="text-xl">
-            {Math.round((getDones() / data.__count) * 100)}%
+            {data.__count !== undefined && (
+              <>{Math.round((getDones() / data.__count) * 100)}%</>
+            )}
             {getDones() == 0 && getWrongs() == 0
               ? ''
-              : !data.quizSelected[data.__count]
+              : !isDone()
               ? ''
               : Math.round((getDones() / data.__count) * 100) < 75
               ? ' - nicht bestanden'
@@ -123,5 +127,15 @@ export function Card({ id, title, topics }: CardProps) {
       }
     }
     return c
+  }
+
+  function isDone() {
+    let isDone = true
+    for (let i = 0; i < data.__count; i++) {
+      if (!data.quizSelected[i] || !data.quizSelected[i].includes(9)) {
+        isDone = false
+      }
+    }
+    return isDone
   }
 }
