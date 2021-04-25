@@ -62,7 +62,7 @@ export const exercise4: ExerciseData = {
       cursor: { x: 19, y: 14 },
       quickviews: [
         { type: 'task', start: 30, end: 39 },
-        { type: 'task', start: 15, end: 23 },
+        { type: 'task', start: 10, end: 23 },
       ],
       layersPre: [
         { src: '/content/4/1.PNG', offset: 1 },

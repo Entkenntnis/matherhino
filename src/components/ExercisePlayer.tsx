@@ -220,8 +220,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
                       src={exercise.task}
                       draggable={false}
                     ></img>
-                    <div className="absolute left-0 right-0 top-0 h-6 bg-gradient-to-b from-gray-100 to-transparent" />
-                    <div className="absolute left-0 right-0 bottom-0 h-6 bg-gradient-to-t from-gray-100 to-transparent" />
+                    <div className="absolute left-0 right-0 top-0 h-3 md:h-6 bg-gradient-to-b from-gray-100 to-transparent" />
+                    <div className="absolute left-0 right-0 bottom-0 h-3 md:h-6 bg-gradient-to-t from-gray-100 to-transparent" />
                   </div>
                 ) : (
                   <div
