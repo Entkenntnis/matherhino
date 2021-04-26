@@ -48,7 +48,7 @@ export const exercise4: ExerciseData = {
     },
     {
       position: { x: 23, y: 34 },
-      title: 'Teilaufgabe A 3.2',
+      title: 'Teilaufgabe A 3.3',
       audioIndex: 3,
     },
   ],
