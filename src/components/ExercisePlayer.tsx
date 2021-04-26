@@ -140,6 +140,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
         onBack={() => {
           setExitModal(true)
         }}
+        isDone={endReached}
       />
     )
   }
@@ -264,18 +265,22 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             )
           })}
 
-        {currentQuiz.quickviews && !showQuickViews && (
-          <div className="text-center mb-20 mt-6">
-            <span
-              className="text-blue-500 hover:underline cursor-pointer"
-              onClick={() => {
-                setShowQuicViews(true)
-              }}
-            >
-              Angaben einblenden
-            </span>
-          </div>
-        )}
+        {showQuickViews && <div className="h-20" />}
+
+        {currentQuiz.quickviews &&
+          currentQuiz.quickviews.length > 0 &&
+          !showQuickViews && (
+            <div className="text-center mb-20 mt-6">
+              <span
+                className="text-blue-500 hover:underline cursor-pointer"
+                onClick={() => {
+                  setShowQuicViews(true)
+                }}
+              >
+                Angaben einblenden
+              </span>
+            </div>
+          )}
       </>
     )
   }

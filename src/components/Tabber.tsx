@@ -10,6 +10,7 @@ export interface TabberProps {
   autoScroll2: (x: any) => void
   autoScroller: { current: any }
   onBack: () => void
+  isDone?: boolean
 }
 
 export function Tabber({
@@ -20,6 +21,7 @@ export function Tabber({
   autoScroll1,
   autoScroll2,
   autoScroller,
+  isDone,
   onBack,
 }: TabberProps) {
   const [tabIndex, setTabIndex] = useState(notifyIndex)
@@ -54,7 +56,7 @@ export function Tabber({
           <ChevronLeft className="w-full h-full " />
         </div>
         {renderTab('Aufgabe', 0)}
-        {renderTab('Quiz', 1)}
+        {renderTab(isDone ? 'Auswertung' : 'Quiz', 1)}
         {renderTab('Lösung', 2)}
       </ul>
       <div

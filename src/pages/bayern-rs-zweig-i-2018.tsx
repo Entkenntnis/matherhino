@@ -32,7 +32,11 @@ export default function Page() {
           topics="Raumgeometrie, Trigonometrie, Strahlensatz, Flächen und Volumen"
         />
 
-        <Card id={4} title="A3 (todo)" topics="coming soon" />
+        <Card
+          id={4}
+          title="A3"
+          topics="Ebene Geometrie, Sinussatz, Supplementbeziehung, Dreiecke"
+        />
 
         <Card id={5} title="B1 (todo)" topics="coming soon" />
 
