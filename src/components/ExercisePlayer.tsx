@@ -682,7 +682,11 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
     if (wrongs.some((i) => i >= startIndex && i < endIndex)) return 'warn'
 
     let allComplete = true
-    for (let i = startIndex; i < endIndex; i++) {
+    for (
+      let i = startIndex;
+      i < Math.min(exercise.quiz.length, endIndex);
+      i++
+    ) {
       if (!quizSelected[i]?.includes(9 /* magic number */)) {
         allComplete = false
       }

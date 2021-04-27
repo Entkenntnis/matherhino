@@ -27,7 +27,7 @@ export function Quiz({
     <div className={`max-w-xl mx-auto relative`}>
       <div
         className={`px-3 border-2 rounded border-gray-200 ${
-          smallHeight ? 'pt-3' : 'pt-3 mt-3 sm:mt-13 xl:mt-20'
+          smallHeight ? 'pt-3' : 'pt-3 mt-6 sm:mt-13 xl:mt-20'
         }`}
       >
         <p
