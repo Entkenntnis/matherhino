@@ -4,7 +4,7 @@ export const exercise5: ExerciseData = {
   id: 5,
   task: '/content/5/task.png',
   backTo: '/bayern-rs-zweig-i-2018',
-  height: 100,
+  height: 150,
   audio: [
     {
       mp3: '/content/5/b1_0.mp3',
@@ -46,7 +46,7 @@ export const exercise5: ExerciseData = {
       ogg: '/content/5/b1_5.ogg',
       size: 5,
       position: { left: 9, top: 81.5 },
-      beforeQuiz: 999,
+      beforeQuiz: 20,
     },
   ],
   checkpoints: [
@@ -66,12 +66,12 @@ export const exercise5: ExerciseData = {
       audioIndex: 3,
     },
     {
-      position: { x: 23, y: 34 },
+      position: { x: 23, y: 68 },
       title: 'Teilaufgabe B 1.4',
       audioIndex: 4,
     },
     {
-      position: { x: 23, y: 34 },
+      position: { x: 23, y: 999 },
       title: 'Teilaufgabe B 1.5',
       audioIndex: 5,
     },
@@ -248,6 +248,87 @@ export const exercise5: ExerciseData = {
       quickviews: [{ type: 'task', start: 85, end: 123 }],
       layersPre: [{ src: '/content/5/27.PNG', offset: 30 }],
       layersPost: [{ src: '/content/5/28.PNG', offset: 32 }],
+    },
+    {
+      description:
+        'Schaue dir die Skizze an. Laut Angabe ist das Dreieck A<sub>3</sub>B<sub>3</sub>C<sub>3</sub> gleichschenklig. Welche Eigenschaft des Dreiecks hilft bei der Berechnung der x-Koordinate von A<sub>3</sub> ?',
+      correctChoice:
+        '<span class="overline">A<sub>3</sub>B<sub>3</sub></span> = 3',
+      wrong1:
+        '<span class="overline">A<sub>3</sub>C<sub>3</sub></span> = <span class="overline">B<sub>3</sub>C<sub>3</sub></span>',
+      wrong2: '&alpha;<sub>3</sub> = &beta;<sub>3</sub>',
+      cursor: { x: 17, y: 80 },
+      quickviews: [{ type: 'solution', start: 67, end: 80 }],
+      autoShowViews: true,
+      layersPre: [
+        { src: '/content/5/29.PNG', offset: 68 },
+        { src: '/content/5/30.PNG', offset: 68 },
+      ],
+      layersPost: [{ src: '/content/5/31.PNG', offset: 80 }],
+    },
+    {
+      description:
+        'Zusätzlich kannst du die Länge der Strecke A<sub>3</sub>B<sub>3</sub>C<sub>3</sub> in Abhängigkeit von x darstellen. Wie kommen dabei die Funktionen f<sub>1</sub> und f<sub>2</sub> zum Einsatz?',
+      correctChoice:
+        '<span class="overline">A<sub>n</sub>B<sub>n</sub></span>(x) = f<sub>1</sub>(x) - f<sub>2</sub>(x)',
+      wrong1:
+        '<span class="overline">A<sub>n</sub>B<sub>n</sub></span>(x) = f<sub>1</sub>(x) + f<sub>2</sub>(x)',
+      wrong2:
+        '<span class="overline">A<sub>n</sub>B<sub>n</sub></span>(x) = f<sub>2</sub>(x) - f<sub>1</sub>(x)',
+      cursor: { x: 18, y: 84 },
+      quickviews: [{ type: 'solution', start: 27, end: 50 }],
+      layersPre: [{ src: '/content/5/32.PNG', offset: 82 }],
+      layersPost: [{ src: '/content/5/33.PNG', offset: 84 }],
+    },
+    {
+      description:
+        'Setze die Funktionsterme ein und vereinfache. Wie lautet das Ergebnis?',
+      correctChoice: '-3 &sdot; log<sub>0,5</sub> x - 0,75',
+      wrong1: '-3 &sdot; log<sub>0,5</sub> x - 2,25',
+      wrong2: 'log<sub>0,5</sub> x - 2,25',
+      cursor: { x: 20, y: 88 },
+      quickviews: [{ type: 'solution', start: 83.3, end: 88 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/5/34.PNG', offset: 86 }],
+      layersPost: [{ src: '/content/5/35.PNG', offset: 86 }],
+    },
+    {
+      description:
+        'Mit welcher Gleichung lässt sich nun die gesuchte x-Koordinate bestimmen?',
+      correctChoice: '-3 &sdot; log<sub>0,5</sub> x - 0,75 = 3',
+      wrong1: '-3 &sdot; log<sub>0,5</sub> x - 0,75 = 0',
+      wrong2: '-3 &sdot; log<sub>0,5</sub> x - 0,75 = y',
+      cursor: { x: 18, y: 92 },
+      quickviews: [
+        { type: 'solution', start: 83.3, end: 88 },
+        { type: 'solution', start: 79.4, end: 80 },
+      ],
+      layersPre: [{ src: '/content/5/36.PNG', offset: 90 }],
+      layersPost: [{ src: '/content/5/37.PNG', offset: 92 }],
+    },
+    {
+      description:
+        'Forme die Gleichung mit den gegebenen Äquivalenzumformengen um. Wie lautet das Ergebnis?',
+      correctChoice: 'log<sub>0,5</sub> x = -1,25',
+      wrong1: 'log<sub>0,5</sub> x = 1,25',
+      wrong2: 'log<sub>0,5</sub> x = -0,75',
+      cursor: { x: 20, y: 96 },
+      quickviews: [{ type: 'solution', start: 91.4, end: 96 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/5/38.PNG', offset: 92 }],
+      layersPost: [{ src: '/content/5/39.PNG', offset: 94 }],
+    },
+    {
+      description:
+        'Löse nach x auf, indem du den Logarithmus umkehrst und berechne den Wert mit dem Taschenrechner. Wie lautet das Ergebnis?',
+      correctChoice: '2,38',
+      wrong1: '3,42',
+      wrong2: '2,12',
+      cursor: { x: 24, y: 102 },
+      quickviews: [{ type: 'solution', start: 95.5, end: 100 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/5/40.PNG', offset: 98 }],
+      layersPost: [{ src: '/content/5/41.PNG', offset: 98 }],
     },
     /*{
       description: 'TODO',

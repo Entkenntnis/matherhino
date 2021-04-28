@@ -202,7 +202,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             }
           }}
         />
-        {showQuickViews &&
+        {(showQuickViews || currentQuiz.autoShowViews) &&
           currentQuiz.quickviews &&
           currentQuiz.quickviews.map((view, index) => {
             return (
@@ -265,11 +265,14 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             )
           })}
 
-        {showQuickViews && <div className="h-20" />}
+        {(showQuickViews || currentQuiz.autoShowViews) && (
+          <div className="h-20" />
+        )}
 
         {currentQuiz.quickviews &&
           currentQuiz.quickviews.length > 0 &&
-          !showQuickViews && (
+          !showQuickViews &&
+          !currentQuiz.autoShowViews && (
             <div className="text-center mb-20 mt-6">
               <span
                 className="text-blue-500 hover:underline cursor-pointer"

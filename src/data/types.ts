@@ -22,6 +22,7 @@ export type QuizData = {
   layersPost?: LayerData[]
   cursor: { x: number; y: number }
   quickviews?: { type: 'task' | 'solution'; start: number; end: number }[]
+  autoShowViews?: boolean
 }
 
 export type AudioData = {
