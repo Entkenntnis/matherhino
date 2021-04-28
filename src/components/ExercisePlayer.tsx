@@ -22,7 +22,7 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
   const [smallHeight, setSmallHeight] = useState(false)
   const tabberRef = useRef<any>(null)
 
-  const [shufflings] = useState(getShufflings())
+  const [shufflings, setShufflings] = useState(getShufflings())
 
   const [audioPlayed, setAudioPlayed] = useState<string[]>([])
   const [quizSelected, setQuizSelected] = useState<{
@@ -474,6 +474,8 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
                 setAudioPlayed(
                   audioPlayed.filter((audio) => !resetAudio.includes(audio))
                 )
+
+                setShufflings(getShufflings())
 
                 setQuizSelected(newSelected)
                 setRetryModal(false)

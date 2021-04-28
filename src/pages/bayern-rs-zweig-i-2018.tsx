@@ -38,7 +38,11 @@ export default function Page() {
           topics="Ebene Geometrie, Sinussatz, Supplementbeziehung, Dreiecke"
         />
 
-        <Card id={5} title="B1 (todo)" topics="coming soon" />
+        <Card
+          id={5}
+          title="B1"
+          topics="Funktionen, Logarithmus, orthogonale Affinität, Parallelverschiebung, Nullstelle, parametrisierte Dreiecke, gleichschenklig, Schwerpunkt, Trägergraph"
+        />
 
         <Card id={6} title="B2 (todo)" topics="coming soon" />
       </div>

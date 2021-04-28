@@ -4,7 +4,7 @@ export const exercise5: ExerciseData = {
   id: 5,
   task: '/content/5/task.png',
   backTo: '/bayern-rs-zweig-i-2018',
-  height: 150,
+  height: 148,
   audio: [
     {
       mp3: '/content/5/b1_0.mp3',
@@ -71,7 +71,7 @@ export const exercise5: ExerciseData = {
       audioIndex: 4,
     },
     {
-      position: { x: 23, y: 999 },
+      position: { x: 23, y: 105 },
       title: 'Teilaufgabe B 1.5',
       audioIndex: 5,
     },
@@ -188,6 +188,7 @@ export const exercise5: ExerciseData = {
       wrong2: 'x = -3',
       cursor: { x: 20, y: 58 },
       quickviews: [{ type: 'solution', start: 53.4, end: 58.4 }],
+      autoShowViews: true,
       layersPre: [{ src: '/content/5/17.PNG', offset: 54 }],
       layersPost: [{ src: '/content/5/18.PNG', offset: 56 }],
     },
@@ -199,6 +200,7 @@ export const exercise5: ExerciseData = {
       wrong2: '0,5 &sdot; (-0,75)',
       cursor: { x: 22, y: 60 },
       quickviews: [{ type: 'solution', start: 57.4, end: 60 }],
+      autoShowViews: true,
       layersPre: [{ src: '/content/5/19.PNG', offset: 60 }],
       layersPost: [{ src: '/content/5/20.PNG', offset: 59 }],
     },
@@ -330,44 +332,84 @@ export const exercise5: ExerciseData = {
       layersPre: [{ src: '/content/5/40.PNG', offset: 98 }],
       layersPost: [{ src: '/content/5/41.PNG', offset: 98 }],
     },
-    /*{
-      description: 'TODO',
-      correctChoice: '---',
-      wrong1: '---',
-      wrong2: '---',
-      cursor: { x: 8, y: 7 },
-      quickviews: [
-        { type: 'task', start: 85, end: 125 },
-        { type: 'task', start: 15, end: 27 },
+    {
+      description:
+        'Für die Koordinaten des Schwerpunkts gibt es eine Formel. Wie lautet diese?',
+      correctChoice:
+        'S<sub>n</sub> <span class="text-xl">(</span> <div class="frac"><span>x<sub>A</sub> + x<sub>B</sub> + x<sub>C</sub></span><span>3</span></div> <span class="text-xl">|</span> <div class="frac"><span>y<sub>A</sub> + y<sub>B</sub> + y<sub>C</sub></span><span>3</span></div> <span class="text-xl">)</span>',
+      wrong1:
+        'S<sub>n</sub> <span class="text-xl">(</span> x<sub>A</sub> + x<sub>B</sub> + x<sub>C</sub> <span class="text-xl">|</span> y<sub>A</sub> + y<sub>B</sub> + y<sub>C</sub> <span class="text-xl">)</span>',
+      wrong2:
+        'S<sub>n</sub> <span class="text-xl">(</span> <div class="frac"><span>x<sub>A</sub> + x<sub>B</sub></span><span>2</span></div> <span class="text-xl">|</span> <div class="frac"><span>y<sub>A</sub> + y<sub>B</sub></span><span>2</span></div> <span class="text-xl">)</span>',
+      cursor: { x: 18, y: 108 },
+      quickviews: [],
+      layersPre: [
+        { src: '/content/5/42.PNG', offset: 105 },
+        { src: '/content/5/43.PNG', offset: 105 },
       ],
-      layersPre: [],
-      layersPost: [],
+      layersPost: [{ src: '/content/5/44.PNG', offset: 107 }],
     },
     {
-      description: 'TODO',
-      correctChoice: '---',
-      wrong1: '---',
-      wrong2: '---',
-      cursor: { x: 8, y: 7 },
-      quickviews: [
-        { type: 'task', start: 85, end: 125 },
-        { type: 'task', start: 15, end: 27 },
-      ],
-      layersPre: [],
-      layersPost: [],
+      description:
+        'Bestimme zuerst die Koordinaten von C<sub>n</sub> und vereinfache. Wie lautet das Ergebnis?',
+      correctChoice:
+        'C<sub>n</sub> ( x + 4 | -2 &sdot; log<sub>0,5</sub> x - 3 )',
+      wrong1: 'C<sub>n</sub> ( 4 | - 1,5 )',
+      wrong2: 'C<sub>n</sub> ( x - 4 | -2 &sdot; log<sub>0,5</sub> x )',
+      cursor: { x: 20, y: 115 },
+      quickviews: [{ type: 'task', start: 85, end: 113.5 }],
+      layersPre: [{ src: '/content/5/45.PNG', offset: 111 }],
+      layersPost: [{ src: '/content/5/46.PNG', offset: 113 }],
     },
     {
-      description: 'TODO',
-      correctChoice: '---',
-      wrong1: '---',
-      wrong2: '---',
-      cursor: { x: 8, y: 7 },
+      description:
+        'Setze nun alle bekannten Werte ein und vereinfache. Wie lauten die Koordinaten der Schwerpunkte S<sub>n</sub> ?',
+      correctChoice: 'S<sub>n</sub> ( x + 1,33 | -log<sub>0,5</sub> x - 1,75 )',
+      wrong1: 'S<sub>n</sub> ( 3x + 4 | -3 &sdot; log<sub>0,5</sub> x - 4,25 )',
+      wrong2: 'S<sub>n</sub> ( x + 4 | -log<sub>0,5</sub> x - 4,25 )',
+      cursor: { x: 20, y: 123 },
       quickviews: [
-        { type: 'task', start: 85, end: 125 },
-        { type: 'task', start: 15, end: 27 },
+        { type: 'solution', start: 106, end: 109 },
+        { type: 'task', start: 85, end: 113.5 },
+        { type: 'solution', start: 110, end: 115 },
       ],
+      layersPre: [{ src: '/content/5/47.PNG', offset: 117 }],
+      layersPost: [{ src: '/content/5/48.PNG', offset: 119 }],
+    },
+    {
+      description:
+        'Der Trägergraph soll keine Abhängigkeit von x mehr enthalten. Mit welcher ersten Umformung lässt sich dieses Ziel erreichen?',
+      correctChoice: 'Auflösen von (1) nach x',
+      wrong1: 'Gleichsetzen von (1) und (2)',
+      wrong2: 'Auflösen von (2) nach x',
+      cursor: { x: 14, y: 133 },
+      quickviews: [{ type: 'solution', start: 124, end: 133 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/5/49.PNG', offset: 125 }],
+      layersPost: [{ src: '/content/5/50.PNG', offset: 131 }],
+    },
+    {
+      description: 'Welcher zweite Schritt ist nun notwendig?',
+      correctChoice: 'Einsetzen von x in (2)',
+      wrong1: 'Auflösen von (2) nach x',
+      wrong2: 'Gleichsetzen von (1) und (2)',
+      cursor: { x: 24, y: 139 },
+      quickviews: [{ type: 'solution', start: 124, end: 139 }],
+      autoShowViews: true,
       layersPre: [],
-      layersPost: [],
-    },*/
+      layersPost: [{ src: '/content/5/51.PNG', offset: 135 }],
+    },
+    {
+      description:
+        'Zeichne schließlich die Schwerpunkte S<sub>1</sub> und S<sub>2</sub> in das Koordinatensystem zu B 1.2 ein. Der Schwerpunkt liegt an einem ganz bestimmten geometrischen Ort. Welcher ist das?',
+      correctChoice: 'Schnittpunkt der Seitenhalbierenden',
+      wrong1: 'Schnittpunkt der Winkelhalbierenden',
+      wrong2: 'Umkreismittelpunkt',
+      cursor: { x: 21, y: 142 },
+      quickviews: [{ type: 'solution', start: 28, end: 50 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/5/52.PNG', offset: 142 }],
+      layersPost: [{ src: '/content/5/53.PNG', offset: 31 }],
+    },
   ],
 }
