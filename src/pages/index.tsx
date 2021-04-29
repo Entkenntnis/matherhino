@@ -25,14 +25,16 @@ export default function Home() {
           <img src="/landing/rs_by.png" className="w-7" />
           <p className="text-lg m-3 text-blue-500 hover:underline cursor-pointer text-left">
             <a href="/bayern-rs-zweig-i-2018">
-              Bayern, Realschulabschluss, Zweig I, 2018 (im Aufbau)
+              Bayern, Realschulabschlussprüfung, Zweig&nbsp;I, 2018 (fast
+              fertig)
             </a>
           </p>
         </div>
         <div className="flex mt-2 items-center justify-center m-2">
           <img src="/landing/rs_by.png" className="w-7" />
           <p className="text-lg m-3 text-left">
-            Bayern, Realschulabschluss, Zweig II/III, 2018 (in Planung)
+            Bayern, Realschulabschlussprüfung, Zweig&nbsp;II/III, 2018 (im
+            Aufbau)
           </p>
         </div>
         <div className="py-14 text-2xl">...</div>
