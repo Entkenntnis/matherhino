@@ -30,7 +30,12 @@ export function Task({
   }, [])
 
   return (
-    <div className="max-w-2xl mt-6 mb-20 mx-auto flex flex-initial justify-center">
+    <div
+      className={`mt-6 mb-20 mx-auto flex flex-initial justify-center ${
+        exercise.width ? '' : 'max-w-2xl'
+      }`}
+      style={exercise.width ? { maxWidth: exercise.width } : {}}
+    >
       <audio
         className="hidden"
         ref={audio}

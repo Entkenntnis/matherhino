@@ -1,6 +1,7 @@
 export interface ExerciseData {
   id: number
   task: string
+  width?: number
   backTo: string
   height: number
   checkpoints: {
