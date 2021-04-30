@@ -30,7 +30,7 @@ export function Task({
   }, [])
 
   return (
-    <div className="max-w-2xl my-6 mx-auto flex flex-initial justify-center">
+    <div className="max-w-2xl mt-6 mb-20 mx-auto flex flex-initial justify-center">
       <audio
         className="hidden"
         ref={audio}
