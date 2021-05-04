@@ -711,19 +711,22 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
     quizNr: number,
     eventType: 'click' | 'correct' | 'wrong'
   ) {
-    void (async () => {
-      const rawResponse = await fetch(
-        'https://stats-matherhino.arrrg.de/submit_event',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ taskId: exercise.id, quizNr, eventType }),
-        }
-      )
-      // const content = await rawResponse.text()
-      // console.log(content)
-    })()
+    if (window.location.host == 'www.matherhino.de') {
+      // only log on production
+      void (async () => {
+        const rawResponse = await fetch(
+          'https://stats-matherhino.arrrg.de/submit_event',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ taskId: exercise.id, quizNr, eventType }),
+          }
+        )
+        // const content = await rawResponse.text()
+        // console.log(content)
+      })()
+    }
   }
 }
