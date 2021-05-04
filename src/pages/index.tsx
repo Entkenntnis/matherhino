@@ -80,11 +80,15 @@ export default function Home() {
                 'Möchtest du deinen gesamten Lernfortschritt auf diesem Gerät zurücksetzen?\n\nDieser Vorgang kann nicht rückgängig gemacht werden.'
               )
               if (result) {
+                const toDelete = []
                 for (let i = 0; i < localStorage.length; i++) {
                   const key = localStorage.key(i)
                   if (key?.startsWith('progress_v')) {
-                    localStorage.removeItem(key)
+                    toDelete.push(key)
                   }
+                }
+                for (const key of toDelete) {
+                  localStorage.removeItem(key)
                 }
               }
             }}
