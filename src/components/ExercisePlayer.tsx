@@ -200,6 +200,11 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
                 setTimeTaken(newTimeTaken)
               }
             }
+
+            if (currentSelected.length == 0) {
+              submit_event(step, 'click')
+              submit_event(step, index == 0 ? 'correct' : 'wrong')
+            }
           }}
         />
         {(showQuickViews || currentQuiz.autoShowViews) &&
@@ -700,5 +705,25 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
     if (!allComplete) return 'invisible'
 
     return 'success'
+  }
+
+  function submit_event(
+    quizNr: number,
+    eventType: 'click' | 'correct' | 'wrong'
+  ) {
+    void (async () => {
+      const rawResponse = await fetch(
+        'https://stats-matherhino.arrrg.de/submit_event',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ taskId: exercise.id, quizNr, eventType }),
+        }
+      )
+      // const content = await rawResponse.text()
+      // console.log(content)
+    })()
   }
 }
