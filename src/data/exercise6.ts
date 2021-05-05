@@ -1,10 +1,11 @@
+import { buildVec, buildVec2 } from '../utils/mathBuilder'
 import { ExerciseData } from './types'
 
 export const exercise6: ExerciseData = {
   id: 6,
   task: '/content/6/task.png',
   backTo: '/bayern-rs-zweig-i-2018',
-  height: 55,
+  height: 100,
   audio: [
     {
       mp3: '/content/6/b2_0.mp3',
@@ -25,7 +26,7 @@ export const exercise6: ExerciseData = {
       ogg: '/content/6/b2_2.ogg',
       size: 5,
       position: { left: 9, top: 35.8 },
-      beforeQuiz: 5,
+      beforeQuiz: 4,
     },
     {
       mp3: '/content/6/b2_3.mp3',
@@ -63,7 +64,7 @@ export const exercise6: ExerciseData = {
       audioIndex: 1,
     },
     {
-      position: { x: 23, y: 11 },
+      position: { x: 23, y: 29 },
       title: 'Teilaufgabe B 2.2',
       audioIndex: 2,
     },
@@ -143,6 +144,82 @@ export const exercise6: ExerciseData = {
       quickviews: [{ type: 'task', start: 3, end: 36 }],
       layersPre: [],
       layersPost: [{ src: '/content/6/7.PNG', offset: 5 }],
+    },
+    {
+      description: `Schaue dir an, welche Zusammenhänge zwischen B<sub>n</sub> und D<sub>n</sub> bekannt sind. Welcher Rechenansatz lässt sich daraus für die Bestimmung der Koordinaten von D<sub>n</sub> aufstellen?`,
+      correctChoice: `Der Ortvektor ${buildVec(
+        'OD<sub>n</sub>'
+      )} ist die Verkettung von ${buildVec('OB<sub>n</sub>')} und ${buildVec(
+        'B<sub>n</sub>D<sub>n</sub>'
+      )}`,
+      wrong1:
+        'Die Koordinaten von D<sub>n</sub> sind das 3,5-fache von B<sub>n</sub>',
+      wrong2: `Der Ortsvektor von D<sub>n</sub> ist das 3,5-fache des Vektors ${buildVec(
+        'B<sub>n</sub>M'
+      )}`,
+      cursor: { x: 24, y: 32 },
+      quickviews: [
+        { type: 'task', start: 25, end: 35 },
+        { type: 'solution', start: 4, end: 24 },
+      ],
+      layersPre: [
+        { src: '/content/6/8.PNG', offset: 29 },
+        { src: '/content/6/9.PNG', offset: 29 },
+      ],
+      layersPost: [{ src: '/content/6/10.PNG', offset: 31 }],
+    },
+    {
+      description: `Für diesen Rechenansatz benötigst du die Koordinaten des Punktes M. Wie lauten die Koordinaten von M ?`,
+      correctChoice: 'M ( 0,5 | 2,5 )',
+      wrong1: 'M ( 1 | 5 )',
+      wrong2: 'M ( 5 | 1 )',
+      cursor: { x: 24, y: 35 },
+      quickviews: [{ type: 'task', start: 4, end: 27 }],
+      layersPre: [{ src: '/content/6/11.PNG', offset: 35 }],
+      layersPost: [{ src: '/content/6/12.PNG', offset: 35 }],
+    },
+    {
+      description: `Spitze minus Fuß. Welche Werte hat der Vektor ${buildVec(
+        'B<sub>n</sub>M'
+      )}(x) ?`,
+      correctChoice: `${buildVec('B<sub>n</sub>M')}(x) = ${buildVec2(
+        '0,5 - x',
+        '2,5 - 0,5x'
+      )}`,
+      wrong1: `${buildVec('B<sub>n</sub>M')}(x) = ${buildVec2(
+        'x - 0,5',
+        '0,5x - 2,5'
+      )}`,
+      wrong2: `${buildVec('B<sub>n</sub>M')}(x) = ${buildVec2('-0,5x', '2x')}`,
+      cursor: { x: 18, y: 38 },
+      quickviews: [
+        { type: 'task', start: 4, end: 27 },
+        { type: 'solution', start: 34, end: 39 },
+      ],
+      layersPre: [{ src: '/content/6/13.PNG', offset: 37 }],
+      layersPost: [{ src: '/content/6/14.PNG', offset: 37 }],
+    },
+    {
+      description: `Du kannst jetzt die bekannten Werte in den Ansatz einsetzen. Welchen Wert hat der Vektor im letzten Summand?`,
+      correctChoice: `${buildVec2('1,75 - 3,5x', '8,75 - 1,75x')}`,
+      wrong1: `${buildVec2('0,5 - x', '2,5 - 0,5x')}`,
+      wrong2: `${buildVec2('4 - x', '6 - 0,5x')}`,
+      cursor: { x: 21, y: 47 },
+      quickviews: [{ type: 'solution', start: 36.5, end: 49 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/15.PNG', offset: 41 }],
+      layersPost: [{ src: '/content/6/16.PNG', offset: 46 }],
+    },
+    {
+      description: `Wie lauten schließlich die Koordinaten für D<sub>n</sub> ?`,
+      correctChoice: 'D<sub>n</sub> ( -2,5x + 1,75 | -1,25x + 8,75 )',
+      wrong1: 'D<sub>n</sub> ( -4,5x + 1,75 | -2,25x + 8,75 )',
+      wrong2: 'D<sub>n</sub> ( 0,75x | 6,5x )',
+      cursor: { x: 23, y: 53 },
+      quickviews: [{ type: 'solution', start: 40, end: 54 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/17.PNG', offset: 50 }],
+      layersPost: [{ src: '/content/6/18.PNG', offset: 50 }],
     },
     /*{
       description: 'TODO',
