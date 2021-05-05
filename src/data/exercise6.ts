@@ -33,7 +33,7 @@ export const exercise6: ExerciseData = {
       ogg: '/content/6/b2_3.ogg',
       size: 5,
       position: { left: 9, top: 50.6 },
-      beforeQuiz: 999,
+      beforeQuiz: 9,
     },
     {
       mp3: '/content/6/b2_4.mp3',
@@ -69,7 +69,7 @@ export const exercise6: ExerciseData = {
       audioIndex: 2,
     },
     {
-      position: { x: 23, y: 21 },
+      position: { x: 23, y: 56 },
       title: 'Teilaufgabe B 2.3',
       audioIndex: 3,
     },
@@ -220,6 +220,57 @@ export const exercise6: ExerciseData = {
       autoShowViews: true,
       layersPre: [{ src: '/content/6/17.PNG', offset: 50 }],
       layersPost: [{ src: '/content/6/18.PNG', offset: 50 }],
+    },
+    {
+      description: 'Mit welchem Ansatz lässt sich der Trägergraph bestimmen?',
+      correctChoice: 'Aufstellung eines Gleichungssystems',
+      wrong1: 'Anwendung der Mitternachtsformel',
+      wrong2: 'Gleichsetzung der x- und y-Koordinaten',
+      cursor: { x: 19, y: 60 },
+      quickviews: [],
+      layersPre: [
+        { src: '/content/6/19.PNG', offset: 56 },
+        { src: '/content/6/20.PNG', offset: 56 },
+      ],
+      layersPost: [{ src: '/content/6/21.PNG', offset: 58 }],
+    },
+    {
+      description: 'Wie lautet der erste Umformungsschritt?',
+      correctChoice:
+        'Auflösen von <span class="font-serif font-bold">I</span> nach x',
+      wrong1:
+        'Auflösen von <span class="font-serif font-bold">II</span> nach x',
+      wrong2:
+        'Einsetzen von <span class="font-serif font-bold">I</span> in <span class="font-serif font-bold">II</span>',
+      cursor: { x: 16, y: 62 },
+      quickviews: [{ type: 'solution', start: 57, end: 62 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/22.PNG', offset: 62 }],
+      layersPost: [{ src: '/content/6/23.PNG', offset: 62 }],
+    },
+    {
+      description:
+        'Führe die angegebenen Umformungsschritte aus. Wie lautet das Ergebnis?',
+      correctChoice: 'x = -0,4 x<sub>D<sub>n</sub></sub> + 0,7',
+      wrong1: 'x = 0,4 x<sub>D<sub>n</sub></sub> - 0,7',
+      wrong2: 'x = 0,4 x<sub>D<sub>n</sub></sub> - 1,75',
+      cursor: { x: 23, y: 68 },
+      quickviews: [{ type: 'solution', start: 61, end: 68 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/24.PNG', offset: 64 }],
+      layersPost: [{ src: '/content/6/25.PNG', offset: 66 }],
+    },
+    {
+      description:
+        'Setze schließlich x in <span class="font-serif font-bold">II</span> ein und vereinfache. Wie lautet das Ergebnis für den Trägergraph?',
+      correctChoice: 'y = 0,5x + 7,88',
+      wrong1: 'y = 0,7x + 5,86',
+      wrong2: 'y = 0,4x + 7,38',
+      cursor: { x: 23, y: 78 },
+      quickviews: [{ type: 'solution', start: 55, end: 79 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/26.PNG', offset: 70 }],
+      layersPost: [{ src: '/content/6/27.PNG', offset: 71 }],
     },
     /*{
       description: 'TODO',
