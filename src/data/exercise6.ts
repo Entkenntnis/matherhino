@@ -5,7 +5,7 @@ export const exercise6: ExerciseData = {
   id: 6,
   task: '/content/6/task.png',
   backTo: '/bayern-rs-zweig-i-2018',
-  height: 100,
+  height: 150,
   audio: [
     {
       mp3: '/content/6/b2_0.mp3',
@@ -40,7 +40,7 @@ export const exercise6: ExerciseData = {
       ogg: '/content/6/b2_4.ogg',
       size: 5,
       position: { left: 9, top: 59.6 },
-      beforeQuiz: 999,
+      beforeQuiz: 13,
     },
     {
       mp3: '/content/6/b2_5.mp3',
@@ -74,7 +74,7 @@ export const exercise6: ExerciseData = {
       audioIndex: 3,
     },
     {
-      position: { x: 23, y: 31 },
+      position: { x: 23, y: 81 },
       title: 'Teilaufgabe B 2.4',
       audioIndex: 4,
     },
@@ -271,6 +271,148 @@ export const exercise6: ExerciseData = {
       autoShowViews: true,
       layersPre: [{ src: '/content/6/26.PNG', offset: 70 }],
       layersPost: [{ src: '/content/6/27.PNG', offset: 71 }],
+    },
+    {
+      description:
+        'Welche der folgenden Eigenschaften gilt für jedes Drachenviereck?',
+      correctChoice: 'Die Diagonalen sind zueinander senkrecht',
+      wrong1: 'Alle Seiten sind gleich lang',
+      wrong2: 'Gegenüberliegende Seiten sind parallel',
+      cursor: { x: 19, y: 83 },
+      quickviews: [],
+      layersPre: [
+        { src: '/content/6/28.PNG', offset: 81 },
+        { src: '/content/6/29.PNG', offset: 81 },
+      ],
+      layersPost: [{ src: '/content/6/30.PNG', offset: 81 }],
+    },
+    {
+      description:
+        'Welche Gleichung lässt sich aus dieser Eigenschaft aufstellen um die gesuchte x-Koordinate zu bestimmen?',
+      correctChoice: `Das Skalarprodukt von ${buildVec('AC')} und ${buildVec(
+        'B<sub>2</sub>M'
+      )} ist gleich 0`,
+      wrong1: `Das Skalarprodukt von ${buildVec(
+        'AB<sub>2</sub>'
+      )} und ${buildVec('B<sub>2</sub>C')} ist gleich 0`,
+      wrong2: 'Länge von AC ist gleich Länge von B<sub>2</sub>D<sub>2</sub>',
+      cursor: { x: 18, y: 88 },
+      quickviews: [{ type: 'solution', start: 4, end: 25 }],
+      layersPre: [{ src: '/content/6/31.PNG', offset: 83 }],
+      layersPost: [{ src: '/content/6/32.PNG', offset: 87 }],
+    },
+    {
+      description: `Welchen Wert hat der Vektor ${buildVec('AC')} ?`,
+      correctChoice: buildVec2('5', '1'),
+      wrong1: buildVec2('3', '3'),
+      wrong2: buildVec2('10', '2'),
+      cursor: { x: 9, y: 92 },
+      quickviews: [
+        { type: 'solution', start: 86.5, end: 92 },
+        { type: 'solution', start: 4, end: 25 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/33.PNG', offset: 90 }],
+      layersPost: [{ src: '/content/6/34.PNG', offset: 90 }],
+    },
+    {
+      description: `In einer vorherigen Teilaufgabe wurde bereits eine Formel für den Vektor ${buildVec(
+        'B<sub>n</sub>M'
+      )} hergeleitet. Diese kommt in dieser Aufgabe wieder zum Einsatz. Wie lautet die Formel?`,
+      correctChoice: buildVec2('0,5 - x', '2,5 - 0,5x'),
+      wrong1: buildVec2('x', '0,5x'),
+      wrong2: buildVec2('1,75 - 3,5x', '8,75 - 1,75x'),
+      cursor: { x: 17, y: 95 },
+      quickviews: [{ type: 'solution', start: 86.5, end: 95 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/35.PNG', offset: 93 }],
+      layersPost: [{ src: '/content/6/36.PNG', offset: 93 }],
+    },
+    {
+      description: 'Berechne das Skalarprodukt. Wie lautet das Ergebnis?',
+      correctChoice: '5 &sdot; (0,5 - x) + 1 &sdot; (2,5 - 0,5x)',
+      wrong1: '5 &sdot; (2,5 - 0,5x) - 1 &sdot; (0,5 - x)',
+      wrong2: '5 &sdot; 0,5 - x + 1 &sdot; 2,5 - 0,5x',
+      cursor: { x: 23, y: 97 },
+      quickviews: [{ type: 'solution', start: 92.5, end: 97 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/37.PNG', offset: 97 }],
+      layersPost: [{ src: '/content/6/38.PNG', offset: 97 }],
+    },
+    {
+      description:
+        'Diese Gleichung kannst du vereinfachen. Wie lautet das vollständig vereinfachte Ergebnis?',
+      correctChoice: '5 - 5,5x = 0',
+      wrong1: '5,5 - 5x = 0',
+      wrong2: '5,5 - 5,5x',
+      cursor: { x: 15, y: 101 },
+      quickviews: [{ type: 'solution', start: 96, end: 101 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/39.PNG', offset: 99 }],
+      layersPost: [{ src: '/content/6/40.PNG', offset: 99 }],
+    },
+    {
+      description:
+        'Löse die Gleichung nun nach x auf. Wie lautet das Ergebnis für x ? Benutze den Taschenrechner.',
+      correctChoice: '0,91',
+      wrong1: '1,10',
+      wrong2: '-0,75',
+      cursor: { x: 17, y: 105 },
+      quickviews: [{ type: 'solution', start: 100, end: 105 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/41.PNG', offset: 101 }],
+      layersPost: [{ src: '/content/6/42.PNG', offset: 103 }],
+    },
+    {
+      description:
+        'Wie lässt sich der Flächeninhalt eines Drachenvierecks berechnen?',
+      correctChoice: 'Produkt der Diagonalen geteilt durch 2',
+      wrong1: 'Produkt der Diagonalen',
+      wrong2: 'Produkt der Diagonalen geteilt durch 3',
+      cursor: { x: 19, y: 107 },
+      quickviews: [],
+      layersPre: [{ src: '/content/6/43.PNG', offset: 107 }],
+      layersPost: [{ src: '/content/6/44.PNG', offset: 106 }],
+    },
+    {
+      description:
+        '[AC] ist die eine Diagonale des Drachenvierecks. Wie lang ist diese Strecke? Nutze dabei auch die Vektordarstellung, die du vorher bestimmt hast.',
+      correctChoice: '5,10',
+      wrong1: '4,92',
+      wrong2: '6,00',
+      cursor: { x: 24, y: 110 },
+      quickviews: [{ type: 'solution', start: 108.7, end: 110 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/45.PNG', offset: 110 }],
+      layersPost: [{ src: '/content/6/46.PNG', offset: 109 }],
+    },
+    {
+      description:
+        'Bestimme die Länge von [B<sub>2</sub>M]. Wie lautet das Ergebnis? Nutze dafür die bisherigen Ergebnisse.',
+      correctChoice: '2,09',
+      wrong1: '1,32',
+      wrong2: '3,29',
+      cursor: { x: 24, y: 112 },
+      quickviews: [
+        { type: 'solution', start: 111.7, end: 113 },
+        { type: 'solution', start: 36.8, end: 38.8 },
+        { type: 'solution', start: 104.2, end: 104.6 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/47.PNG', offset: 112 }],
+      layersPost: [{ src: '/content/6/48.PNG', offset: 113 }],
+    },
+    {
+      description:
+        'Füge nun alle Ergebnisse zusammen. Wie lautet der Flächeninhalt des Drachenvierecks AB<sub>2</sub>CD<sub>2</sub> ?',
+      correctChoice: '18,65 FE',
+      wrong1: '10,66 FE',
+      wrong2: '5,33 FE',
+      cursor: { x: 24, y: 115 },
+      quickviews: [{ type: 'solution', start: 105.8, end: 115.5 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/49.PNG', offset: 115 }],
+      layersPost: [{ src: '/content/6/50.PNG', offset: 115 }],
     },
     /*{
       description: 'TODO',

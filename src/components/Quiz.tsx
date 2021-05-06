@@ -37,7 +37,7 @@ export function Quiz({
         />
         <div
           className={`flex flex-wrap ${
-            smallHeight ? 'mt-4' : 'mt-6 sm:mt-12'
+            smallHeight ? 'mt-4' : 'mt-6 sm:mt-8'
           } items-center justify-evenly`}
         >
           {shuffling.map((index) => (

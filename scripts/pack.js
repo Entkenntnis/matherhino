@@ -15,17 +15,23 @@ for (const exercise of exercises) {
     const code = fs.readFileSync(file, 'utf-8')
     const newCode = code.replace(layerRegex, (match, src, offset) => {
       console.log({ src, offset })
-      
+
       // read png, crop, and adjust offset
       const data = fs.readFileSync('./public' + src)
       const png = PNG.sync.read(data)
-      
+
       if (png.height == 5573) {
         // re-export
         console.log('re-export')
         offset = undefined
       }
-      
+
+      const offsetInFileName = /s([\d]+).PNG/gm.exec(src)
+
+      if (offsetInFileName) {
+        offset = offsetInFileName[1]
+      }
+
       let cropTop = 0
       while (cropTop * 47 < png.height) {
         const rangeStart = cropTop * 47 * png.width * 4
@@ -48,9 +54,9 @@ for (const exercise of exercises) {
         if (sum > 0) break
         cropBottom++
       }
-      
+
       if (cropTop > 0 || cropBottom > 0) {
-        console.log({cropTop, cropBottom})
+        console.log({ cropTop, cropBottom })
         const newHeight = png.height - cropTop * 47 - cropBottom
         const dst = new PNG({ width: png.width, height: newHeight })
         PNG.bitblt(png, dst, 0, cropTop * 47, png.width, newHeight, 0, 0)
@@ -59,10 +65,12 @@ for (const exercise of exercises) {
       } else {
         console.log('Alles ok')
       }
-      
+
       const newOffset = parseInt(offset || '0') + cropTop
-      const replacement = `{ src: '${src}'${newOffset ? `, offset: ${newOffset} ` : ' '}}`
-      console.log(replacement)
+      const replacement = `{ src: '${src}'${
+        newOffset ? `, offset: ${newOffset} ` : ' '
+      }}`
+      //console.log(replacement)
       return replacement
     })
     if (newCode !== code) {
