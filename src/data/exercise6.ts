@@ -1,11 +1,11 @@
-import { buildVec, buildVec2 } from '../utils/mathBuilder'
+import { buildFrac, buildImg, buildVec, buildVec2 } from '../utils/mathBuilder'
 import { ExerciseData } from './types'
 
 export const exercise6: ExerciseData = {
   id: 6,
   task: '/content/6/task.png',
   backTo: '/bayern-rs-zweig-i-2018',
-  height: 150,
+  height: 180,
   audio: [
     {
       mp3: '/content/6/b2_0.mp3',
@@ -47,7 +47,7 @@ export const exercise6: ExerciseData = {
       ogg: '/content/6/b2_5.ogg',
       size: 5,
       position: { left: 9, top: 74 },
-      beforeQuiz: 999,
+      beforeQuiz: 24,
     },
     {
       mp3: '/content/6/b2_6.mp3',
@@ -79,7 +79,7 @@ export const exercise6: ExerciseData = {
       audioIndex: 4,
     },
     {
-      position: { x: 23, y: 41 },
+      position: { x: 23, y: 118 },
       title: 'Teilaufgabe B 2.5',
       audioIndex: 5,
     },
@@ -413,6 +413,108 @@ export const exercise6: ExerciseData = {
       autoShowViews: true,
       layersPre: [{ src: '/content/6/49.PNG', offset: 115 }],
       layersPost: [{ src: '/content/6/50.PNG', offset: 115 }],
+    },
+    {
+      description:
+        'Für die Spiegelung an einer Ursprungsgerade gibt es in der Merkhilfe eine Formel. Suche sie heraus. Welche Bedeutung hat dabei der Winkel &alpha; in dieser Aufgabe?',
+      correctChoice:
+        '&alpha; ist der Winkel zwischen der Geraden g und der x-Achse',
+      wrong1: '&alpha; ist der Winkel zwischen der Geraden g und der y-Achse',
+      wrong2: `&alpha; ist der Winkel zwischen dem Vektor ${buildVec(
+        'OC'
+      )} und der y-Achse`,
+      cursor: { x: 13, y: 122 },
+      quickviews: [],
+      layersPre: [
+        { src: '/content/6/51_s117.PNG', offset: 118 },
+        { src: '/content/6/52_s117.PNG', offset: 118 },
+      ],
+      layersPost: [{ src: '/content/6/53_s117.PNG', offset: 120 }],
+    },
+    {
+      description:
+        'Welche Gleichung lässt sich für den Winkel &alpha; aufstellen?',
+      correctChoice: 'tan &alpha; = 0,5',
+      wrong1: 'tan &alpha; = 2',
+      wrong2: `tan &alpha; = ${buildFrac('3', '3')}`,
+      cursor: { x: 17, y: 124 },
+      quickviews: [
+        { type: 'solution', start: 117, end: 124 },
+        { type: 'task', start: 9, end: 22 },
+        { type: 'solution', start: 4, end: 25 },
+      ],
+      layersPre: [{ src: '/content/6/54_s117.PNG', offset: 122 }],
+      layersPost: [{ src: '/content/6/55_s117.PNG', offset: 124 }],
+    },
+    {
+      description: 'Löse diese Gleichung. Welchen Wert hat &alpha; ?',
+      correctChoice: '26,57°',
+      wrong1: '80,01°',
+      wrong2: '23,46°',
+      cursor: { x: 23, y: 126 },
+      quickviews: [{ type: 'solution', start: 123, end: 126 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/56_s117.PNG', offset: 126 }],
+      layersPost: [{ src: '/content/6/57_s117.PNG', offset: 126 }],
+    },
+    {
+      description:
+        'Wende die Formel zur Spiegelung an einer Ursprungsgerade an. Welche Einträge hat die Drehmatrix?',
+      correctChoice: buildVec2(
+        'cos(2 &sdot; 26,57°) &nbsp;&nbsp;&nbsp; sin(2 &sdot; 26,57°)',
+        'sin(2 &sdot; 26,57°) &nbsp; -cos(2 &sdot; 26,57°)'
+      ),
+      wrong1: buildVec2(
+        'cos(26,57°) &nbsp;&nbsp;&nbsp; sin(26,57°)',
+        'sin(26,57°) &nbsp; -cos(26,57°)'
+      ),
+      wrong2: buildVec2(
+        'cos(2 &sdot; 26,57°) &nbsp; -cos(2 &sdot; 26,57°)',
+        'sin(2 &sdot; 26,57°) &nbsp;&nbsp;&nbsp; sin(2 &sdot; 26,57°)'
+      ),
+      cursor: { x: 21, y: 132 },
+      quickviews: [{ type: 'solution', start: 127, end: 132 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/58_s117.PNG', offset: 128 }],
+      layersPost: [{ src: '/content/6/59_s117.PNG', offset: 130 }],
+    },
+    {
+      description: "Berechne das Ergebnis. Wie lauten die Koordinaten von C' ?",
+      correctChoice: "C' ( 4,20 | 0,60 )",
+      wrong1: "C' ( 1,40 | 0,20 )",
+      wrong2: "C' ( 0,60 | 4,20 )",
+      cursor: { x: 23, y: 139 },
+      quickviews: [{ type: 'solution', start: 127, end: 140 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/60_s117.PNG', offset: 134 }],
+      layersPost: [{ src: '/content/6/61_s117.PNG', offset: 134 }],
+    },
+    {
+      description:
+        "Nun kennst du die Postion von C'. Wie kannst du damit den Punkt B<sub>3</sub> bestimmen?",
+      correctChoice: "B<sub>3</sub> ist Schnittpunkt von AC' mit g",
+      wrong1: "B<sub>3</sub> ist Schnittpunkt von MC' mit g",
+      wrong2: "B<sub>3</sub> ist der Mittelpunkt von AC'",
+      cursor: { x: 24, y: 142 },
+      quickviews: [
+        { type: 'task', start: 125, end: 153 },
+        { type: 'solution', start: 4, end: 25 },
+      ],
+      layersPre: [{ src: '/content/6/62_s117.PNG', offset: 142 }],
+      layersPost: [{ src: '/content/6/63_s117.PNG', offset: 142 }],
+    },
+    {
+      description: `Für das Viereck AB<sub>3</sub>CD<sub>3</sub> fehlt noch der Punkt D<sub>3</sub>. An welcher Position befindet sich D<sub>3</sub> ? ${buildImg(
+        '/content/6/b25_1.png'
+      )}`,
+      correctChoice: '3',
+      wrong1: '1',
+      wrong2: '2',
+      cursor: { x: 17, y: 144 },
+      quickviews: [{ type: 'solution', start: 4, end: 25 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/64_s117.PNG', offset: 144 }],
+      layersPost: [{ src: '/content/6/65.PNG', offset: 9 }],
     },
     /*{
       description: 'TODO',

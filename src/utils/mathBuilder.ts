@@ -6,6 +6,14 @@ export function buildVec(x: string) {
   return `<span class="inline-block relative mr-0.5"><div class="absolute -top-0.5 left-0 right-0"><div class="flex justify-end">${rightarrow}</div></div><div>${x}</div></span>`
 }
 
+export function buildFrac(x: string, y: string) {
+  return `<div class="frac"><span>${x}</span><span>${y}</span></div>`
+}
+
+export function buildImg(src: string) {
+  return `<img class="p-3 pt-8" src="${src}" />`
+}
+
 const rightarrow = `
 <svg height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMaxYMin slice">
   <path d="M0 241v40h399891c-47.3 35.3-84 78-110 128
