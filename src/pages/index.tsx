@@ -26,7 +26,6 @@ export default function Home() {
           <p className="text-lg m-3 text-blue-500 hover:underline cursor-pointer text-left">
             <a href="/bayern-rs-zweig-i-2018">
               Bayern, Realschulabschlussprüfung, Zweig&nbsp;I, 2018
-              (fast&nbsp;fertig)
             </a>
           </p>
         </div>
@@ -34,8 +33,7 @@ export default function Home() {
           <img src="/landing/rs_by.png" className="w-7" />
           <p className="text-lg m-3 text-left text-blue-500 hover:underline">
             <a href="/bayern-rs-zweig-ii-iii-2018">
-              Bayern, Realschulabschlussprüfung, Zweig&nbsp;II/III, 2018
-              (im&nbsp;Aufbau)
+              Bayern, Realschulabschlussprüfung, Zweig&nbsp;II/III, 2018 (wip)
             </a>
           </p>
         </div>

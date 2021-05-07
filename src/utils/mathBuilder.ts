@@ -14,6 +14,10 @@ export function buildImg(src: string) {
   return `<img class="p-3 pt-8" src="${src}" />`
 }
 
+export function buildOverline(x: string) {
+  return `<span class="overline">${x}</span>`
+}
+
 const rightarrow = `
 <svg height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMaxYMin slice">
   <path d="M0 241v40h399891c-47.3 35.3-84 78-110 128

@@ -1,11 +1,17 @@
-import { buildFrac, buildImg, buildVec, buildVec2 } from '../utils/mathBuilder'
+import {
+  buildFrac,
+  buildImg,
+  buildOverline,
+  buildVec,
+  buildVec2,
+} from '../utils/mathBuilder'
 import { ExerciseData } from './types'
 
 export const exercise6: ExerciseData = {
   id: 6,
   task: '/content/6/task.png',
   backTo: '/bayern-rs-zweig-i-2018',
-  height: 180,
+  height: 172,
   audio: [
     {
       mp3: '/content/6/b2_0.mp3',
@@ -54,7 +60,7 @@ export const exercise6: ExerciseData = {
       ogg: '/content/6/b2_6.ogg',
       size: 5,
       position: { left: 9, top: 90.6 },
-      beforeQuiz: 999,
+      beforeQuiz: 31,
     },
   ],
   checkpoints: [
@@ -84,7 +90,7 @@ export const exercise6: ExerciseData = {
       audioIndex: 5,
     },
     {
-      position: { x: 23, y: 51 },
+      position: { x: 23, y: 147 },
       title: 'Teilaufgabe B 2.6',
       audioIndex: 6,
     },
@@ -516,18 +522,74 @@ export const exercise6: ExerciseData = {
       layersPre: [{ src: '/content/6/64_s117.PNG', offset: 144 }],
       layersPost: [{ src: '/content/6/65.PNG', offset: 9 }],
     },
-    /*{
-      description: 'TODO',
-      correctChoice: '---',
-      wrong1: '---',
-      wrong2: '---',
-      cursor: { x: 8, y: 7 },
+    {
+      description:
+        'Das Verhältnis von 2,5 : 1 findet sich der Angabe wieder. Welche zwei Strecken stehen immer in diesem Verhältnis?',
+      correctChoice: '[MD<sub>n</sub>] und [MB<sub>n</sub>]',
+      wrong1: '[AM] und [MC]',
+      wrong2: '[B<sub>n</sub>A] und [B<sub>n</sub>C]',
+      cursor: { x: 23, y: 149 },
       quickviews: [
-        { type: 'task', start: 85, end: 125 },
-        { type: 'task', start: 15, end: 27 },
+        { type: 'task', start: 3, end: 36 },
+        { type: 'solution', start: 4, end: 25 },
       ],
-      layersPre: [],
-      layersPost: [],
-    },*/
+      autoShowViews: true,
+      layersPre: [
+        { src: '/content/6/66_s117.PNG', offset: 147 },
+        { src: '/content/6/67_s117.PNG', offset: 147 },
+      ],
+      layersPost: [{ src: '/content/6/68_s117.PNG', offset: 149 }],
+    },
+    {
+      description:
+        'In welchem Verhältnis stehen die Strecken [AM] und [MC] zueinander?',
+      correctChoice: '1 : 1',
+      wrong1: '3,5 : 1',
+      wrong2: '1 : 2',
+      cursor: { x: 22, y: 151 },
+      quickviews: [
+        { type: 'task', start: 3, end: 36 },
+        { type: 'solution', start: 4, end: 25 },
+      ],
+      layersPre: [{ src: '/content/6/69_s117.PNG', offset: 151 }],
+      layersPost: [{ src: '/content/6/70_s117.PNG', offset: 151 }],
+    },
+    {
+      description:
+        'Vergleiche nun die Winkel der Dreiecke AMD<sub>n</sub> und MB<sub>n</sub>C . Welche Eigenschaft gilt für die beiden Winkel &angle; B<sub>n</sub>MC und &angle; D<sub>n</sub>MA ?',
+      correctChoice: 'Sie sind gleich groß',
+      wrong1: 'Sie ergänzen sich zu 180°',
+      wrong2: 'Sie ergänzen sich zu einem rechten Winkel',
+      cursor: { x: 24, y: 153 },
+      quickviews: [{ type: 'solution', start: 4, end: 25 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/71_s117.PNG', offset: 153 }],
+      layersPost: [{ src: '/content/6/72_s117.PNG', offset: 153 }],
+    },
+    {
+      description:
+        'In den Dreiecken AMD<sub>n</sub> und MB<sub>n</sub>C sind dir jeweils zwei Seiten bekannt und der dazwischenliegende Winkel. Welche Formel ermöglicht es, den Flächeninhalt zu bestimmen?',
+      correctChoice: 'Flächenformel mit Sinus',
+      wrong1: 'Flächenformel mit der Determinanten',
+      wrong2: 'Flächenformel mit Grundseite mal Höhe',
+      cursor: { x: 8, y: 159 },
+      quickviews: [],
+      layersPre: [{ src: '/content/6/73_s117.PNG', offset: 155 }],
+      layersPost: [{ src: '/content/6/74_s117.PNG', offset: 157 }],
+    },
+    {
+      description:
+        'Vergleiche die beiden Flächeninhalte. Wenn du das Verhältnis betrachtest, dann kannst du gleiche Werte kürzen. Welche Werte bleiben übrig?',
+      correctChoice: `${buildOverline('MD<sub>n</sub>')} und ${buildOverline(
+        'MB<sub>n</sub>'
+      )}`,
+      wrong1: `${buildOverline('AM')} und ${buildOverline('MC')}`,
+      wrong2: '&angle; D<sub>n</sub>MA und &angle; B<sub>n</sub>MC',
+      cursor: { x: 24, y: 167 },
+      quickviews: [{ type: 'solution', start: 159.5, end: 167 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/6/75_s117.PNG', offset: 159 }],
+      layersPost: [{ src: '/content/6/76_s117.PNG', offset: 160 }],
+    },
   ],
 }

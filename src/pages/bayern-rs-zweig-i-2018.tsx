@@ -46,7 +46,11 @@ export default function Page() {
           topics="Funktionen, Logarithmus, orthogonale Affinität, Parallelverschiebung, Nullstelle, parametrisierte Dreiecke, gleichschenklig, Schwerpunkt, Trägergraph"
         />
 
-        <Card id={6} title="B2 (todo)" topics="coming soon" />
+        <Card
+          id={6}
+          title="B2"
+          topics="Ebene Geometrie, Vektoren, Mittelpunkt, Trägergraph, Skalarprodukt, Länge von Vektoren, Drachenviereck, Spiegelung an Ursprungsgerade, Flächenformel mit Sinus"
+        />
 
         <div className="my-20 text-center text-lg">
           Finde{' '}
