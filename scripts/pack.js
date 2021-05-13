@@ -14,6 +14,7 @@ for (const exercise of exercises) {
     console.log(file)
     const code = fs.readFileSync(file, 'utf-8')
     const newCode = code.replace(layerRegex, (match, src, offset) => {
+      offset = parseInt(offset)
       console.log({ src, offset })
 
       // read png, crop, and adjust offset
@@ -23,13 +24,13 @@ for (const exercise of exercises) {
       if (png.height == 5573) {
         // re-export
         console.log('re-export')
-        offset = undefined
+        offset = 0
       }
 
       const offsetInFileName = /s([\d]+).PNG/gm.exec(src)
 
-      if (offsetInFileName) {
-        offset = offsetInFileName[1]
+      if (offsetInFileName && offset == 0) {
+        offset += parseInt(offsetInFileName[1])
       }
 
       let cropTop = 0
@@ -66,11 +67,14 @@ for (const exercise of exercises) {
         console.log('Alles ok')
       }
 
-      const newOffset = parseInt(offset || '0') + cropTop
+      console.log({ cropTop })
+      const newOffset = offset + cropTop
       const replacement = `{ src: '${src}'${
         newOffset ? `, offset: ${newOffset} ` : ' '
       }}`
-      //console.log(replacement)
+      console.log(replacement)
+      console.log()
+      console.log()
       return replacement
     })
     if (newCode !== code) {
