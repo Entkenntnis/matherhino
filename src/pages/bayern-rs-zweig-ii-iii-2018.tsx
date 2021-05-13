@@ -22,7 +22,11 @@ export default function Page() {
           Bayern, Realschulabschlussprüfung, Zweig&nbsp;II/III, 2018
         </h1>
 
-        <Card id={7} title="A1 (todo)" topics="---" />
+        <Card
+          id={7}
+          title="A1"
+          topics="Exponentialfunktion, Prozentrechnung, Graph einer Funktion"
+        />
 
         <Card id={8} title="A2 (todo)" topics="---" />
 
