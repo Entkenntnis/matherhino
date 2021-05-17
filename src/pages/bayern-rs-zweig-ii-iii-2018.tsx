@@ -28,7 +28,11 @@ export default function Page() {
           topics="Exponentialfunktion, Prozentrechnung, Graph einer Funktion"
         />
 
-        <Card id={8} title="A2 (todo)" topics="---" />
+        <Card
+          id={8}
+          title="A2"
+          topics="Ebene Geometrie, Flächeninhalt mit Sinus, Sinussatz, Kosinussatz, Satz des Pythagoras, Kreissektor"
+        />
 
         <Card id={9} title="A3 (todo)" topics="---" />
 

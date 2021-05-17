@@ -30,12 +30,12 @@ export const exercise9: ExerciseData = {
   ],
   checkpoints: [
     {
-      position: { x: 24, y: 1 },
+      position: { x: 23, y: 1 },
       title: 'Teilaufgabe A 3.1',
       audioIndex: 1,
     },
     {
-      position: { x: 24, y: 26 },
+      position: { x: 23, y: 26 },
       title: 'Teilaufgabe A 3.2',
       audioIndex: 2,
     },

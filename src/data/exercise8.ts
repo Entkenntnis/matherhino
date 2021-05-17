@@ -1,11 +1,11 @@
-import { buildFrac, buildSqrt } from '../utils/mathBuilder'
+import { buildFrac, buildOverline, buildSqrt } from '../utils/mathBuilder'
 import { ExerciseData } from './types'
 
 export const exercise8: ExerciseData = {
   id: 8,
   task: '/content/8/task.png',
   backTo: '/bayern-rs-zweig-ii-iii-2018',
-  height: 55,
+  height: 81,
   audio: [
     {
       mp3: '/content/8/a2_0.mp3',
@@ -33,22 +33,22 @@ export const exercise8: ExerciseData = {
       ogg: '/content/8/a2_3.ogg',
       size: 5,
       position: { left: 10, top: 81.4 },
-      beforeQuiz: 999,
+      beforeQuiz: 15,
     },
   ],
   checkpoints: [
     {
-      position: { x: 24, y: 1 },
+      position: { x: 23, y: 1 },
       title: 'Teilaufgabe A 2.1',
       audioIndex: 1,
     },
     {
-      position: { x: 24, y: 26 },
+      position: { x: 23, y: 26 },
       title: 'Teilaufgabe A 2.2',
       audioIndex: 2,
     },
     {
-      position: { x: 24, y: 26 },
+      position: { x: 23, y: 43 },
       title: 'Teilaufgabe A 2.3',
       audioIndex: 3,
     },
@@ -186,18 +186,155 @@ export const exercise8: ExerciseData = {
       layersPre: [{ src: '/content/8/19.PNG', offset: 19 }],
       layersPost: [{ src: '/content/8/20.PNG', offset: 21 }],
     },
-    /*{
-      description: 'TODO',
-      correctChoice: '---',
-      wrong1: '---',
-      wrong2: '---',
-      cursor: { x: 8, y: 7 },
-      quickviews: [
-        { type: 'task', start: 85, end: 125 },
-        { type: 'task', start: 15, end: 27 },
+    {
+      description:
+        'Du kannst für den Flächeninhalt von ABE eine Gleichung aufstellen. Welche Flächenformel ist hier am meisten geeignet?',
+      correctChoice: 'Flächenformel mit Sinus',
+      wrong1: `${buildFrac('1', '2')} &sdot; g &sdot; h`,
+      wrong2: 'Sinussatz',
+      cursor: { x: 21, y: 28 },
+      quickviews: [{ type: 'task', start: 2.2, end: 70 }],
+      autoShowViews: true,
+      layersPre: [
+        { src: '/content/8/21.PNG', offset: 26 },
+        { src: '/content/8/22.PNG', offset: 26 },
       ],
-      layersPre: [],
-      layersPost: [],
-    },*/
+      layersPost: [{ src: '/content/8/23.PNG', offset: 28 }],
+    },
+    {
+      description:
+        'Bei der Anwendung der Flächeformel mit Sinus gibt es noch eine Lücke. Was kommt in die Lücke?',
+      correctChoice: buildOverline('BE'),
+      wrong1: '8,6 cm',
+      wrong2: '5,2 cm',
+      cursor: { x: 20, y: 31 },
+      quickviews: [
+        { type: 'solution', start: 29.4, end: 30.5 },
+        { type: 'task', start: 2.2, end: 70 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/8/24.PNG', offset: 30 }],
+      layersPost: [{ src: '/content/8/25.PNG', offset: 30 }],
+    },
+    {
+      description:
+        'Im Dreieck ABE sind also zwei Seiten und der dazwischenliegende Winkel bekannt. Mit welcher Formel lässt sich daraus die Länge von AE berechnen?',
+      correctChoice: 'Kosinussatz',
+      wrong1: 'Sinussatz',
+      wrong2: 'Satz des Pythagoras',
+      cursor: { x: 5, y: 36 },
+      quickviews: [{ type: 'task', start: 2.2, end: 70 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/8/26.PNG', offset: 34 }],
+      layersPost: [{ src: '/content/8/27.PNG', offset: 34 }],
+    },
+    {
+      description:
+        'Die Anwendung des Kosinussatz ist noch nicht vollständig. Wie lautet die vollständige Formel?',
+      correctChoice: '7,8² + 6,5² - 2 &sdot; 7,8 &sdot; 6,5 &sdot; cos 70°',
+      wrong1: '7,8² + 6,5² - 7,8 &sdot; 6,5',
+      wrong2: '7,8² + 6,5² - cos 70°',
+      cursor: { x: 20, y: 37 },
+      quickviews: [
+        { type: 'solution', start: 37.4, end: 38 },
+        { type: 'task', start: 2.2, end: 70 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/8/28.PNG', offset: 38 }],
+      layersPost: [{ src: '/content/8/29.PNG', offset: 38 }],
+    },
+    {
+      description:
+        'Berechne den Term. Wie lautet das korrekte Ergebnis für die Länge von AE ?',
+      correctChoice: `${buildSqrt('68,4 cm²')} = 8,3 cm`,
+      wrong1: `${buildSqrt('68,9 cm²')} = 8,3 cm`,
+      wrong2: `${buildSqrt('68,7 cm²')} = 8,3 cm`,
+      cursor: { x: 22, y: 40 },
+      quickviews: [{ type: 'solution', start: 37.4, end: 40.3 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/8/30.PNG', offset: 40 }],
+      layersPost: [{ src: '/content/8/31.PNG', offset: 40 }],
+    },
+    {
+      description:
+        'Wie sieht die korrekte Zeichnung für den Kreisbogen PQ aus?',
+      correctChoice: '<img src="/content/8/a23_3.png" class="max-w-xs">',
+      wrong1: '<img src="/content/8/a23_1.png" class="max-w-xs">',
+      wrong2: '<img src="/content/8/a23_2.png" class="max-w-xs">',
+      cursor: { x: 21, y: 50 },
+      quickviews: [{ type: 'task', start: 134, end: 152 }],
+      layersPre: [
+        { src: '/content/8/32.PNG', offset: 42 },
+        { src: '/content/8/33.PNG', offset: 43 },
+      ],
+      layersPost: [{ src: '/content/8/34.PNG', offset: 49 }],
+    },
+    {
+      description:
+        'Bevor du den Flächeninhalt des Kreissektors berechnen kannst, brauchst du den zugehörigen Winkel &angle;PEG = &alpha; . Schaue dir an, welche Angaben im Dreieck ABE bekannt sind. Mit welchem Satz lässt sich &alpha; bestimmen?',
+      correctChoice: 'Sinussatz',
+      wrong1: 'Kosinussatz',
+      wrong2: 'Innenwinkelsatz',
+      cursor: { x: 12, y: 60 },
+      quickviews: [
+        { type: 'task', start: 2.2, end: 70 },
+        { type: 'task', start: 117, end: 125 },
+      ],
+      layersPre: [{ src: '/content/8/35.PNG', offset: 47 }],
+      layersPost: [{ src: '/content/8/36.PNG', offset: 60 }],
+    },
+    {
+      description:
+        'Wie lautet die rechte Seite der Gleichung im Sinussatz? Nutze die Angaben, die dir bekannt sind.',
+      correctChoice: `${buildFrac('sin 70°', '8,3')}`,
+      wrong1: `${buildFrac('8,3', 'sin 70°')}`,
+      wrong2: `${buildFrac('70°', '8,3')}`,
+      cursor: { x: 17, y: 63 },
+      quickviews: [
+        { type: 'solution', start: 61.5, end: 64 },
+        { type: 'task', start: 2.2, end: 70 },
+        { type: 'task', start: 117, end: 125 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/8/37.PNG', offset: 62 }],
+      layersPost: [{ src: '/content/8/38.PNG', offset: 62 }],
+    },
+    {
+      description:
+        'Löse diese Gleichung nach &alpha; auf. Welches Ergebnis erhältst du? Passe auf, dass du Zwischenergebnisse nicht zu stark rundest.',
+      correctChoice: '62,0°',
+      wrong1: '65,0°',
+      wrong2: '68,0°',
+      cursor: { x: 23, y: 70 },
+      quickviews: [{ type: 'solution', start: 61.4, end: 70 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/8/39.PNG', offset: 67 }],
+      layersPost: [{ src: '/content/8/40.PNG', offset: 61 }],
+    },
+    {
+      description:
+        'Setze die bekannten Angaben in Flächenformel für einen Kreissektor aus der Formelsammlung ein. Wie lautet der Term für den Flächeninhalt?',
+      correctChoice: `3² &sdot; &pi; &sdot; ${buildFrac('62,0°', '360°')}`,
+      wrong1: `3² &sdot; &pi; &sdot; 62,0°`,
+      wrong2: `${buildFrac('1', '2')} &sdot; 3² &sdot; &pi; &sdot; ${buildFrac(
+        '62,0°',
+        '360°'
+      )}`,
+      cursor: { x: 20, y: 73 },
+      quickviews: [],
+      layersPre: [{ src: '/content/8/41.PNG', offset: 73 }],
+      layersPost: [{ src: '/content/8/42.PNG', offset: 72 }],
+    },
+    {
+      description: 'Bereche mit dem Taschenrechner. Wie lautet das Ergebnis?',
+      correctChoice: '4,9cm²',
+      wrong1: '4,7cm²',
+      wrong2: '4,5cm²',
+      cursor: { x: 12, y: 76 },
+      quickviews: [{ type: 'solution', start: 71.5, end: 76 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/8/43.PNG', offset: 76 }],
+      layersPost: [{ src: '/content/8/44.PNG', offset: 76 }],
+    },
   ],
 }
