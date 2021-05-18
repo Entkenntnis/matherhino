@@ -6,7 +6,15 @@ const layerRegex = /\{ src: '([^']+)'(?: |, offset: ([\d]+) )}/g
 
 const exercises = fs.readdirSync('./src/data')
 
-console.log(exercises)
+const contentFolders = fs.readdirSync('./public/content')
+
+for (const contentFolder of contentFolders) {
+  const path = `./public/content/${contentFolder}/Hintergrund.PNG`
+  if (fs.existsSync(path)) {
+    console.log('delete background image', path)
+    fs.unlinkSync(path)
+  }
+}
 
 for (const exercise of exercises) {
   if (fileRegex.test(exercise)) {
