@@ -34,7 +34,11 @@ export default function Page() {
           topics="Ebene Geometrie, Flächeninhalt mit Sinus, Sinussatz, Kosinussatz, Satz des Pythagoras, Kreissektor"
         />
 
-        <Card id={9} title="A3 (todo)" topics="---" />
+        <Card
+          id={9}
+          title="A3"
+          topics="Raumgeometrie, Tangens, Sinussatz, Volumen eines Kegels, Prozentrechnung"
+        />
 
         <Card id={10} title="B1 (todo)" topics="---" />
 
