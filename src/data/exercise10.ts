@@ -1,4 +1,4 @@
-import { buildImg } from '../utils/mathBuilder'
+import { buildFrac, buildImg, buildSqrt } from '../utils/mathBuilder'
 import { ExerciseData } from './types'
 
 export const exercise10: ExerciseData = {
@@ -27,21 +27,21 @@ export const exercise10: ExerciseData = {
       ogg: '/content/10/b1_2.ogg',
       size: 5,
       position: { left: 8, top: 33.3 },
-      beforeQuiz: 999,
+      beforeQuiz: 10,
     },
     {
       mp3: '/content/10/b1_3.mp3',
       ogg: '/content/10/b1_3.ogg',
       size: 5,
       position: { left: 8, top: 53 },
-      beforeQuiz: 999,
+      beforeQuiz: 14,
     },
     {
       mp3: '/content/10/b1_4.mp3',
       ogg: '/content/10/b1_4.ogg',
       size: 5,
       position: { left: 8, top: 63.7 },
-      beforeQuiz: 999,
+      beforeQuiz: 22,
     },
     {
       mp3: '/content/10/b1_5.mp3',
@@ -65,12 +65,12 @@ export const exercise10: ExerciseData = {
       audioIndex: 1,
     },
     {
-      position: { x: 23, y: 26 },
+      position: { x: 23, y: 57 },
       title: 'Teilaufgabe B 1.2',
       audioIndex: 2,
     },
     {
-      position: { x: 23, y: 1 },
+      position: { x: 23, y: 60 },
       title: 'Teilaufgabe B 1.3',
       audioIndex: 3,
     },
@@ -210,6 +210,162 @@ export const exercise10: ExerciseData = {
       quickviews: [{ type: 'task', start: 4, end: 27 }],
       layersPre: [],
       layersPost: [{ src: '/content/10/20.PNG', offset: 37 }],
+    },
+    {
+      description:
+        'Welche Zeichnung für A<sub>1</sub> und C<sub>1</sub> ist korrekt?',
+      correctChoice: '<img src="/content/10/b12_11.png" class="max-w-xs">',
+      wrong1: '<img src="/content/10/b12_12.png" class="max-w-xs">',
+      wrong2: '<img src="/content/10/b12_13.png" class="max-w-xs">',
+      cursor: { x: 17, y: 57 },
+      quickviews: [{ type: 'task', start: 65, end: 96 }],
+      layersPre: [{ src: '/content/10/21.PNG', offset: 57 }],
+      layersPost: [{ src: '/content/10/22.PNG', offset: 43 }],
+    },
+    {
+      description:
+        'Welche Zeichnung für B<sub>1</sub> und D<sub>1</sub> ist korrekt?',
+      correctChoice: '<img src="/content/10/b12_21.png" class="max-w-xs">',
+      wrong1: '<img src="/content/10/b12_22.png" class="max-w-xs">',
+      wrong2: '<img src="/content/10/b12_23.png" class="max-w-xs">',
+      cursor: { x: 18, y: 57 },
+      quickviews: [{ type: 'task', start: 65, end: 96 }],
+      layersPre: [],
+      layersPost: [{ src: '/content/10/23.PNG', offset: 44 }],
+    },
+    {
+      description:
+        'Welche Zeichnung für A<sub>2</sub> und C<sub>2</sub> ist korrekt?',
+      correctChoice: '<img src="/content/10/b12_31.png">',
+      wrong1: '<img src="/content/10/b12_32.png">',
+      wrong2: '<img src="/content/10/b12_33.png">',
+      cursor: { x: 19, y: 57 },
+      quickviews: [{ type: 'task', start: 65, end: 96 }],
+      layersPre: [],
+      layersPost: [{ src: '/content/10/24.PNG', offset: 39 }],
+    },
+    {
+      description:
+        'Welche Zeichnung für B<sub>2</sub> und D<sub>2</sub> ist korrekt?',
+      correctChoice: '<img src="/content/10/b12_41.png">',
+      wrong1: '<img src="/content/10/b12_42.png">',
+      wrong2: '<img src="/content/10/b12_43.png">',
+      cursor: { x: 20, y: 57 },
+      quickviews: [{ type: 'task', start: 65, end: 96 }],
+      layersPre: [],
+      layersPost: [{ src: '/content/10/25.PNG', offset: 41 }],
+    },
+    {
+      description:
+        'Was weißt du über den Bereich, in dem es Rauten A<sub>n</sub>B<sub>n</sub>C<sub>n</sub>D<sub>n</sub> gibt?',
+      correctChoice:
+        'Der Bereich liegt zwischen den Schnittpunkten von p und g',
+      wrong1: 'Der Bereich liegt zwischen 0 und 10',
+      wrong2: 'Der Bereich liegt zwischen C<sub>1</sub> und C<sub>2</sub>',
+      cursor: { x: 23, y: 63 },
+      quickviews: [
+        { type: 'task', start: 65, end: 96 },
+        { type: 'solution', start: 29.5, end: 54 },
+      ],
+      autoShowViews: true,
+      layersPre: [
+        { src: '/content/10/26.PNG', offset: 60 },
+        { src: '/content/10/27.PNG', offset: 60 },
+      ],
+      layersPost: [{ src: '/content/10/28.PNG', offset: 60 }],
+    },
+    {
+      description:
+        'Die Parabel p besitzt die Gleichung y = 0,5x² - 5x + 7, die Gerade die Gleichung y = 0,5x - 2.<br><br>Welche neue Gleichung hilft bei der Bestimmung der Schnittpunkte von p und g ?',
+      correctChoice: '0,5x² - 5x + 7 = 0,5x - 2',
+      wrong1: '0,5x² - 5x + 7 = 0',
+      wrong2: '0 = 0,5x - 2',
+      cursor: { x: 22, y: 66 },
+      quickviews: [],
+      layersPre: [{ src: '/content/10/29.PNG', offset: 64 }],
+      layersPost: [{ src: '/content/10/30.PNG', offset: 66 }],
+    },
+    {
+      description:
+        'Bringe die Terme auf die linke Seite. Wie lautet die zusammengefasste Gleichung?',
+      correctChoice: '0,5x² - 5,5x + 9 = 0',
+      wrong1: '0,5x² - 5x + 9 = 0',
+      wrong2: '0,5x² - 4,5x + 9 = 0',
+      cursor: { x: 14, y: 68 },
+      quickviews: [{ type: 'solution', start: 65, end: 68 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/31.PNG', offset: 68 }],
+      layersPost: [{ src: '/content/10/32.PNG', offset: 68 }],
+    },
+    {
+      description:
+        'Nutze die Lösungsformel für quadratische Gleichungen aus der Merkhilfe. Wie lautet der eingesetzte Term für D?<br><br>(Hinweis: a = 0,5 &nbsp;/&nbsp; b = -5,5 &nbsp;/&nbsp; c = 9)',
+      correctChoice: 'D = (-5,5)² - 4 &sdot; 0,5 &sdot; 9',
+      wrong1: 'D = 0,5² - 4 &sdot; 0,5 &sdot; 9',
+      wrong2: 'D = 9² - 4 &sdot; 0,5 &sdot; 9',
+      cursor: { x: 20, y: 74 },
+      quickviews: [{ type: 'solution', start: 67, end: 74 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/33.PNG', offset: 70 }],
+      layersPost: [{ src: '/content/10/34.PNG', offset: 74 }],
+    },
+    {
+      description: 'Berechne den Wert von D.',
+      correctChoice: '12,25',
+      wrong1: '2,25',
+      wrong2: '7,25',
+      cursor: { x: 13, y: 76 },
+      quickviews: [{ type: 'solution', start: 73.4, end: 76 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/35.PNG', offset: 76 }],
+      layersPost: [{ src: '/content/10/36.PNG', offset: 76 }],
+    },
+    {
+      description:
+        'Die Lösungsformel ergibt zwei Lösungen. Der Term für x<sub>1</sub> ist angegeben. Wie lautet die erste Lösung?',
+      correctChoice: 'x<sub>1</sub> = 9',
+      wrong1: 'x<sub>1</sub> = 7',
+      wrong2: 'x<sub>1</sub> = 5',
+      cursor: { x: 15, y: 79 },
+      quickviews: [{ type: 'solution', start: 73.4, end: 80 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/37.PNG', offset: 78 }],
+      layersPost: [{ src: '/content/10/38.PNG', offset: 79 }],
+    },
+    {
+      description: 'Wie lautet das Ergebnis für x<sub>2</sub> ?',
+      correctChoice: `x<sub>2</sub> = ${buildFrac(
+        `5,5 - ${buildSqrt('D')}`,
+        '2 &sdot; 0,5'
+      )} = 2`,
+      wrong1: `x<sub>2</sub> = ${buildFrac(
+        `5,5 - ${buildSqrt('D')}`,
+        '2 &sdot; 0,5'
+      )} = 1`,
+      wrong2: `x<sub>2</sub> = ${buildFrac(
+        `5,5 - ${buildSqrt('D')}`,
+        '2 &sdot; 0,5'
+      )} = 3`,
+      cursor: { x: 15, y: 83 },
+      quickviews: [{ type: 'solution', start: 73.4, end: 84 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/39.PNG', offset: 83 }],
+      layersPost: [{ src: '/content/10/40.PNG', offset: 82 }],
+    },
+    {
+      description:
+        'Du weißt, dass die Schnittpunkte bei 2 und 9 liegen.<br><br>Wie lautet das gesuchte Intervall für x , in dem es Rauten A<sub>n</sub>B<sub>n</sub>C<sub>n</sub>D<sub>n</sub> gibt?',
+      correctChoice: 'x &isinv; ] 2 ; 9 [',
+      wrong1: 'x &isinv; [ 2 ; 9 ]',
+      wrong2: 'x &isinv; { 2 ; 9 }',
+      cursor: { x: 11, y: 86 },
+      quickviews: [
+        { type: 'task', start: 65, end: 96 },
+        { type: 'solution', start: 29.5, end: 54 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/41.PNG', offset: 86 }],
+      layersPost: [{ src: '/content/10/42.PNG', offset: 86 }],
     },
     /*{
       description: 'TODO',
