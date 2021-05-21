@@ -270,9 +270,10 @@ export function ExercisePlayer({ exercise }: ExercisePlayerProps) {
             )
           })}
 
-        {(showQuickViews || currentQuiz.autoShowViews) && (
-          <div className="h-20" />
-        )}
+        {(showQuickViews ||
+          currentQuiz.autoShowViews ||
+          !currentQuiz.quickviews ||
+          currentQuiz.quickviews.length == 0) && <div className="h-20" />}
 
         {currentQuiz.quickviews &&
           currentQuiz.quickviews.length > 0 &&

@@ -1,4 +1,9 @@
-import { buildFrac, buildImg, buildSqrt } from '../utils/mathBuilder'
+import {
+  buildFrac,
+  buildImg,
+  buildOverline,
+  buildSqrt,
+} from '../utils/mathBuilder'
 import { ExerciseData } from './types'
 
 export const exercise10: ExerciseData = {
@@ -41,14 +46,14 @@ export const exercise10: ExerciseData = {
       ogg: '/content/10/b1_4.ogg',
       size: 5,
       position: { left: 8, top: 63.7 },
-      beforeQuiz: 22,
+      beforeQuiz: 23,
     },
     {
       mp3: '/content/10/b1_5.mp3',
       ogg: '/content/10/b1_5.ogg',
       size: 5,
       position: { left: 8, top: 81 },
-      beforeQuiz: 999,
+      beforeQuiz: 34,
     },
     {
       mp3: '/content/10/b1_6.mp3',
@@ -75,7 +80,7 @@ export const exercise10: ExerciseData = {
       audioIndex: 3,
     },
     {
-      position: { x: 23, y: 26 },
+      position: { x: 23, y: 89 },
       title: 'Teilaufgabe B 1.4',
       audioIndex: 4,
     },
@@ -366,6 +371,176 @@ export const exercise10: ExerciseData = {
       autoShowViews: true,
       layersPre: [{ src: '/content/10/41.PNG', offset: 86 }],
       layersPost: [{ src: '/content/10/42.PNG', offset: 86 }],
+    },
+    {
+      description:
+        'Welcher Zusammenhang gilt für die Länge der Strecke A<sub>n</sub>C<sub>n</sub> ?',
+      correctChoice: `${buildOverline(
+        'A<sub>n</sub>C<sub>n</sub>'
+      )}(x) = y<sub>C<sub>n</sub></sub> - y<sub>A<sub>n</sub></sub>`,
+      wrong1: `${buildOverline(
+        'A<sub>n</sub>C<sub>n</sub>'
+      )}(x) = y<sub>A<sub>n</sub></sub> - y<sub>C<sub>n</sub></sub>`,
+      wrong2: `${buildOverline(
+        'A<sub>n</sub>C<sub>n</sub>'
+      )}(x) = y<sub>A<sub>n</sub></sub> + y<sub>C<sub>n</sub></sub>`,
+      cursor: { x: 23, y: 89 },
+      quickviews: [
+        { type: 'solution', start: 88, end: 89.3 },
+        { type: 'solution', start: 29.5, end: 54 },
+        { type: 'task', start: 65, end: 96 },
+      ],
+      autoShowViews: true,
+      layersPre: [
+        { src: '/content/10/43.PNG', offset: 89 },
+        { src: '/content/10/44.PNG', offset: 89 },
+      ],
+      layersPost: [{ src: '/content/10/45.PNG', offset: 89 }],
+    },
+    {
+      description: 'Wie lautet der eingesetzte Term?',
+      correctChoice: '(0,5x - 2) - (0,5x² - 5x + 7)',
+      wrong1: '(0,5x² - 5x + 7) - (0,5x - 2)',
+      wrong2: '(0,5x - 2) + (0,5x² - 5x + 7)',
+      cursor: { x: 23, y: 91 },
+      quickviews: [
+        { type: 'solution', start: 88, end: 93 },
+        { type: 'task', start: 65, end: 96 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/46.PNG', offset: 91 }],
+      layersPost: [{ src: '/content/10/47.PNG', offset: 91 }],
+    },
+    {
+      description: `Berechne als nächstes den Winkel &phi; : ${'<img src="/content/10/b14_1.png" class="mx-auto h-96 p-3">'} Welche Skizze zeigt einen sinnvollen Weg, um &phi; zu berechnen?`,
+      correctChoice: '<img src="/content/10/b14_11.png" class="w-32">',
+      wrong1: '<img src="/content/10/b14_12.png" class="w-32">',
+      wrong2: '<img src="/content/10/b14_13.png" class="w-32">',
+      cursor: { x: 7, y: 98 },
+      quickviews: [],
+      layersPre: [],
+      layersPost: [{ src: '/content/10/49.PNG', offset: 95 }],
+    },
+    {
+      description: 'Welcher Term passt zur Skizze?',
+      correctChoice: `tan ${buildFrac('&phi;', '2')}`,
+      wrong1: `sin ${buildFrac('&phi;', '2')}`,
+      wrong2: `cos ${buildFrac('&phi;', '2')}`,
+      cursor: { x: 13, y: 96 },
+      quickviews: [{ type: 'solution', start: 94.5, end: 105 }],
+      autoShowViews: true,
+      layersPre: [],
+      layersPost: [{ src: '/content/10/50.PNG', offset: 96 }],
+    },
+    {
+      description: 'Welcher Wert kommt in den Zähler?',
+      correctChoice: '1',
+      wrong1: '2',
+      wrong2: '3',
+      cursor: { x: 19, y: 96 },
+      quickviews: [
+        { type: 'solution', start: 94.5, end: 105 },
+        { type: 'solution', start: 38, end: 54 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/51.PNG', offset: 97 }],
+      layersPost: [{ src: '/content/10/52.PNG', offset: 96 }],
+    },
+    {
+      description: 'Welcher Wert kommt in den Nenner?',
+      correctChoice: `0,5 &sdot; ${buildOverline(
+        'A<sub>n</sub>C<sub>n</sub>'
+      )}(6)`,
+      wrong1: `0,5 &sdot; ${buildOverline('A<sub>n</sub>C<sub>n</sub>')}(2)`,
+      wrong2: `0,5 &sdot; ${buildOverline('A<sub>n</sub>C<sub>n</sub>')}(4)`,
+      cursor: { x: 23, y: 98 },
+      quickviews: [
+        { type: 'solution', start: 94.5, end: 105 },
+        { type: 'solution', start: 38, end: 54 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/53.PNG', offset: 98 }],
+      layersPost: [{ src: '/content/10/54.PNG', offset: 98 }],
+    },
+    {
+      description: `Berechne den Wert von ${buildOverline(
+        'A<sub>n</sub>C<sub>n</sub>'
+      )}(6):`,
+      correctChoice: '6',
+      wrong1: '5',
+      wrong2: '7',
+      cursor: { x: 17, y: 103 },
+      quickviews: [
+        { type: 'solution', start: 94.5, end: 105 },
+        { type: 'task', start: 122, end: 136 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/55.PNG', offset: 99 }],
+      layersPost: [{ src: '/content/10/56.PNG', offset: 101 }],
+    },
+    {
+      description: 'Welchen Wert hat der Tangens?',
+      correctChoice: `${buildFrac('1', '3')}`,
+      wrong1: `${buildFrac('1', '2')}`,
+      wrong2: `${buildFrac('1', '6')}`,
+      cursor: { x: 17, y: 106 },
+      quickviews: [{ type: 'solution', start: 94.5, end: 107 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/57.PNG', offset: 106 }],
+      layersPost: [{ src: '/content/10/58.PNG', offset: 105 }],
+    },
+    {
+      description: 'Löse die Gleichung nach &phi; auf:',
+      correctChoice: `&phi; = 2 &sdot; tan<sup>-1</sup> (${buildFrac(
+        '1',
+        '3'
+      )})`,
+      wrong1: `&phi; = tan<sup>-1</sup> (${buildFrac('1', '3')})`,
+      wrong2: `&phi; = 3 &sdot; tan<sup>-1</sup> (${buildFrac('1', '3')})`,
+      cursor: { x: 17, y: 108 },
+      quickviews: [{ type: 'solution', start: 104.5, end: 109 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/59.PNG', offset: 109 }],
+      layersPost: [{ src: '/content/10/60.PNG', offset: 108 }],
+    },
+    {
+      description: 'Berechne schließlich das Ergebnis für &phi; :',
+      correctChoice: '36,87°',
+      wrong1: '38,87°',
+      wrong2: '40,87°',
+      cursor: { x: 23, y: 109 },
+      quickviews: [{ type: 'solution', start: 104.5, end: 109 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/61.PNG', offset: 109 }],
+      layersPost: [{ src: '/content/10/62.PNG', offset: 109 }],
+    },
+    {
+      description: 'Berechne die Länge von A<sub>2</sub>B<sub>2</sub> :',
+      correctChoice: `${buildOverline(
+        'A<sub>2</sub>B<sub>2</sub>'
+      )} = ${buildSqrt('1² + 3²')}`,
+      wrong1: `${buildOverline('A<sub>2</sub>B<sub>2</sub>')} = ${buildSqrt(
+        '1 + 3'
+      )}`,
+      wrong2: `${buildOverline('A<sub>2</sub>B<sub>2</sub>')} = ${buildSqrt(
+        '1³ + 3³'
+      )}`,
+      cursor: { x: 12, y: 112 },
+      quickviews: [{ type: 'solution', start: 38, end: 54 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/63.PNG', offset: 112 }],
+      layersPost: [{ src: '/content/10/64.PNG', offset: 112 }],
+    },
+    {
+      description: 'Wie lautet das Ergebnis?',
+      correctChoice: '3,16 LE',
+      wrong1: '3,26 LE',
+      wrong2: '3,06 LE',
+      cursor: { x: 20, y: 112 },
+      quickviews: [{ type: 'solution', start: 111, end: 112 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/65.PNG', offset: 112 }],
+      layersPost: [{ src: '/content/10/66.PNG', offset: 112 }],
     },
     /*{
       description: 'TODO',
