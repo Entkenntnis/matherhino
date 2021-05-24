@@ -40,7 +40,11 @@ export default function Page() {
           topics="Raumgeometrie, Tangens, Sinussatz, Volumen eines Kegels, Prozentrechnung"
         />
 
-        <Card id={10} title="B1 (todo)" topics="---" />
+        <Card
+          id={10}
+          title="B1"
+          topics="Funktionen, Parabel, Gleichungssystem, Rauten, Tangens, Satz des Pythagoras, Mittelpunkt, Maximum"
+        />
 
         <Card id={11} title="B2 (todo)" topics="coming soon" />
 

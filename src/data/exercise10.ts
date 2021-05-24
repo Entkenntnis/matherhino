@@ -11,7 +11,7 @@ export const exercise10: ExerciseData = {
   task: '/content/10/task.png',
   width: 715,
   backTo: '/bayern-rs-zweig-ii-iii-2018',
-  height: 150,
+  height: 160,
   audio: [
     {
       mp3: '/content/10/b1_0.mp3',
@@ -60,7 +60,7 @@ export const exercise10: ExerciseData = {
       ogg: '/content/10/b1_6.ogg',
       size: 5,
       position: { left: 8, top: 92 },
-      beforeQuiz: 999,
+      beforeQuiz: 39,
     },
   ],
   checkpoints: [
@@ -85,12 +85,12 @@ export const exercise10: ExerciseData = {
       audioIndex: 4,
     },
     {
-      position: { x: 23, y: 1 },
+      position: { x: 23, y: 115 },
       title: 'Teilaufgabe B 1.5',
       audioIndex: 5,
     },
     {
-      position: { x: 23, y: 26 },
+      position: { x: 23, y: 140 },
       title: 'Teilaufgabe B 1.6',
       audioIndex: 6,
     },
@@ -541,6 +541,147 @@ export const exercise10: ExerciseData = {
       autoShowViews: true,
       layersPre: [{ src: '/content/10/65.PNG', offset: 112 }],
       layersPost: [{ src: '/content/10/66.PNG', offset: 112 }],
+    },
+    {
+      description:
+        'Welche Skizze zeigt einen sinnvollen Weg, um die Koordinaten von B<sub>n</sub> zu bestimmen?',
+      correctChoice: '<img src="/content/10/b15_3.png" width="255">',
+      wrong1: '<img src="/content/10/b15_1.png" width="255">',
+      wrong2: '<img src="/content/10/b15_2.png" width="255">',
+      cursor: { x: 9, y: 122 },
+      quickviews: [],
+      layersPre: [
+        { src: '/content/10/67_s114.PNG', offset: 115 },
+        { src: '/content/10/68_s114.PNG', offset: 115 },
+      ],
+      layersPost: [{ src: '/content/10/69_s114.PNG', offset: 118 }],
+    },
+    {
+      description:
+        'A<sub>n</sub> und C<sub>n</sub> sind bekannt. Wie lauten die Koordinaten von M<sub>n</sub> ?',
+      correctChoice: `M<sub>n</sub> ( x | ${buildFrac(
+        'y<sub>A<sub>n</sub></sub> + y<sub>C<sub>n</sub></sub>',
+        '2'
+      )} )`,
+      wrong1: `M<sub>n</sub> ( x | ${buildFrac(
+        'y<sub>A<sub>n</sub></sub> - y<sub>C<sub>n</sub></sub>',
+        '2'
+      )} )`,
+      wrong2: `M<sub>n</sub> ( x | ${buildFrac(
+        'y<sub>A<sub>n</sub></sub> &sdot; y<sub>C<sub>n</sub></sub>',
+        '2'
+      )} )`,
+      cursor: { x: 22, y: 126 },
+      quickviews: [{ type: 'solution', start: 114, end: 127 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/70_s114.PNG', offset: 123 }],
+      layersPost: [{ src: '/content/10/71_s114.PNG', offset: 125 }],
+    },
+    {
+      description: 'Setze ein.',
+      correctChoice: `M<sub>n</sub> ( x | ${buildFrac(
+        '0,5x² - 5x + 7 + 0,5x - 2',
+        '2'
+      )} )`,
+      wrong1: `M<sub>n</sub> ( x | ${buildFrac(
+        '0,5x² - 5x + 7 - 0,5x + 2',
+        '2'
+      )} )`,
+      wrong2: `M<sub>n</sub> ( x | ${buildFrac(
+        '- 0,5x² + 5x - 7 + 0,5x - 2',
+        '2'
+      )} )`,
+      cursor: { x: 23, y: 130 },
+      quickviews: [
+        { type: 'solution', start: 124.5, end: 131 },
+        { type: 'task', start: 65, end: 96 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/72_s114.PNG', offset: 129 }],
+      layersPost: [{ src: '/content/10/73_s114.PNG', offset: 129 }],
+    },
+    {
+      description: 'Vereinfache.',
+      correctChoice: `M<sub>n</sub> ( x | 0,25x² - 2,25x + 2,5 )`,
+      wrong1: `M<sub>n</sub> ( x | 0,5x² - 4,5x + 5 )`,
+      wrong2: `M<sub>n</sub> ( x | x² -9x + 10 )`,
+      cursor: { x: 21, y: 133 },
+      quickviews: [{ type: 'solution', start: 128, end: 133 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/74_s114.PNG', offset: 133 }],
+      layersPost: [{ src: '/content/10/75_s114.PNG', offset: 133 }],
+    },
+    {
+      description: 'Wie lauten die Koordinaten von B<sub>n</sub> ?',
+      correctChoice: 'B<sub>n</sub> ( x + 1 | 0,25x² - 2,25x + 2,5 )',
+      wrong1: 'B<sub>n</sub> ( x - 1 | 0,25x² - 2,25x + 2,5 )',
+      wrong2: 'B<sub>n</sub> ( x | 0,25x² - 2,25x + 2,5 )',
+      cursor: { x: 23, y: 137 },
+      quickviews: [{ type: 'solution', start: 131.5, end: 137 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/76_s114.PNG', offset: 135 }],
+      layersPost: [{ src: '/content/10/77_s114.PNG', offset: 137 }],
+    },
+    {
+      description: 'Welche Formel beschreibt den Flächeninhalt der Raute?',
+      correctChoice: `A = ${buildFrac('1', '2')} &sdot; ${buildOverline(
+        'A<sub>n</sub>C<sub>n</sub>'
+      )} &sdot; 2`,
+      wrong1: `A = ${buildFrac('1', '3')} &sdot; ${buildOverline(
+        'A<sub>n</sub>C<sub>n</sub>'
+      )} &sdot; 2`,
+      wrong2: `A = ${buildFrac('1', '4')} &sdot; ${buildOverline(
+        'A<sub>n</sub>C<sub>n</sub>'
+      )} &sdot; 2`,
+      cursor: { x: 19, y: 142 },
+      quickviews: [{ type: 'solution', start: 25 + 114, end: 28 + 114 }],
+      autoShowViews: true,
+      layersPre: [
+        { src: '/content/10/78_s114.PNG', offset: 140 },
+        { src: '/content/10/79_s114.PNG', offset: 140 },
+      ],
+      layersPost: [{ src: '/content/10/80_s114.PNG', offset: 142 }],
+    },
+    {
+      description: 'Wann erreicht der Flächeninhalt sein Maximum?',
+      correctChoice: `Bei maximaler Länge ${buildOverline(
+        'A<sub>0</sub>C<sub>0</sub>'
+      )}`,
+      wrong1: `Bei Länge ${buildOverline('A<sub>n</sub>C<sub>n</sub>')} = 6`,
+      wrong2: `Bei minimaler Länge ${buildOverline(
+        'A<sub>0</sub>C<sub>0</sub>'
+      )}`,
+      cursor: { x: 9, y: 146 },
+      quickviews: [{ type: 'solution', start: 25 + 114, end: 31.5 + 114 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/81_s114.PNG', offset: 144 }],
+      layersPost: [{ src: '/content/10/82_s114.PNG', offset: 144 }],
+    },
+    {
+      description: `Berechne mit dem Taschenrechner die maximale Länge ${buildOverline(
+        'A<sub>0</sub>C<sub>0</sub>'
+      )} .<br><br>Es ist bekannt: ${buildOverline(
+        'A<sub>n</sub>C<sub>n</sub>'
+      )}(x) = (-0,5x² + 5,5x - 9) LE`,
+      correctChoice: '6,13 LE',
+      wrong1: '6,23 LE',
+      wrong2: '6,33 LE',
+      cursor: { x: 18, y: 146 },
+      quickviews: [],
+      layersPre: [{ src: '/content/10/83_s114.PNG', offset: 146 }],
+      layersPost: [{ src: '/content/10/84_s114.PNG', offset: 146 }],
+    },
+    {
+      description: 'Welche Schlussfolgerung gilt?',
+      correctChoice: `Der maximale Flächeninhalt A<sub>max</sub> beträgt 6,13 FE, daher ist der Flächeninhalt der Rauten stets kleiner als 7 FE.`,
+      wrong1: `Der maximale Flächeninhalt A<sub>max</sub> beträgt somit 7 FE.`,
+      wrong2:
+        'Damit gilt, dass jede Raute mindestens einen Flächeninhalt von 6,13&nbsp;FE hat.',
+      cursor: { x: 13, y: 152 },
+      quickviews: [{ type: 'solution', start: 25 + 114, end: 38 + 114 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/10/85_s114.PNG', offset: 148 }],
+      layersPost: [{ src: '/content/10/86_s114.PNG', offset: 148 }],
     },
     /*{
       description: 'TODO',
