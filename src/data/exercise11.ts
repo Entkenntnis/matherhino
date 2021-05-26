@@ -11,7 +11,7 @@ export const exercise11: ExerciseData = {
   task: '/content/11/task.png',
   width: 715,
   backTo: '/bayern-rs-zweig-ii-iii-2018',
-  height: 55,
+  height: 100,
   audio: [
     {
       mp3: '/content/11/b2_0.mp3',
@@ -46,7 +46,7 @@ export const exercise11: ExerciseData = {
       ogg: '/content/11/b2_4.ogg',
       size: 5,
       position: { left: 8, top: 84.3 },
-      beforeQuiz: 999,
+      beforeQuiz: 20,
     },
     {
       mp3: '/content/11/b2_5.mp3',
@@ -160,7 +160,7 @@ export const exercise11: ExerciseData = {
       correctChoice: '<img src="/content/11/b22_11.png">',
       wrong1: '<img src="/content/11/b22_12.png">',
       wrong2: '<img src="/content/11/b22_13.png">',
-      cursor: { x: 19, y: 37 },
+      cursor: { x: 19, y: 12 },
       quickviews: [{ type: 'task', start: 97, end: 118 }],
       autoShowViews: true,
       layersPre: [
@@ -238,6 +238,114 @@ export const exercise11: ExerciseData = {
       autoShowViews: true,
       layersPre: [{ src: '/content/11/21.PNG', offset: 46 }],
       layersPost: [{ src: '/content/11/22.PNG', offset: 46 }],
+    },
+    {
+      description:
+        'Welche Skizze zeigt die korrekte Position von S<sub>2</sub> ?',
+      correctChoice: '<img src="/content/11/b23_11.png" class="w-96">',
+      wrong1: '<img src="/content/11/b23_12.png" class="w-96">',
+      wrong2: '<img src="/content/11/b23_13.png" class="w-96">',
+      cursor: { x: 19, y: 28 },
+      quickviews: [{ type: 'task', start: 134, end: 145.5 }],
+      autoShowViews: true,
+      layersPre: [
+        { src: '/content/11/23.PNG', offset: 49 },
+        { src: '/content/11/24.PNG', offset: 49 },
+      ],
+      layersPost: [{ src: '/content/11/25.PNG', offset: 16 }],
+    },
+    {
+      description: 'Welche Skizze zeigt die vollständige Zeichnung?',
+      correctChoice: '<img src="/content/11/b23_21.png">',
+      wrong1: '<img src="/content/11/b23_22.png">',
+      wrong2: '<img src="/content/11/b23_23.png">',
+      cursor: { x: 20, y: 28 },
+      quickviews: [{ type: 'task', start: 134, end: 145.5 }],
+      autoShowViews: true,
+      layersPre: [],
+      layersPost: [{ src: '/content/11/26.PNG', offset: 18 }],
+    },
+    {
+      description: 'Welche Formel gilt für das Volumen einer Pyramide?',
+      correctChoice: `V = ${buildFrac('1', '3')} &sdot; G &sdot; h`,
+      wrong1: `V = ${buildFrac('1', '2')} &sdot; G &sdot; h`,
+      wrong2: `V = G &sdot; h`,
+      cursor: { x: 11, y: 51 },
+      quickviews: [],
+      layersPre: [{ src: '/content/11/27.PNG', offset: 51 }],
+      layersPost: [{ src: '/content/11/28.PNG', offset: 50 }],
+    },
+    {
+      description:
+        'Welchen Flächeninhalt hat die Grundfläche der Pyramide ABCDS<sub>n</sub> ?',
+      correctChoice: `G = ${buildFrac('1', '2')} &sdot; 6 &sdot; 10 = 30 cm²`,
+      wrong1: `G = &sdot; 6 &sdot; 10 = 60 cm²`,
+      wrong2: `G = ${buildFrac('1', '4')} &sdot; 6 &sdot; 10 = 15 cm²`,
+      cursor: { x: 19, y: 54 },
+      quickviews: [{ type: 'solution', start: 15, end: 29 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/11/29.PNG', offset: 54 }],
+      layersPost: [{ src: '/content/11/30.PNG', offset: 53 }],
+    },
+    {
+      description:
+        'Bereche die Länge der Höhe Q<sub>n</sub>S<sub>n</sub> in Abhängigkeit von x .<br><br>Welche Skizze zeigt einen sinnvollen Ansatz?',
+      correctChoice: '<img src="/content/11/b23_31.png" class="h-96">',
+      wrong1: '<img src="/content/11/b23_32.png" class="h-96">',
+      wrong2: '<img src="/content/11/b23_33.png" class="h-96">',
+      cursor: { x: 24, y: 56 },
+      quickviews: [],
+      layersPre: [{ src: '/content/11/31.PNG', offset: 56 }],
+      layersPost: [{ src: '/content/11/32.PNG', offset: 56 }],
+    },
+    {
+      description: `<img src="/content/11/b23_31.png" class="mx-auto p-3 my-3 w-72"> Ergänze den Zähler auf der rechten Seite. <br><br>(Bekannt: ${buildOverline(
+        'ES<sub>n</sub>'
+      )} = x cm; ${buildOverline('AE')} = 10 cm; ${buildOverline(
+        'ME'
+      )} = 11,18 cm)`,
+      correctChoice: '(11,18 - x) cm',
+      wrong1: 'x cm',
+      wrong2: '(11,18 + x) cm',
+      cursor: { x: 19, y: 59 },
+      quickviews: [{ type: 'solution', start: 57.4, end: 60 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/11/33.PNG', offset: 58 }],
+      layersPost: [{ src: '/content/11/34.PNG', offset: 58 }],
+    },
+    {
+      description:
+        'Forme die Gleichung um. Welcher Zwischenschritt ist korrekt?',
+      correctChoice: `${buildOverline(
+        'Q<sub>n</sub>S<sub>n</sub>'
+      )}(x) = (10 - ${buildFrac('10', '11,18')}x) cm`,
+      wrong1: `${buildOverline(
+        'Q<sub>n</sub>S<sub>n</sub>'
+      )}(x) = (10 - ${buildFrac('1', '11,18')}x) cm`,
+      wrong2: `${buildOverline(
+        'Q<sub>n</sub>S<sub>n</sub>'
+      )}(x) = (10 - ${buildFrac('100', '11,18')}x) cm`,
+      cursor: { x: 19, y: 69 },
+      quickviews: [{ type: 'solution', start: 57.4, end: 70 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/11/35.PNG', offset: 63 }],
+      layersPost: [{ src: '/content/11/36.PNG', offset: 63 }],
+    },
+    {
+      description: `Du weißt nun:<br><br>G = 30 cm²<br><br>h = ${buildOverline(
+        'Q<sub>n</sub>S<sub>n</sub>'
+      )}(x) = (10 - 0,89x) cm<br><br>Wie lautet der Term für das Volumen V ?`,
+      correctChoice: `V = ${buildFrac(
+        '1',
+        '3'
+      )} &sdot; 30 &sdot; (10 - 0,89x) cm³`,
+      wrong1: `V = ${buildFrac('1', '2')} &sdot; 30 &sdot; (10 - 0,89x) cm³`,
+      wrong2: `V = ${buildFrac('1', '6')} &sdot; 30 &sdot; (10 - 0,89x) cm³`,
+      cursor: { x: 20, y: 73 },
+      quickviews: [{ type: 'solution', start: 70, end: 73.5 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/11/37.PNG', offset: 71 }],
+      layersPost: [{ src: '/content/11/38.PNG', offset: 70 }],
     },
     /*{
       description: 'TODO',
