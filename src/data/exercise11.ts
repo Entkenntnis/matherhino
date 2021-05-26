@@ -1,4 +1,3 @@
-import build from 'next/dist/build'
 import {
   buildFrac,
   buildImg,
@@ -40,7 +39,7 @@ export const exercise11: ExerciseData = {
       ogg: '/content/11/b2_3.ogg',
       size: 5,
       position: { left: 8, top: 61.1 },
-      beforeQuiz: 999,
+      beforeQuiz: 12,
     },
     {
       mp3: '/content/11/b2_4.mp3',
@@ -69,7 +68,7 @@ export const exercise11: ExerciseData = {
       audioIndex: 2,
     },
     {
-      position: { x: 23, y: 1 },
+      position: { x: 23, y: 49 },
       title: 'Teilaufgabe B 2.3',
       audioIndex: 3,
     },
@@ -154,6 +153,91 @@ export const exercise11: ExerciseData = {
       autoShowViews: true,
       layersPre: [{ src: '/content/11/10.PNG', offset: 34 }],
       layersPost: [{ src: '/content/11/11.PNG', offset: 34 }],
+    },
+    {
+      description:
+        'Welche Skizze zeigt die korrekte Position von S<sub>1</sub> ?',
+      correctChoice: '<img src="/content/11/b22_11.png">',
+      wrong1: '<img src="/content/11/b22_12.png">',
+      wrong2: '<img src="/content/11/b22_13.png">',
+      cursor: { x: 19, y: 37 },
+      quickviews: [{ type: 'task', start: 97, end: 118 }],
+      autoShowViews: true,
+      layersPre: [
+        { src: '/content/11/12.PNG', offset: 37 },
+        { src: '/content/11/13.PNG', offset: 37 },
+      ],
+      layersPost: [{ src: '/content/11/14.PNG', offset: 6 }],
+    },
+    {
+      description:
+        'Bereche den Flächeninhalt des Dreiecks S<sub>1</sub>GE. <br><br>Welche Skizze zeigt einen sinnvollen Rechenweg?',
+      correctChoice: '<img src="/content/11/b22_21.png">',
+      wrong1: '<img src="/content/11/b22_22.png">',
+      wrong2: '<img src="/content/11/b22_23.png">',
+      cursor: { x: 7, y: 39 },
+      quickviews: [],
+      layersPre: [{ src: '/content/11/15.PNG', offset: 39 }],
+      layersPost: [],
+    },
+    {
+      description: `Welche Formel passt zu dieser Skizze? ${buildImg(
+        '/content/11/b22_21.png'
+      )}`,
+      correctChoice: `A<sub>S<sub>1</sub>GE</sub> = ${buildFrac(
+        '1',
+        '2'
+      )} &sdot; 3 &sdot; 10 &sdot; sin 63,43°`,
+      wrong1: `A<sub>S<sub>1</sub>GE</sub> = ${buildFrac(
+        '1',
+        '2'
+      )} &sdot; 3 &sdot; 10 &sdot; cos 63,43°`,
+      wrong2: `A<sub>S<sub>1</sub>GE</sub> = ${buildFrac(
+        '1',
+        '2'
+      )} &sdot; 3 &sdot; 10 &sdot; tan 63,43°`,
+      cursor: { x: 23, y: 39 },
+      quickviews: [],
+      layersPre: [],
+      layersPost: [{ src: '/content/11/16.PNG', offset: 39 }],
+    },
+    {
+      description: 'Berechne das Ergebnis.',
+      correctChoice: '13,42 cm²',
+      wrong1: '12,42 cm²',
+      wrong2: '11,42 cm²',
+      cursor: { x: 20, y: 41 },
+      quickviews: [{ type: 'solution', start: 38.3, end: 41.5 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/11/17.PNG', offset: 41 }],
+      layersPost: [{ src: '/content/11/18.PNG', offset: 41 }],
+    },
+    {
+      description: `Berechne die Länge von S<sub>1</sub>G . ${buildImg(
+        '/content/11/b22_21.png'
+      )}`,
+      correctChoice: `${buildOverline('S<sub>1</sub>G')} = ${buildSqrt(
+        ' 3² + 10²  - 2 &sdot; 3 &sdot; 10 &sdot; cos 63,43°'
+      )}`,
+      wrong1: `${buildOverline('S<sub>1</sub>G')} = ${buildSqrt(
+        ' 3² + 10²  - 2 &sdot; 3 &sdot; 10 &sdot; sin 63,43°'
+      )}`,
+      wrong2: `${buildOverline('S<sub>1</sub>G')} = ${buildSqrt(' 3² + 10²')}`,
+      cursor: { x: 24, y: 44 },
+      quickviews: [],
+      layersPre: [{ src: '/content/11/19.PNG', offset: 44 }],
+      layersPost: [{ src: '/content/11/20.PNG', offset: 44 }],
+    },
+    {
+      description: 'Berechne das Ergebnis.',
+      correctChoice: '9,06 cm',
+      wrong1: '10,06 cm',
+      wrong2: '11,06 cm',
+      cursor: { x: 12, y: 46 },
+      quickviews: [{ type: 'solution', start: 43, end: 46.5 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/11/21.PNG', offset: 46 }],
+      layersPost: [{ src: '/content/11/22.PNG', offset: 46 }],
     },
     /*{
       description: 'TODO',
