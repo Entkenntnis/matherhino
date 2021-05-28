@@ -46,7 +46,11 @@ export default function Page() {
           topics="Funktionen, Parabel, Gleichungssystem, Rauten, Tangens, Satz des Pythagoras, Mittelpunkt, Maximum"
         />
 
-        <Card id={11} title="B2 (todo)" topics="coming soon" />
+        <Card
+          id={11}
+          title="B2"
+          topics="Raumgeometrie, Schrägbild, Flächenformel mit Sinus, Kosinussatz, Volumen einer Pyramide, Strahlensatz / Vierstreckensatz, Sinussatz"
+        />
 
         <div className="my-20 text-center text-lg">
           Finde{' '}

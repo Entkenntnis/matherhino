@@ -11,7 +11,7 @@ export const exercise11: ExerciseData = {
   task: '/content/11/task.png',
   width: 715,
   backTo: '/bayern-rs-zweig-ii-iii-2018',
-  height: 130,
+  height: 118,
   audio: [
     {
       mp3: '/content/11/b2_0.mp3',
@@ -78,7 +78,7 @@ export const exercise11: ExerciseData = {
       audioIndex: 4,
     },
     {
-      position: { x: 23, y: 1 },
+      position: { x: 23, y: 106 },
       title: 'Teilaufgabe B 2.5',
       audioIndex: 5,
     },
@@ -483,6 +483,86 @@ export const exercise11: ExerciseData = {
       autoShowViews: true,
       layersPre: [{ src: '/content/11/59.PNG', offset: 103 }],
       layersPost: [{ src: '/content/11/60.PNG', offset: 103 }],
+    },
+    {
+      description:
+        'Wie groß ist das Volumen des Prismas ABCDEFGH ?<br><br>Es ist bekannt: Grundfläche ABCD gleich 30 cm²',
+      correctChoice: `V<sub>Prisma</sub> = 30 &sdot; 10 cm³ = 300 cm³`,
+      wrong1: `V<sub>Prisma</sub> = ${buildFrac(
+        '1',
+        '2'
+      )} &sdot; 30 &sdot; 10 cm³ = 150 cm³`,
+      wrong2: `V<sub>Prisma</sub> = ${buildFrac(
+        '1',
+        '3'
+      )} &sdot; 30 &sdot; 10 cm³ = 100 cm³`,
+      cursor: { x: 22, y: 106 },
+      quickviews: [{ type: 'solution', start: 2, end: 29 }],
+      autoShowViews: true,
+      layersPre: [
+        { src: '/content/11/61.PNG', offset: 106 },
+        { src: '/content/11/62.PNG', offset: 106 },
+      ],
+      layersPost: [{ src: '/content/11/63.PNG', offset: 106 }],
+    },
+    {
+      description: 'Welches Volumen sollte die Pyramide haben?',
+      correctChoice: '150 cm³',
+      wrong1: '100 cm³',
+      wrong2: '600 cm³',
+      cursor: { x: 24, y: 109 },
+      quickviews: [
+        { type: 'task', start: 180, end: 200 },
+        { type: 'solution', start: 105, end: 106 },
+      ],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/11/64.PNG', offset: 108 }],
+      layersPost: [{ src: '/content/11/65.PNG', offset: 108 }],
+    },
+    {
+      description:
+        'Für das Volumen der Pyramide gilt: V(x) = (100 - 8,6x) cm³<br><br>Bei welchem x-Wert wird dieser Term maximal?',
+      correctChoice: 'x = 0',
+      wrong1: 'x = 2',
+      wrong2: 'x = -2',
+      cursor: { x: 8, y: 111 },
+      quickviews: [],
+      layersPre: [{ src: '/content/11/66.PNG', offset: 110 }],
+      layersPost: [{ src: '/content/11/67.PNG', offset: 112 }],
+    },
+    {
+      description:
+        'Bekannt: V(x) = (100 - 8,6x) cm³<br><br>Wie groß ist das maximale Volumen der Pyramide?',
+      correctChoice: '100 cm³',
+      wrong1: '50 cm³',
+      wrong2: '150 cm³',
+      cursor: { x: 14, y: 111 },
+      quickviews: [{ type: 'solution', start: 109, end: 112 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/11/68.PNG', offset: 112 }],
+      layersPost: [{ src: '/content/11/69.PNG', offset: 112 }],
+    },
+    {
+      description: 'Was gilt nun?',
+      correctChoice: '< 150 cm³',
+      wrong1: '> 150 cm³',
+      wrong2: '= 150 cm³',
+      cursor: { x: 22, y: 112 },
+      quickviews: [{ type: 'solution', start: 107.4, end: 112 }],
+      autoShowViews: true,
+      layersPre: [],
+      layersPost: [{ src: '/content/11/70.PNG', offset: 112 }],
+    },
+    {
+      description: 'Wie lautet die Antwort auf die Frage?',
+      correctChoice: 'Folglich gibt es keine solche Pyramide.',
+      wrong1: 'Folglich existiert eine solche Pyramide.',
+      wrong2: 'Folglich wissen wir, dass 100 kleiner 150 ist.',
+      cursor: { x: 23, y: 114 },
+      quickviews: [{ type: 'solution', start: 107.4, end: 114 }],
+      autoShowViews: true,
+      layersPre: [{ src: '/content/11/71.PNG', offset: 114 }],
+      layersPost: [{ src: '/content/11/72.PNG', offset: 114 }],
     },
     /*{
       description: 'TODO',
