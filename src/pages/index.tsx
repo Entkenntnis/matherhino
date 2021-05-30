@@ -33,7 +33,7 @@ export default function Home() {
           <img src="/landing/rs_by.png" className="w-7" />
           <p className="text-lg m-3 text-left text-blue-500 hover:underline">
             <a href="/bayern-rs-zweig-ii-iii-2018">
-              Bayern, Realschulabschlussprüfung, Zweig&nbsp;II/III, 2018 (wip)
+              Bayern, Realschulabschlussprüfung, Zweig&nbsp;II/III, 2018
             </a>
           </p>
         </div>
