@@ -14,12 +14,12 @@ import { ExerciseData, LayerData } from '../../data/types'
 import { shuffleArray } from '../../utils/shuffleArray'
 
 export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
-  const [step, setStep] = useState(999)
+  const [step, setStep] = useState(-1)
   const [quizSelected, setQuizSelected] = useState<number[]>([])
   const [shuffling, setShuffling] = useState<number[]>(() =>
     shuffleArray([0, 1, 2])
   )
-  const [animationState, setAnimationState] = useState(2)
+  const [animationState, setAnimationState] = useState(1)
   const [wrongs, setWrongs] = useState<number[]>([])
   const audio = useRef<HTMLAudioElement>(null)
   const [audioState, setAudioState] = useState('none')
