@@ -460,7 +460,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { id: 2 } }],
+    paths: [{ params: { id: '2' } }],
     fallback: false,
   }
 }
