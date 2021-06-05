@@ -24,6 +24,8 @@ export interface GraphPaperProps {
     style: 'warn' | 'success' | 'invisible'
   }[]
   onRetryClick?: (index: number) => void
+  fadeState?: string
+  fadeSpeed?: string
 }
 
 export function GraphPaper({
@@ -39,6 +41,8 @@ export function GraphPaper({
   numberingClicked,
   retry,
   onRetryClick,
+  fadeState,
+  fadeSpeed,
 }: GraphPaperProps) {
   const [loaded, setLoaded] = useState(false)
 
@@ -65,14 +69,17 @@ export function GraphPaper({
             {content.map((c, i) => (
               <div
                 className={`w-full h-full bg-no-repeat absolute top-0 left-0 ${
-                  !fadeImgs.includes(c.src) || loaded ? '' : 'opacity-0'
+                  !fadeImgs.includes(c.src) ||
+                  (fadeState === undefined ? loaded : fadeState == 'visible')
+                    ? ''
+                    : 'opacity-0'
                 }`}
                 key={i}
                 style={{
                   backgroundImage: `url("${c.src}")`,
                   backgroundSize: '100% auto',
                   marginTop: getHOffset(c.offset ?? 0),
-                  transition: 'opacity 2.5s ease 0s',
+                  transition: `opacity ${fadeSpeed ?? '2.5s'} ease 0s`,
                 }}
               />
             ))}

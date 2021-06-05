@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { QuizData } from '../data/types'
 
 export interface QuizProps {
@@ -5,6 +6,7 @@ export interface QuizProps {
   selected: number[]
   shuffling: number[]
   smallHeight: boolean
+  noBorder?: boolean
   interactive: boolean
   onSelect: (index: number) => void
 }
@@ -14,6 +16,7 @@ export function Quiz({
   selected,
   shuffling,
   smallHeight,
+  noBorder,
   interactive,
   onSelect,
 }: QuizProps) {
@@ -24,11 +27,13 @@ export function Quiz({
   ]
 
   return (
-    <div className={`max-w-xl mx-auto relative`}>
+    <div className={clsx('mx-auto relative', !noBorder && 'max-w-xl')}>
       <div
-        className={`px-3 border-2 rounded border-gray-200 ${
+        className={clsx(
+          !noBorder && 'border-2 rounded border-gray-200',
+          'px-3',
           smallHeight ? 'pt-3' : 'pt-3 mt-6 sm:mt-13 xl:mt-20'
-        }`}
+        )}
       >
         <p
           dangerouslySetInnerHTML={{
@@ -37,7 +42,7 @@ export function Quiz({
         />
         <div
           className={`flex flex-wrap ${
-            smallHeight ? 'mt-4' : 'mt-6 sm:mt-8'
+            smallHeight ? 'mt-6' : 'mt-6 sm:mt-8'
           } items-center justify-evenly`}
         >
           {shuffling.map((index) => (
