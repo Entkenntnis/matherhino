@@ -31,7 +31,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
   }, [step])
 
   return (
-    <>
+    <div className="text-sm sm:text-base">
       <Head>
         <title>MatheRhino - A1</title>
       </Head>
@@ -42,32 +42,34 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
           setAudioState('none')
         }}
       />
-      <div
-        className={clsx(
-          'hidden',
-          'lg:fixed lg:left-4 lg:top-4 lg:flex lg:flex-row',
-          'items-center cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-2xl px-2 py-1',
-          'select-none'
-        )}
-      >
-        <ChevronLeft className="h-4 inline mr-2" />
-        <span> zurück</span>
-      </div>
-      <div
-        className={clsx(
-          'hidden',
-          'lg:fixed lg:right-4 lg:top-4 lg:flex lg:flex-row',
-          'items-center cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-2xl px-2 py-1',
-          'select-none'
-        )}
-        onClick={() => {
-          setStep(-1)
-          setWrongs([])
-          setQuizSelected([])
-        }}
-      >
-        <RedoIcon className="h-3 inline mr-2" />
-        <span> neu starten</span>
+      <div className="flex max-w-2xl justify-between mx-auto mt-4 sm:mt-6 lg:mt-0 px-2">
+        <div
+          className={clsx(
+            '',
+            'lg:fixed lg:left-4 lg:top-4 flex flex-row',
+            'items-center cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-2xl px-2 py-1',
+            'select-none'
+          )}
+        >
+          <ChevronLeft className="h-4 inline mr-2" />
+          <span> zurück</span>
+        </div>
+        <div
+          className={clsx(
+            '',
+            'lg:fixed lg:right-4 lg:top-4 flex flex-row',
+            'items-center cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-2xl px-2 py-1',
+            'select-none'
+          )}
+          onClick={() => {
+            setStep(-1)
+            setWrongs([])
+            setQuizSelected([])
+          }}
+        >
+          <RedoIcon className="h-3 inline mr-2" />
+          <span> neu starten</span>
+        </div>
       </div>
       <div className="flex flex-col items-center mx-auto w-full max-w-2xl">
         {step >= 0 && renderTask(-2, 38.5)}
@@ -105,7 +107,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
           renderDone('/content/2/realschule_zweig_i_2018_a1_loseung.pdf')}
         <div className="h-32 lg:h-80"></div>
       </div>
-    </>
+    </div>
   )
 
   function renderCheckpoint(
