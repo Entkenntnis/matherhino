@@ -460,9 +460,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export async function getStaticPaths() {
   return {
-    paths: allExercises.map((exercise) => {
-      return { params: { id: exercise.id.toString() } }
-    }),
+    paths: [{ params: { id: 2 } }],
     fallback: false,
   }
 }
