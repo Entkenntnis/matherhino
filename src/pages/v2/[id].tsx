@@ -1,14 +1,12 @@
 import clsx from 'clsx'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { GraphPaper } from '../../components/GraphPaper'
 import { AudioIcon } from '../../components/icons/AudioIcon'
 import { ChevronLeft } from '../../components/icons/ChevronLeftIcon'
 import { RedoIcon } from '../../components/icons/RedoIcon'
 import { Quiz } from '../../components/Quiz'
-import { Task } from '../../components/Task'
 import { allExercises } from '../../data'
 import { ExerciseData, LayerData } from '../../data/types'
 import { shuffleArray } from '../../utils/shuffleArray'
@@ -27,6 +25,19 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
   useEffect(() => {
     if (step == -1) {
       nextStep()
+      new Image().src = exercise.task
+      for (const quiz of exercise.quiz) {
+        if (quiz.layersPre) {
+          for (const layer of quiz.layersPre) {
+            new Image().src = layer.src
+          }
+        }
+        if (quiz.layersPost) {
+          for (const layer of quiz.layersPost) {
+            new Image().src = layer.src
+          }
+        }
+      }
     }
   }, [step])
 
