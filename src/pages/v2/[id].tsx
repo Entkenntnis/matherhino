@@ -97,7 +97,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
         {renderWholeStep(16, 7, 0, 22)}
         {renderWholeStep(18, 8, 0, 26)}
         {step >= 20 && renderGraphPaper(0, 26, 8, true)}
-        {step >= 20 && renderCheckpoint(step == 20, step >= 22, 20, 8)}
+        {step >= 20 && renderCheckpoint(step == 20, step >= 23, 20, 8)}
         {step >= 21 && renderTask(54.8, 83)}
         {step == 21 && renderPleaseRead(2)}
         {renderWholeStep(22, 9, 26.9, 30)}
@@ -130,7 +130,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
     return (
       <div
         className={clsx(
-          'mt-6 mb-8 px-4 py-2 border-gray-200 border-2 w-full',
+          'mt-10 mb-8 px-4 py-2 w-full border-gray-300 md:border',
           'flex justify-between items-center'
         )}
       >
@@ -177,7 +177,6 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
   }
 
   function renderTask(start: number, end: number) {
-    console.log('render task', animationState)
     return (
       <div
         className={clsx(
@@ -201,7 +200,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
     return (
       <div
         className={clsx(
-          'p-4 border-lime-200 border-2 w-full',
+          'p-4 w-full md:border border-gray-300 md:mt-6',
           'text-center transition-opacity',
           animationState <= 2 || animationState == 4
             ? 'opacity-0'
@@ -266,7 +265,6 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
     quizDone: boolean,
     fade?: boolean
   ) {
-    console.log('gp', `key-${step}-${animationState == 1 ? '2' : ''}`)
     const layers: LayerData[] = []
     for (let i = 0; i <= quizStep; i++) {
       if (i >= exercise.quiz.length) continue
@@ -335,7 +333,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
     return (
       <div
         className={clsx(
-          'mt-2 w-full border-2 transition-opacity border-lime-200',
+          'mt-2 w-full transition-opacity md:border border-gray-300',
           animationState == 4 ? 'duration-100' : 'duration-300',
           (animationState <= 1 && !quizSelected.includes(0)) ||
             animationState == 4
@@ -416,7 +414,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
       correctPercentage < 75 ? ' - Bestanden bei mind. 75%' : ''
     }`
     return (
-      <div className="p-4 border-lime-200 border-2 mt-4 w-full text-center">
+      <div className="p-4 mt-4 w-full text-center md:border border-gray-300">
         <img
           className="mx-auto w-52"
           src={
