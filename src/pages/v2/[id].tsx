@@ -86,6 +86,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
       ...convertQuiz(20, 44, 'a1.2', { hPre: 7.8 }),
       ...convertQuiz(21, 46, 'a1.2', { hPre: 3.8 }),
       { type: 'done', length: 22, from: 48 },
+      {
+        type: 'preload',
+        src: '/finish_sad.png',
+        from: 46,
+      },
+      {
+        type: 'preload',
+        src: '/finish.png',
+        from: 46,
+      },
+      {
+        type: 'preload',
+        src: '/finish_1.png',
+        from: 46,
+      },
     ],
   }
 
