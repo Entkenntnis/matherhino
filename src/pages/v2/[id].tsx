@@ -22,6 +22,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     pdf: '/content/2/realschule_zweig_i_2018_a1_loseung.pdf',
     steps: [
       {
+        type: 'preload',
+        src: '/background.png',
+        from: 0,
+      },
+      {
         type: 'task',
         from: 0,
         src: exercise.task,
