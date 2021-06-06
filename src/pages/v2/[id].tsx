@@ -53,8 +53,8 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
           setAudioState('none')
         }}
       />
-      <div className="flex max-w-2xl justify-between mx-auto mt-4 sm:mt-6 lg:mt-0 px-2">
-        <div
+      <div className="flex max-w-2xl justify-between mx-auto mt-4 sm:mt-6 lg:mt-0 px-2 items-center">
+        <button
           className={clsx(
             '',
             'lg:fixed lg:left-4 lg:top-4 flex flex-row',
@@ -64,8 +64,11 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
         >
           <ChevronLeft className="h-4 inline mr-2" />
           <span> zurück</span>
+        </button>
+        <div className={clsx('', 'lg:fixed lg:right-6 lg:top-16', '')}>
+          <p>Frage 4 / 16</p>
         </div>
-        <div
+        <button
           className={clsx(
             '',
             'lg:fixed lg:right-4 lg:top-4 flex flex-row',
@@ -80,7 +83,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
         >
           <RedoIcon className="h-3 inline mr-2" />
           <span> neu starten</span>
-        </div>
+        </button>
       </div>
       <div className="flex flex-col items-center mx-auto w-full max-w-2xl">
         {step >= 0 && renderTask(-2, 38.5)}
@@ -137,7 +140,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
         <span>
           Kontrollpunkt gespeichert <span className="text-lime-500">✓</span>
         </span>
-        <span
+        <button
           className={clsx(
             'cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-2xl px-2 py-1 select-none',
             showContinue || showReset ? 'visible' : 'invisible'
@@ -149,11 +152,15 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
             if (showReset) {
               setStep(pos)
               setWrongs(wrongs.filter((i) => i <= quizPos))
+              setQuizSelected([])
+              setTimeout(() => {
+                nextStep(pos + 1)
+              }, 0)
             }
           }}
         >
           {showContinue ? 'weiter' : 'von hier neu starten'}
-        </span>
+        </button>
       </div>
     )
   }
@@ -200,7 +207,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
     return (
       <div
         className={clsx(
-          'p-4 w-full md:border border-gray-300 md:mt-6',
+          'p-4 w-full md:border border-lime-300 md:mt-6',
           'text-center transition-opacity',
           animationState <= 2 || animationState == 4
             ? 'opacity-0'
@@ -212,7 +219,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
           <span>Lies die Aufgabenstellung.</span>
         </div>
         <div className="flex justify-between items-center">
-          <span
+          <button
             className={clsx(
               'select-none cursor-pointer rounded-2xl',
               'px-2 py-1',
@@ -238,8 +245,8 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
           >
             <AudioIcon className="inline-block h-4 mb-1" />
             &nbsp;Vorlesen
-          </span>
-          <span
+          </button>
+          <button
             className={clsx(
               'cursor-pointer px-2 py-1',
               'select-none bg-gray-100 hover:bg-gray-200 rounded-2xl'
@@ -252,7 +259,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
             }}
           >
             weiter
-          </span>
+          </button>
         </div>
       </div>
     )
@@ -296,35 +303,53 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
     }*/
     return (
       <div
-        className={clsx('relative overflow-hidden w-full mb-2')}
-        style={{
-          paddingBottom: `${(end - start + 2) * (100 / 25)}%`,
-        }}
+        className={clsx(
+          'w-full',
+          'transition-opacity',
+          animationState <= 1 && (step == 2 || step == 30)
+            ? 'opacity-0'
+            : 'opacity-100',
+          animationState == 4 ? 'duration-300' : 'duration-1000'
+        )}
       >
         <div
-          className="absolute inset-0"
+          className={clsx(
+            'relative overflow-hidden w-full mb-2',
+            'transition-all'
+          )}
           style={{
-            marginTop: `${-start * (100 / 25)}%`,
+            paddingBottom: `${(end - start + 2) * (100 / 25)}%`,
           }}
         >
-          <GraphPaper
-            height={exercise.height}
-            content={layers}
-            warnings={wrongs.map((i) => exercise.quiz[i].cursor)}
-            cursor={exercise.quiz[quizStep].cursor}
-            showContinue={false}
-            onContinue={() => {}}
-            hideCursor={quizDone}
-            fadeState={animationState == 1 ? 'invisible' : 'visible'}
-            fadeImgs={
-              fade
-                ? quizSelected.includes(0)
-                  ? (exercise.quiz[quizStep].layersPost ?? []).map((l) => l.src)
-                  : (exercise.quiz[quizStep].layersPre ?? []).map((l) => l.src)
-                : []
-            }
-            fadeSpeed={quizSelected.includes(0) ? undefined : '0.3s'}
-          />
+          <div
+            className="absolute inset-0"
+            style={{
+              marginTop: `${-start * (100 / 25)}%`,
+            }}
+          >
+            <GraphPaper
+              height={exercise.height}
+              content={layers}
+              warnings={wrongs.map((i) => exercise.quiz[i].cursor)}
+              cursor={exercise.quiz[quizStep].cursor}
+              showContinue={false}
+              onContinue={() => {}}
+              hideCursor={quizDone}
+              fadeState={animationState == 1 ? 'invisible' : 'visible'}
+              fadeImgs={
+                fade
+                  ? quizSelected.includes(0)
+                    ? (exercise.quiz[quizStep].layersPost ?? []).map(
+                        (l) => l.src
+                      )
+                    : (exercise.quiz[quizStep].layersPre ?? []).map(
+                        (l) => l.src
+                      )
+                  : []
+              }
+              fadeSpeed={'1.5s'}
+            />
+          </div>
         </div>
       </div>
     )
@@ -333,9 +358,9 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
     return (
       <div
         className={clsx(
-          'mt-2 w-full transition-opacity md:border border-gray-300',
-          animationState == 4 ? 'duration-100' : 'duration-300',
-          (animationState <= 1 && !quizSelected.includes(0)) ||
+          'mt-2 w-full transition-opacity md:border border-lime-300',
+          animationState == 4 ? 'duration-100' : 'duration-1000',
+          (animationState <= 2 && !quizSelected.includes(0)) ||
             animationState == 4
             ? 'opacity-0'
             : 'opacity-100'
@@ -356,7 +381,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
             }
 
             if (index == 0) {
-              if (quizSelected.length > 1 && !wrongs.includes(s)) {
+              if (quizSelected.length >= 1 && !wrongs.includes(s)) {
                 setWrongs([...wrongs, s])
               }
               nextStep()
@@ -373,10 +398,12 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
         <div
           className={clsx(
             'flex justify-end p-4',
-            quizSelected.includes(0) ? 'visible' : 'invisible'
+            quizSelected.includes(0) && animationState >= 3
+              ? 'visible'
+              : 'invisible'
           )}
         >
-          <span
+          <button
             className={clsx(
               'cursor-pointer px-2 py-1',
               'select-none bg-gray-100 hover:bg-gray-200 rounded-2xl'
@@ -391,7 +418,7 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
             }}
           >
             weiter
-          </span>
+          </button>
         </div>
       </div>
     )
@@ -442,17 +469,87 @@ export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
     )
   }
 
-  function nextStep() {
-    setStep(step + 1)
+  function nextStep(explicitStep?: number) {
+    const s = explicitStep ?? step + 1
+    setStep(s)
+    console.log('set step', explicitStep ?? step + 1)
     setAnimationState(1)
+    console.log('anim state', 1)
     setTimeout(() => {
       setAnimationState(2)
+      console.log('anim state', 2)
       setTimeout(() => {
         setAnimationState(3)
+        console.log('anim state', 3)
       }, 1000)
     }, 1)
   }
 }
+
+// ------------ SERVER SIDE ------------
+
+interface PlayerProps {
+  id: number
+  steps: Step[]
+  pdf: string
+}
+
+interface StepBase {
+  stepId: string
+  from?: number
+  to?: number
+}
+
+interface ProgressStep extends StepBase {
+  type: 'progress'
+  text: string
+}
+
+interface PreloadStep extends StepBase {
+  type: 'preload'
+  src: string
+}
+
+interface StoreStep extends StepBase {
+  type: 'store'
+}
+
+interface AnimatableStep extends StepBase {
+  fadeIn?: boolean
+  fadeOut?: boolean
+  delay?: boolean
+}
+
+interface TaskStep extends AnimatableStep {
+  src: string
+  legacyStart?: number
+  legacyEnd?: number
+}
+
+interface ReadStep extends AnimatableStep {
+  audioStr: string
+}
+
+interface GraphPaperStep extends AnimatableStep {}
+
+interface GraphPaperLayerStep extends AnimatableStep {
+  parent: string
+  layers: LayerData[]
+}
+
+interface CheckpointStep extends AnimatableStep {
+  position: number
+}
+
+type Step =
+  | ProgressStep
+  | PreloadStep
+  | StoreStep
+  | TaskStep
+  | ReadStep
+  | GraphPaperStep
+  | GraphPaperLayerStep
+  | CheckpointStep
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = parseInt(context.params?.id as string)
@@ -462,6 +559,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
       notFound: true,
     }
   }
+
+  // convert exercise
+
   return {
     props: { exercise },
   }

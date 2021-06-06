@@ -46,7 +46,7 @@ export function Quiz({
           } items-center justify-evenly`}
         >
           {shuffling.map((index) => (
-            <div
+            <button
               key={index}
               onClick={() => {
                 if (interactive) onSelect(index)
@@ -56,14 +56,14 @@ export function Quiz({
               } select-none ${
                 selected.includes(index)
                   ? index == 0
-                    ? 'bg-lime-500'
-                    : 'line-through text-gray-500 bg-yellow-500'
+                    ? 'bg-lime-500 cursor-auto'
+                    : 'line-through text-gray-500 bg-yellow-500 cursor-auto'
                   : interactive
                   ? 'cursor-pointer'
-                  : ''
+                  : 'cursor-auto'
               }`}
               dangerouslySetInnerHTML={{ __html: entries[index].value }}
-            ></div>
+            ></button>
           ))}
         </div>
       </div>
