@@ -23,6 +23,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     steps: [
       {
         type: 'preload',
+        src: exercise.task,
+        from: -1,
+      },
+      {
+        type: 'preload',
         src: '/background.png',
         from: 0,
       },

@@ -25,7 +25,7 @@ import { getHOffset } from './utils/pixelOffsets'
 import { shuffleArray } from './utils/shuffleArray'
 
 export function PlayerV2({ id, steps, pdf }: PlayerProps) {
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(-1)
 
   const [quizSelected, setQuizSelected] = useState<number[]>([])
   const [shuffling, setShuffling] = useState<number[]>(() =>
@@ -37,6 +37,8 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
 
   const audio = useRef<HTMLAudioElement>(null)
   const [audioState, setAudioState] = useState('none')
+
+  const scrollY = useRef<number>(0)
 
   const currentSteps = steps.filter(
     (s) =>
@@ -55,6 +57,25 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
     preloads.forEach((s) => {
       new Image().src = s.src
     })
+
+    if (step == -1) {
+      // start up
+      try {
+        const store = localStorage.getItem('matherhino_v2')
+        const data = JSON.parse(store ?? '{}')
+        if (data[id]) {
+          if (data[id].step && data[id].wrongs) {
+            setStep(data[id].step)
+            setWrongs(data[id].wrongs)
+            setTimeout(() => {
+              scrollToButtom()
+            }, 100)
+            return
+          }
+        }
+      } catch (e) {}
+      setStep(0)
+    }
   }, [step])
 
   return (
@@ -65,7 +86,7 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
       {renderAudioTag()}
       {renderNavigation()}
       {renderBlocks()}
-      <div className="h-32 lg:h-80"></div>
+      <div className="h-16 md:h-32 lg:h-64"></div>
     </div>
   )
 
@@ -106,6 +127,12 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
           {renderButton(
             'neu starten',
             () => {
+              try {
+                const store = localStorage.getItem('matherhino_v2')
+                const data = JSON.parse(store ?? '{}')
+                delete data[id]
+                localStorage.setItem('matherhino_v2', JSON.stringify(data))
+              } catch (e) {}
               setStep(-1)
               setWrongs([])
               setQuizSelected([])
@@ -257,6 +284,7 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
         style={{
           paddingBottom: getHOffset(height + 1),
         }}
+        key={step}
       >
         <div className="absolute top-0 inset-0 overflow-hidden">
           <div
@@ -285,7 +313,7 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
             {cursors.map(
               (c, i) =>
                 c.from == step && (
-                  <GraphPaperArea x={c.x} y={c.y - legacyOffset}>
+                  <GraphPaperArea x={c.x} y={c.y - legacyOffset} key={i}>
                     <PencilIcon className="absolute inset-0 text-lime-500 animate-wiggle " />
                   </GraphPaperArea>
                 )
@@ -294,7 +322,7 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
               (c, i) =>
                 c.from != step &&
                 wrongs.includes(c.quizNr) && (
-                  <GraphPaperArea x={c.x} y={c.y - legacyOffset}>
+                  <GraphPaperArea x={c.x} y={c.y - legacyOffset} key={i}>
                     <WarningIcon className="text-yellow-500" />
                   </GraphPaperArea>
                 )
@@ -327,7 +355,8 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
               if (quizSelected.length >= 1 && !wrongs.includes(s.quizNr)) {
                 setWrongs([...wrongs, s.quizNr])
               }
-              nextStep()
+              setStep(step + 1)
+              triggerAnimation(true)
             }
           }}
         />
@@ -342,10 +371,12 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
         >
           {renderButton('weiter', () => {
             setAnimationState(4)
+            scrollY.current = window.scrollY
             setTimeout(() => {
               setQuizSelected([])
               setShuffling(shuffleArray([0, 1, 2]))
               nextStep()
+              window.scrollTo(0, scrollY.current ?? 0)
             }, 200)
           })}
         </div>
@@ -384,6 +415,10 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
   }
 
   function renderCheckpoint(s: CheckpointStep) {
+    if (s.from == step) {
+      storeToStorage(step, wrongs)
+    }
+
     const showContinue = s.from == step
     const showReset = step - 2 >= s.from!
     return (
@@ -406,8 +441,12 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
               nextStep()
             }
             if (showReset) {
-              setStep(s.from!)
-              setWrongs(wrongs.filter((i) => i <= s.quizNr))
+              const newStep = s.from!
+              const newWrongs = wrongs.filter((i) => i <= s.quizNr)
+
+              storeToStorage(newStep, newWrongs)
+              setStep(newStep)
+              setWrongs(newWrongs)
               setQuizSelected([])
               setTimeout(() => {
                 setStep(s.from! + 1)
@@ -423,6 +462,10 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
   }
 
   function renderDone(s: DoneStep) {
+    if (s.from == step) {
+      storeToStorage(step, wrongs)
+    }
+
     const correctPercentage =
       step == 0 ? 0 : Math.round((1 - wrongs.length / s.length) * 100)
     const feedback =
@@ -477,7 +520,12 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
     triggerAnimation()
   }
 
-  function triggerAnimation() {
+  function triggerAnimation(noScroll?: boolean) {
+    if (noScroll !== true) {
+      setTimeout(() => {
+        scrollToButtom()
+      }, 10)
+    }
     setAnimationState(1)
     setTimeout(() => {
       setAnimationState(2)
@@ -485,5 +533,22 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
         setAnimationState(3)
       }, 1000)
     }, 1)
+  }
+
+  function scrollToButtom() {
+    window.scrollTo({
+      top: 1000000,
+      left: 0,
+      behavior: 'smooth',
+    })
+  }
+
+  function storeToStorage(step: number, wrongs: number[]) {
+    try {
+      const store = localStorage.getItem('matherhino_v2')
+      const data = JSON.parse(store ?? '{}')
+      data[id] = { step, wrongs }
+      localStorage.setItem('matherhino_v2', JSON.stringify(data))
+    } catch (e) {}
   }
 }
