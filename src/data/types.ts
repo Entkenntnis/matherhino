@@ -40,6 +40,7 @@ export interface PlayerProps {
   id: number
   steps: Step[]
   pdf: string
+  backTo: string
 }
 
 export interface StepBase {

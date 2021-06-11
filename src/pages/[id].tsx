@@ -1,21 +1,11 @@
 import { GetStaticProps } from 'next'
-import { ExercisePlayer } from '../components/ExercisePlayer'
 import { allExercises } from '../data'
-import { ExerciseData } from '../data/types'
+import { PlayerProps } from '../data/types'
+import { PlayerV2 } from '../components/PlayerV2'
+import { convert } from '../utils/converter'
 
-export default function PracticePage({ exercise }: { exercise: ExerciseData }) {
-  return (
-    <>
-      <ExercisePlayer exercise={exercise} />
-      <style jsx global>{`
-        body,
-        html,
-        #__next {
-          height: 100%;
-        }
-      `}</style>
-    </>
-  )
+export default function PracticePage({ props }: { props: PlayerProps }) {
+  return <PlayerV2 {...props} />
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -26,16 +16,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
       notFound: true,
     }
   }
+
+  const props = convert(exercise)
+
   return {
-    props: { exercise },
+    props: { props },
   }
 }
 
 export async function getStaticPaths() {
   return {
-    paths: allExercises.map((exercise) => {
-      return { params: { id: exercise.id.toString() } }
-    }),
+    paths: [{ params: { id: '2' } }, { params: { id: '3' } }],
     fallback: false,
   }
 }

@@ -1,13 +1,13 @@
 import clsx from 'clsx'
 import Head from 'next/head'
 import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react'
-import { GraphPaperArea } from './components/GraphPaperArea'
-import { AudioIcon } from './components/icons/AudioIcon'
-import { ChevronLeft } from './components/icons/ChevronLeftIcon'
-import { PencilIcon } from './components/icons/PencilIcon'
-import { RedoIcon } from './components/icons/RedoIcon'
-import { WarningIcon } from './components/icons/WarningIcon'
-import { Quiz } from './components/Quiz'
+import { GraphPaperArea } from './GraphPaperArea'
+import { AudioIcon } from './icons/AudioIcon'
+import { ChevronLeft } from './icons/ChevronLeftIcon'
+import { PencilIcon } from './icons/PencilIcon'
+import { RedoIcon } from './icons/RedoIcon'
+import { WarningIcon } from './icons/WarningIcon'
+import { Quiz } from './Quiz'
 import {
   CheckpointStep,
   DoneStep,
@@ -20,11 +20,13 @@ import {
   QuizStep,
   ReadStep,
   TaskStep,
-} from './data/types'
-import { getHOffset } from './utils/pixelOffsets'
-import { shuffleArray } from './utils/shuffleArray'
+} from '../data/types'
+import { getHOffset } from '../utils/pixelOffsets'
+import { shuffleArray } from '../utils/shuffleArray'
+import { useRouter } from 'next/router'
 
-export function PlayerV2({ id, steps, pdf }: PlayerProps) {
+export function PlayerV2({ id, steps, pdf, backTo }: PlayerProps) {
+  const router = useRouter()
   const [step, setStep] = useState(-1)
 
   const [quizSelected, setQuizSelected] = useState<number[]>([])
@@ -32,6 +34,7 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
     shuffleArray([0, 1, 2])
   )
   const [wrongs, setWrongs] = useState<number[]>([])
+  const [quizNr, setQuizNr] = useState(-1)
 
   const [animationState, setAnimationState] = useState(1)
 
@@ -64,9 +67,10 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
         const store = localStorage.getItem('matherhino_v2')
         const data = JSON.parse(store ?? '{}')
         if (data[id]) {
-          if (data[id].step && data[id].wrongs) {
+          if (data[id].step && data[id].wrongs && data[id].quizNr) {
             setStep(data[id].step)
             setWrongs(data[id].wrongs)
+            setQuizNr(data[id].quizNr)
             setTimeout(() => {
               scrollToButtom()
             }, 100)
@@ -116,7 +120,12 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
         <div className="lg:fixed lg:left-4 lg:top-4">
           {renderButton(
             'zurück',
-            () => {},
+            () => {
+              const result = confirm('Aufgabe verlassen?')
+              if (result) {
+                router.push(backTo)
+              }
+            },
             <ChevronLeft className="h-4 inline mr-2" />
           )}
         </div>
@@ -127,19 +136,24 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
           {renderButton(
             'neu starten',
             () => {
-              try {
-                const store = localStorage.getItem('matherhino_v2')
-                const data = JSON.parse(store ?? '{}')
-                delete data[id]
-                localStorage.setItem('matherhino_v2', JSON.stringify(data))
-              } catch (e) {}
-              setStep(-1)
-              setWrongs([])
-              setQuizSelected([])
-              setTimeout(() => {
-                setStep(0)
-                triggerAnimation()
-              }, 10)
+              const result = confirm(
+                'Fortschritt zurücksetzen und Aufgabe neu starten?'
+              )
+              if (result) {
+                try {
+                  const store = localStorage.getItem('matherhino_v2')
+                  const data = JSON.parse(store ?? '{}')
+                  delete data[id]
+                  localStorage.setItem('matherhino_v2', JSON.stringify(data))
+                } catch (e) {}
+                setStep(-1)
+                setWrongs([])
+                setQuizSelected([])
+                setTimeout(() => {
+                  setStep(0)
+                  triggerAnimation()
+                }, 10)
+              }
             },
             <RedoIcon className="h-3 inline mr-2" />
           )}
@@ -208,11 +222,11 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
         style={{ paddingBottom: `${task.legacyEnd! - task.legacyStart!}%` }}
       >
         <img
-          className="absolute"
+          className="absolute select-none"
           style={{ marginTop: `${-task.legacyStart!}%` }}
           src={task.src}
           draggable={false}
-        ></img>
+        />
       </div>,
       step == task.from,
       false,
@@ -303,7 +317,7 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
                 key={i}
               >
                 {renderWithAnimation(
-                  <img src={l.src} draggable={false} />,
+                  <img src={l.src} draggable={false} className="select-none" />,
                   l.from == step,
                   false,
                   false
@@ -355,6 +369,7 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
               if (quizSelected.length >= 1 && !wrongs.includes(s.quizNr)) {
                 setWrongs([...wrongs, s.quizNr])
               }
+              setQuizNr(s.quizNr)
               setStep(step + 1)
               triggerAnimation(true)
             }
@@ -416,7 +431,7 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
 
   function renderCheckpoint(s: CheckpointStep) {
     if (s.from == step) {
-      storeToStorage(step, wrongs)
+      storeToStorage(step, wrongs, s.quizNr)
     }
 
     const showContinue = s.from == step
@@ -444,7 +459,7 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
               const newStep = s.from!
               const newWrongs = wrongs.filter((i) => i <= s.quizNr)
 
-              storeToStorage(newStep, newWrongs)
+              storeToStorage(newStep, newWrongs, s.quizNr)
               setStep(newStep)
               setWrongs(newWrongs)
               setQuizSelected([])
@@ -463,7 +478,7 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
 
   function renderDone(s: DoneStep) {
     if (s.from == step) {
-      storeToStorage(step, wrongs)
+      storeToStorage(step, wrongs, quizNr)
     }
 
     const correctPercentage =
@@ -543,11 +558,11 @@ export function PlayerV2({ id, steps, pdf }: PlayerProps) {
     })
   }
 
-  function storeToStorage(step: number, wrongs: number[]) {
+  function storeToStorage(step: number, wrongs: number[], quizNr: number) {
     try {
       const store = localStorage.getItem('matherhino_v2')
       const data = JSON.parse(store ?? '{}')
-      data[id] = { step, wrongs }
+      data[id] = { step, wrongs, quizNr }
       localStorage.setItem('matherhino_v2', JSON.stringify(data))
     } catch (e) {}
   }

@@ -54,7 +54,7 @@ export default function Home() {
             target="_blank"
             className="hover:underline text-blue-500"
           >
-            einer Spende
+            eine Spende
           </a>{' '}
           zu übermitteln.
         </p>
@@ -81,7 +81,10 @@ export default function Home() {
                 const toDelete = []
                 for (let i = 0; i < localStorage.length; i++) {
                   const key = localStorage.key(i)
-                  if (key?.startsWith('progress_v')) {
+                  if (
+                    key?.startsWith('progress_v') ||
+                    key?.startsWith('matherhino_')
+                  ) {
                     toDelete.push(key)
                   }
                 }

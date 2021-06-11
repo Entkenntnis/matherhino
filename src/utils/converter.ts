@@ -1,23 +1,9 @@
-import { GetStaticProps } from 'next'
-import { allExercises } from '../../data'
-import { PlayerProps } from '../../data/types'
-import { PlayerV2 } from '../../PlayerV2'
+import { ExerciseData, PlayerProps } from '../data/types'
 
-export default function PracticePage({ props }: { props: PlayerProps }) {
-  return <PlayerV2 {...props} />
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const id = parseInt(context.params?.id as string)
-  const exercise = allExercises.filter((e) => e.id == id)[0] ?? null
-  if (!exercise) {
-    return {
-      notFound: true,
-    }
-  }
-
+export function convert(exercise: ExerciseData): PlayerProps {
   // convert exercise
   const props: PlayerProps = {
+    backTo: exercise.backTo,
     id: 2,
     pdf: '/content/2/realschule_zweig_i_2018_a1_loseung.pdf',
     steps: [
@@ -174,14 +160,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
     ]
   }
 
-  return {
-    props: { props },
-  }
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: [{ params: { id: '2' } }],
-    fallback: false,
-  }
+  return props
 }
