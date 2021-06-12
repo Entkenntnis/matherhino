@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { id: '2' } } /* { params: { id: '3' } }*/],
+    paths: [{ params: { id: '2' } }, { params: { id: '3' } }],
     fallback: false,
   }
 }

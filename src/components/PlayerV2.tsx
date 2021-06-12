@@ -90,7 +90,7 @@ export function PlayerV2({ id, steps, pdf, backTo }: PlayerProps) {
       {renderAudioTag()}
       {renderNavigation()}
       {renderBlocks()}
-      <div className="h-16 md:h-32 lg:h-64"></div>
+      <div className="h-8 xl:h-12 2xl:h-60"></div>
     </div>
   )
 
@@ -121,7 +121,9 @@ export function PlayerV2({ id, steps, pdf, backTo }: PlayerProps) {
           {renderButton(
             'zurück',
             () => {
-              const result = confirm('Aufgabe verlassen?')
+              const result =
+                currentSteps.some((step) => step.type == 'done') ||
+                confirm('Aufgabe verlassen?')
               if (result) {
                 router.push(backTo)
               }
@@ -218,7 +220,7 @@ export function PlayerV2({ id, steps, pdf, backTo }: PlayerProps) {
   function renderTask(task: TaskStep) {
     return renderWithAnimation(
       <div
-        className={clsx('relative overflow-hidden w-full mb-2 mt-6')}
+        className={clsx('relative overflow-hidden w-full mb-2 mt-8')}
         style={{ paddingBottom: `${task.legacyEnd! - task.legacyStart!}%` }}
       >
         <img
@@ -243,36 +245,40 @@ export function PlayerV2({ id, steps, pdf, backTo }: PlayerProps) {
         )}
       >
         <div className="text-center mb-3">
-          <span>Lies die Aufgabenstellung.</span>
+          <span>{read.customText ?? 'Lies die Aufgabenstellung.'}</span>
         </div>
         <div className="flex justify-between items-center">
-          <button
-            className={clsx(
-              'select-none cursor-pointer rounded-2xl',
-              'px-2 py-1',
-              audioState == 'playing'
-                ? 'bg-lime-200 animate-pulse'
-                : 'bg-gray-100 hover:bg-gray-200'
-            )}
-            onClick={() => {
-              if (audio.current) {
-                if (!audio.current.paused) {
-                  audio.current.pause()
-                  setAudioState('none')
-                  return
+          {read.audioStr ? (
+            <button
+              className={clsx(
+                'select-none cursor-pointer rounded-2xl',
+                'px-2 py-1',
+                audioState == 'playing'
+                  ? 'bg-lime-200 animate-pulse'
+                  : 'bg-gray-100 hover:bg-gray-200'
+              )}
+              onClick={() => {
+                if (audio.current) {
+                  if (!audio.current.paused) {
+                    audio.current.pause()
+                    setAudioState('none')
+                    return
+                  }
+                  const src = audio.current.canPlayType('audio/mpeg')
+                    ? `${read.audioStr}.mp3`
+                    : `${read.audioStr}.ogg`
+                  audio.current.src = src
+                  audio.current.play()
+                  setAudioState('playing')
                 }
-                const src = audio.current.canPlayType('audio/mpeg')
-                  ? `${read.audioStr}.mp3`
-                  : `${read.audioStr}.ogg`
-                audio.current.src = src
-                audio.current.play()
-                setAudioState('playing')
-              }
-            }}
-          >
-            <AudioIcon className="inline-block h-4 mb-1" />
-            &nbsp;Vorlesen
-          </button>
+              }}
+            >
+              <AudioIcon className="inline-block h-4 mb-1" />
+              &nbsp;Vorlesen
+            </button>
+          ) : (
+            <div />
+          )}
           {renderButton('weiter', nextStepDelayed)}
         </div>
       </div>,
@@ -378,7 +384,7 @@ export function PlayerV2({ id, steps, pdf, backTo }: PlayerProps) {
 
         <div
           className={clsx(
-            'flex justify-end p-4',
+            'flex justify-end px-4 pb-2 2xl:py-4',
             quizSelected.includes(0) && animationState >= 3
               ? 'visible'
               : 'invisible'

@@ -35,7 +35,7 @@ export function Quiz({
           smallHeight ? 'pt-3' : 'pt-3 mt-6 sm:mt-13 xl:mt-20'
         )}
       >
-        <p
+        <div
           dangerouslySetInnerHTML={{
             __html: quiz.description,
           }}

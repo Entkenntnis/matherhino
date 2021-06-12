@@ -73,6 +73,7 @@ export interface TaskStep extends StepBase {
 export interface ReadStep extends StepBase {
   type: 'read'
   audioStr: string
+  customText?: string
 }
 
 export interface GraphPaperStep extends StepBase {

@@ -32,11 +32,10 @@ export default function Page(lengths: any) {
           length={lengths[2]}
         />
 
-        <Card
+        <CardV2
           id={3}
           title="A2"
           topics="Raumgeometrie, Trigonometrie, Strahlensatz, Flächen und Volumen"
-          legacy
           length={lengths[3]}
         />
 
