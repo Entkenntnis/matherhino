@@ -219,7 +219,7 @@ export const exercise2: ExerciseData = {
     },
     {
       description:
-        'Rechne das Ergebnis für y aus. Benutze falls nötig den Taschenrechner. Wie lautet das Ergebnis?',
+        'Angabe: y = (y<sub>A</sub> - y<sub>U</sub>) &sdot; 0,9<sup>x</sup> + y<sub>U</sub><br><br>Berechne y. Benutze falls nötig den Taschenrechner.',
       correctChoice: '57,4',
       wrong1: '28,7',
       wrong2: '67,8',

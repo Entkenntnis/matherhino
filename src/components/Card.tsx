@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { PlayIcon } from './icons/PlayIcon'
@@ -6,11 +7,16 @@ export interface CardProps {
   id: number
   title: string
   topics: string
+  legacy?: boolean
+  length: number
 }
 
-export function Card({ id, title, topics }: CardProps) {
+export function Card({ id, title, topics, legacy, length }: CardProps) {
   const [loaded, setLoaded] = useState(false)
   const [data, setData] = useState<any>({ quizSelected: {} })
+  const [stripes, setStripes] = useState<
+    { left: number; width: number; correct: boolean }[] | undefined
+  >(undefined)
 
   useEffect(() => {
     try {
@@ -21,6 +27,39 @@ export function Card({ id, title, topics }: CardProps) {
     } catch (e) {}
     setLoaded(true)
   }, [])
+
+  if (data && loaded && !stripes) {
+    const wrongsArr = []
+    for (let i = 0; i < length; i++) {
+      if (data.quizSelected[i]) {
+        if (
+          data.quizSelected[i].includes(0) &&
+          data.quizSelected[i].length > 2
+        ) {
+          wrongsArr.push(i)
+        }
+      }
+    }
+    const stripes: { left: number; width: number; correct: boolean }[] = []
+    for (let i = 0; i < getWrongs() + getDones(); i++) {
+      if (0 == i) {
+        stripes.push({
+          left: 0,
+          width: 1,
+          correct: !wrongsArr.includes(i),
+        })
+        continue
+      }
+      const last = stripes[stripes.length - 1]
+      const isCorrect = !wrongsArr.includes(i)
+      if (last.correct == isCorrect) {
+        last.width++
+      } else {
+        stripes.push({ left: i, width: 1, correct: isCorrect })
+      }
+    }
+    setStripes(stripes)
+  }
 
   return (
     <div className="p-3 bg-gray-100 rounded my-12">
@@ -36,29 +75,30 @@ export function Card({ id, title, topics }: CardProps) {
       {loaded ? (
         <>
           <div className="relative my-3 rounded bg-gray-300 h-3 overflow-hidden">
-            <div
-              className="absolute left-0 h-full bg-lime-300 "
-              style={{ width: `${(getDones() / data.__count) * 100}%` }}
-            ></div>
-            <div
-              className="absolute h-full bg-red-400"
-              style={{
-                left: `${(getDones() / data.__count) * 100}%`,
-                width: `${(getWrongs() / data.__count) * 100}%`,
-              }}
-            ></div>
+            {stripes &&
+              stripes.map(({ left, width, correct }, i) => (
+                <div
+                  key={i}
+                  className={clsx(
+                    'absolute h-full',
+                    correct ? 'bg-lime-300' : 'bg-red-400'
+                  )}
+                  style={{
+                    left: `${(left / length) * 100}%`,
+                    width: `${(width / length) * 100}%`,
+                  }}
+                ></div>
+              ))}
           </div>
           <div className="text-sm my-3">
             {getDones() == 0 && getWrongs() == 0 ? (
-              data.__count == undefined ? null : (
-                <>{data.__count} Fragen</>
-              )
+              <>{length} Fragen</>
             ) : (
               <>
                 {getDones()} richtig / {getWrongs()} falsch
                 {!isDone()
                   ? ' - in Bearbeitung'
-                  : Math.round((getDones() / data.__count) * 100) < 75
+                  : Math.round((getDones() / length) * 100) < 75
                   ? ' - erreiche 75% zum Bestehen'
                   : ''}
               </>
@@ -70,27 +110,27 @@ export function Card({ id, title, topics }: CardProps) {
       )}
       {loaded && (
         <div className="flex justify-between items-baseline">
-          <Link href={`/${id}`} passHref>
+          <Link href={`/${legacy ? 'legacy/' : ''}${id}`} passHref>
             <a className="border-blue-500 border-2 px-3 py-1 rounded cursor-pointer text-xl">
               <PlayIcon className="w-4 h-4 inline pb-1" />{' '}
-              {isDone() && getDones() < data.__count
+              {isDone() && getDones() < length
                 ? 'Erneut versuchen'
-                : !data.quizSelected[1] || getDones() == data.__count
+                : !data.quizSelected[1] || getDones() == length
                 ? 'Start'
                 : 'Weiter'}
             </a>
           </Link>
           <span className="text-xl">
-            {data.__count !== undefined && (
-              <>{Math.round((getDones() / data.__count) * 100)}%</>
+            {length !== undefined && (
+              <>{Math.round((getDones() / length) * 100)}%</>
             )}
             {getDones() == 0 && getWrongs() == 0
               ? ''
               : !isDone()
               ? ''
-              : Math.round((getDones() / data.__count) * 100) < 75
+              : Math.round((getDones() / length) * 100) < 75
               ? ' - nicht bestanden'
-              : getDones() == data.__count
+              : getDones() == length
               ? ' - perfekt'
               : ' - bestanden'}
           </span>
@@ -101,7 +141,7 @@ export function Card({ id, title, topics }: CardProps) {
 
   function getDones() {
     let c = 0
-    for (let i = 0; i < data.__count; i++) {
+    for (let i = 0; i < length; i++) {
       if (data.quizSelected[i]) {
         if (
           data.quizSelected[i]?.includes(0) &&
@@ -116,7 +156,7 @@ export function Card({ id, title, topics }: CardProps) {
 
   function getWrongs() {
     let c = 0
-    for (let i = 0; i < data.__count; i++) {
+    for (let i = 0; i < length; i++) {
       if (data.quizSelected[i]) {
         if (
           data.quizSelected[i].includes(0) &&
@@ -131,7 +171,7 @@ export function Card({ id, title, topics }: CardProps) {
 
   function isDone() {
     let isDone = true
-    for (let i = 0; i < data.__count; i++) {
+    for (let i = 0; i < length; i++) {
       if (!data.quizSelected[i] || !data.quizSelected[i].includes(9)) {
         isDone = false
       }

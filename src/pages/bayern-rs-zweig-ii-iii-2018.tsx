@@ -1,8 +1,10 @@
+import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import { Card } from '../components/Card'
 import { ChevronLeft } from '../components/icons/ChevronLeftIcon'
+import { allExercises } from '../data'
 
-export default function Page() {
+export default function Page(lengths: any) {
   return (
     <>
       <title>
@@ -26,30 +28,40 @@ export default function Page() {
           id={7}
           title="A1"
           topics="Exponentialfunktion, Prozentrechnung, Graph einer Funktion"
+          legacy
+          length={lengths[7]}
         />
 
         <Card
           id={8}
           title="A2"
           topics="Ebene Geometrie, Flächeninhalt mit Sinus, Sinussatz, Kosinussatz, Satz des Pythagoras, Kreissektor"
+          legacy
+          length={lengths[8]}
         />
 
         <Card
           id={9}
           title="A3"
           topics="Raumgeometrie, Tangens, Sinussatz, Volumen eines Kegels, Prozentrechnung"
+          legacy
+          length={lengths[9]}
         />
 
         <Card
           id={10}
           title="B1"
           topics="Funktionen, Parabel, Gleichungssystem, Rauten, Tangens, Satz des Pythagoras, Mittelpunkt, Maximum"
+          legacy
+          length={lengths[10]}
         />
 
         <Card
           id={11}
           title="B2"
           topics="Raumgeometrie, Schrägbild, Flächenformel mit Sinus, Kosinussatz, Volumen einer Pyramide, Strahlensatz / Vierstreckensatz, Sinussatz"
+          legacy
+          length={lengths[11]}
         />
 
         <div className="my-20 text-center text-lg">
@@ -70,4 +82,17 @@ export default function Page() {
       </div>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const lengths: any = {}
+  allExercises.forEach((e) => {
+    if (e.id >= 7 && e.id <= 11) {
+      lengths[e.id] = e.quiz.length
+    }
+  })
+
+  return {
+    props: lengths,
+  }
 }

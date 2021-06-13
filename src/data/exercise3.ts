@@ -1,3 +1,4 @@
+import { buildFrac, buildImg } from '../utils/mathBuilder'
 import { ExerciseData } from './types'
 
 export const exercise3: ExerciseData = {
@@ -74,11 +75,10 @@ export const exercise3: ExerciseData = {
   ],
   quiz: [
     {
-      description:
-        'Der Winkel MAC befindet sich innerhalb des rechtwinkligen Dreiecks AMC. In diesem Dreieck sind einige Größen bekannt. Mit welcher trigonometrischen Funktion lässt sich daraus der gesuchte Winkel bestimmen?',
-      correctChoice: 'Tangens',
-      wrong1: 'Sinus',
-      wrong2: 'Kosinus',
+      description: `<div class="flex flex-col md:flex-row justify-between"><div>Welcher Ansatz gilt?</div><img class="w-96 p-3" src="/content/3/x1.png"/></div>`,
+      correctChoice: 'tan &angle;MAC =',
+      wrong1: 'sin &angle;MAC =',
+      wrong2: 'cos &angle;MAC =',
       cursor: { x: 8, y: 7 },
       quickviews: [
         { type: 'task', start: 85, end: 125 },
@@ -92,12 +92,10 @@ export const exercise3: ExerciseData = {
       layersPost: [{ src: '/content/3/3.PNG', offset: 7 }],
     },
     {
-      description:
-        'Lies die Längen aus der Angabe ab. Welches Seitenverhältnis beschreibt der Tangens?',
-      correctChoice:
-        '<div class="frac"><span>0,5 · 10</span><span>8</span></div>',
-      wrong1: '<div class="frac"><span>8</span><span>0,5 · 10</span></div>',
-      wrong2: '<div class="frac"><span>10</span><span>8</span></div>',
+      description: `<div class="flex flex-col md:flex-row justify-between"><div>Wie lautet das richtige Verhältnis?</div><img class="w-96 p-3" src="/content/3/x1.png"/></div>`,
+      correctChoice: `= ${buildFrac('5', '8')}`,
+      wrong1: `= ${buildFrac('8', '5')}`,
+      wrong2: `= ${buildFrac('10', '8')}`,
       cursor: { x: 13, y: 7 },
       quickviews: [
         { type: 'task', start: 85, end: 125 },
@@ -108,11 +106,10 @@ export const exercise3: ExerciseData = {
       layersPost: [{ src: '/content/3/5.PNG', offset: 2 }],
     },
     {
-      description:
-        'Mithilfe welcher Äquivalenzumformung lässt sich diese Gleichung nach dem Winkel MAC auflösen?',
-      correctChoice: 'Umkehrfunktion zum Tangens',
-      wrong1: 'Sinus',
-      wrong2: 'Division durch Tangens',
+      description: 'Wie lautet die Umformung?',
+      correctChoice: `&angle;MAC = tan<sup>-1</sup>(${buildFrac('5', '8')})`,
+      wrong1: `&angle;MAC = sin<sup>-1</sup>(${buildFrac('5', '8')})`,
+      wrong2: `&angle;MAC = cos<sup>-1</sup>(${buildFrac('5', '8')})`,
       cursor: { x: 23, y: 10 },
       quickviews: [{ type: 'solution', start: 5, end: 11 }],
       autoShowViews: true,
@@ -120,11 +117,10 @@ export const exercise3: ExerciseData = {
       layersPost: [{ src: '/content/3/7.PNG', offset: 6 }],
     },
     {
-      description:
-        'Der Punkt P<sub>1</sub> soll in das Schrägbild eingezeichnet werden. Wo liegt dieser Punkt?<img class="p-3" src="/content/3/a2_2_crop.png" />',
-      correctChoice: 'Y',
-      wrong1: 'X',
-      wrong2: 'Z',
+      description: 'Welche Zeichnung ist korrekt?',
+      correctChoice: '<img src="/content/3/x2.png" class="w-40" />',
+      wrong1: '<img src="/content/3/x3.png" class="w-40" />',
+      wrong2: '<img src="/content/3/x4.png" class="w-40" />',
       cursor: { x: 21, y: 27 },
       quickviews: [{ type: 'task', start: 133, end: 156 }],
       autoShowViews: true,
@@ -136,25 +132,10 @@ export const exercise3: ExerciseData = {
     },
     {
       description:
-        'Es sollen also die Punkte E<sub>1</sub>, F<sub>1</sub>, G<sub>1</sub> und N<sub>1</sub> in das Schrägbild eingezeichnet werden. Nicht jeder dieser Punkte lässt sich sofort einzeichnen. Welche zwei Punkte lassen sich geschickt als erstes einzeichnen?',
-      correctChoice: 'E<sub>1</sub> und N<sub>1</sub>',
-      wrong1: 'F<sub>1</sub> und G<sub>1</sub>',
-      wrong2: 'E<sub>1</sub> und F<sub>1</sub>',
-      cursor: { x: 22, y: 27 },
-      quickviews: [
-        { type: 'task', start: 156, end: 186 },
-        { type: 'solution', start: 12, end: 40 },
-      ],
-      autoShowViews: true,
-      layersPre: [],
-      layersPost: [],
-    },
-    {
-      description:
-        'Beginne also das Zeichnen der Pyramide mit der Strecke [E<sub>1</sub>N<sub>1</sub>], welche parallel zur Schrägbildachse liegt. Welche Strecke ist korrekt?<img class="p-3" src="/content/3/a2_3_1.png" />',
-      correctChoice: 'X',
-      wrong1: 'Y',
-      wrong2: 'Z',
+        'E<sub>n</sub> &isinv; [AS] , N<sub>n</sub> &isinv; [MS]<br><br>Welche Zeichnung ist korrekt?',
+      correctChoice: '<img src="/content/3/x7.png" class="w-56" />',
+      wrong1: '<img src="/content/3/x6.png" class="w-56" />',
+      wrong2: '<img src="/content/3/x5.png" class="w-56" />',
       cursor: { x: 23, y: 27 },
       quickviews: [{ type: 'task', start: 156, end: 186 }],
       autoShowViews: true,
@@ -163,18 +144,27 @@ export const exercise3: ExerciseData = {
     },
     {
       description:
-        'Fahre fort mit der Strecke [F<sub>1</sub>G<sub>1</sub>]. Welche Strecke ist korrekt?<img class="p-3" src="/content/3/a2_3_2.png" />',
-      correctChoice: 'Z',
-      wrong1: 'Y',
-      wrong2: 'X',
+        'F<sub>n</sub> &isinv; [BS] , G<sub>n</sub> &isinv; [CS]<br><br>Welche Zeichnung ist korrekt?',
+      correctChoice: '<img src="/content/3/x8.png" class="w-56" />',
+      wrong1: '<img src="/content/3/x9.png" class="w-56" />',
+      wrong2: '<img src="/content/3/x10.png" class="w-56" />',
       cursor: { x: 24, y: 27 },
       quickviews: [{ type: 'task', start: 156, end: 186 }],
       autoShowViews: true,
       layersPre: [],
-      layersPost: [
-        { src: '/content/3/12.PNG', offset: 23 },
-        { src: '/content/3/13.PNG', offset: 24 },
-      ],
+      layersPost: [{ src: '/content/3/12.PNG', offset: 23 }],
+    },
+    {
+      description:
+        'Welche Zeichnung zeigt die vollständige Pyramide E<sub>1</sub>F<sub>1</sub>G<sub>1</sub>D ?',
+      correctChoice: '<img src="/content/3/x11.png" class="w-56" />',
+      wrong1: '<img src="/content/3/x12.png" class="w-56" />',
+      wrong2: '<img src="/content/3/x13.png" class="w-56" />',
+      cursor: { x: 24, y: 27 },
+      quickviews: [{ type: 'task', start: 156, end: 186 }],
+      autoShowViews: true,
+      layersPre: [],
+      layersPost: [{ src: '/content/3/13.PNG', offset: 24 }],
     },
     {
       description:
