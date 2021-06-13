@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { PlayIcon } from './icons/PlayIcon'
@@ -14,16 +15,38 @@ export function CardV2({ id, title, topics, length }: CardProps) {
   const [wrongs, setWrongs] = useState(0)
   const [dones, setDones] = useState(0)
 
+  const [wrongsArr, setWrongsArr] = useState<number[]>([])
+
   useEffect(() => {
     try {
       const data = JSON.parse(localStorage.getItem(`matherhino_v2`) ?? '{}')
       if (data && data[id]) {
         setWrongs(data[id].wrongs.length)
+        setWrongsArr(data[id].wrongs)
         setDones(data[id].quizNr + 1)
       }
     } catch (e) {}
     setLoaded(true)
   }, [])
+
+  const stripes: { left: number; width: number; correct: boolean }[] = []
+  for (let i = 0; i < dones; i++) {
+    if (0 == i) {
+      stripes.push({
+        left: 0,
+        width: 1,
+        correct: !wrongsArr.includes(i),
+      })
+      continue
+    }
+    const last = stripes[stripes.length - 1]
+    const isCorrect = !wrongsArr.includes(i)
+    if (last.correct == isCorrect) {
+      last.width++
+    } else {
+      stripes.push({ left: i, width: 1, correct: isCorrect })
+    }
+  }
 
   return (
     <div className="p-3 bg-gray-100 rounded my-12">
@@ -39,17 +62,19 @@ export function CardV2({ id, title, topics, length }: CardProps) {
       {loaded ? (
         <>
           <div className="relative my-3 rounded bg-gray-300 h-3 overflow-hidden">
-            <div
-              className="absolute left-0 h-full bg-lime-300 "
-              style={{ width: `${((dones - wrongs) / length) * 100}%` }}
-            ></div>
-            <div
-              className="absolute h-full bg-red-400"
-              style={{
-                left: `${((dones - wrongs) / length) * 100}%`,
-                width: `${(wrongs / length) * 100}%`,
-              }}
-            ></div>
+            {stripes.map(({ left, width, correct }, i) => (
+              <div
+                key={i}
+                className={clsx(
+                  'absolute h-full',
+                  correct ? 'bg-lime-300' : 'bg-red-400'
+                )}
+                style={{
+                  left: `${(left / length) * 100}%`,
+                  width: `${(width / length) * 100}%`,
+                }}
+              ></div>
+            ))}
           </div>
           <div className="text-sm my-3">
             {dones == 0 && wrongs == 0 ? (

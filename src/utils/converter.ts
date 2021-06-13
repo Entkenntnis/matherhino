@@ -94,7 +94,7 @@ export function convert(exercise: ExerciseData): PlayerProps {
     return {
       backTo: exercise.backTo,
       id: 3,
-      pdf: '', // TODO
+      pdf: '/content/3/mathezweig_2018_a2.pdf',
       steps: [
         {
           type: 'preload',
@@ -200,7 +200,7 @@ export function convert(exercise: ExerciseData): PlayerProps {
         ...buildLayers(exercise.quiz[6].layersPost!, 14.8, 19, 'a2.2+3'),
         ...convertQuiz(5, 16, '...', {}),
         ...convertQuiz(6, 18, '...', {}),
-        { type: 'checkpoint', quizNr: 5, from: 20 },
+        { type: 'checkpoint', quizNr: 6, from: 20 },
         {
           type: 'task',
           from: 21,
@@ -214,6 +214,43 @@ export function convert(exercise: ExerciseData): PlayerProps {
           to: 21,
           audioStr: exercise.audio[4].mp3.replace('.mp3', ''),
         },
+        { type: 'graphpaper', from: 22, stepId: 'a2.4', legacyOffset: 40 },
+        ...convertQuiz(7, 22, 'a2.4', { hPost: 7.8 }),
+        ...convertQuiz(8, 24, 'a2.4', { hPre: 3.8 }),
+        ...convertQuiz(9, 26, 'a2.4', { hPre: 3.8 }),
+        ...convertQuiz(10, 28, 'a2.4', {}),
+        ...convertQuiz(11, 30, 'a2.4', { hPre: 2.8 }),
+        ...convertQuiz(12, 32, 'a2.4', {}),
+        ...convertQuiz(13, 34, 'a2.4', {}),
+        ...convertQuiz(14, 36, 'a2.4', {}),
+        ...convertQuiz(15, 38, 'a2.4', { hPre: 5.8 }),
+        { type: 'checkpoint', quizNr: 15, from: 40 },
+        {
+          type: 'task',
+          from: 41,
+          src: exercise.task,
+          legacyStart: 200,
+          legacyEnd: 210,
+        },
+        {
+          type: 'read',
+          from: 41,
+          to: 41,
+          audioStr: exercise.audio[5].mp3.replace('.mp3', ''),
+        },
+        { type: 'graphpaper', from: 42, stepId: 'a2.5', legacyOffset: 72 },
+        ...convertQuiz(16, 42, 'a2.5', { hPre: 5.8 }),
+        ...convertQuiz(17, 44, 'a2.5', { hPost: 4.8 }),
+        ...convertQuiz(18, 46, 'a2.5', {}),
+        ...convertQuiz(19, 48, 'a2.5', {}),
+        ...convertQuiz(20, 50, 'a2.5', {}),
+        ...convertQuiz(21, 52, 'a2.5', {}),
+        ...convertQuiz(22, 54, 'a2.5', {}),
+        ...convertQuiz(23, 56, 'a2.5', { hPre: 3.8 }),
+        ...convertQuiz(24, 58, 'a2.5', {}),
+        ...convertQuiz(25, 60, 'a2.5', { hPre: 5.8 }),
+        ...convertQuiz(26, 62, 'a2.5', { hPre: 4.8 }),
+        ...buildDone(exercise.quiz.length, 64),
       ],
     }
   }
